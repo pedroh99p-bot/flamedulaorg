@@ -22,6 +22,10 @@ export function renderComoFunciona(steps) {
             )
             .join("")}
         </div>
+        <div class="section-actions section-actions-centered section-actions-spaced">
+          <a class="button button-brand" href="#cadastro" data-open-flow="donor">Quero me cadastrar como doador</a>
+          <a class="button button-patient" href="#cadastro" data-open-flow="patient">Cadastrar paciente ou caso</a>
+        </div>
       </div>
     </section>
   `;

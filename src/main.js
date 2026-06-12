@@ -77,13 +77,13 @@ async function renderApp() {
       ${renderNavbar(siteAssets.logoPrimary)}
       <main>
         ${renderHero(heroNewsItems)}
+        ${renderCadastro()}
         ${renderDecisionCtas(redomeConfig)}
         ${renderRoller(rollerItems.authority, "brand", "left")}
         ${renderHeartbeatDivider()}
         ${renderMedulaSemMedo(fearCards)}
         ${renderVideoInformativo(siteAssets)}
         ${renderRedomeUpdate(redomeConfig)}
-        ${renderCadastro()}
         ${renderHeartbeatDivider()}
         ${renderTransparencia(transparencyData)}
         ${renderComoFunciona(journeySteps)}

@@ -9,11 +9,11 @@ export function renderDecisionCtas(redomeConfig) {
             <p>A rede cresce quando cada pessoa entende exatamente como pode ajudar.</p>
           </div>
           <div class="decision-grid">
-            <a class="decision-card decision-card-brand" href="#cadastro" data-miniapp-target="doador">
+            <a class="decision-card decision-card-brand" href="#cadastro" data-open-flow="donor">
               <strong>Quero me cadastrar como doador</strong>
               <span>Fluxo guiado, com orientacao e consentimentos.</span>
             </a>
-            <a class="decision-card decision-card-patient" href="#cadastro" data-miniapp-target="paciente">
+            <a class="decision-card decision-card-patient" href="#cadastro" data-open-flow="patient">
               <strong>Quero cadastrar um paciente</strong>
               <span>Para leitura inicial e orientacao da equipe.</span>
             </a>

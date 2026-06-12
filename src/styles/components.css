@@ -803,6 +803,311 @@ html.dark .checkbox-row {
   color: #b42318;
 }
 
+.miniapps-root:focus {
+  outline: none;
+}
+
+.miniapps-frame {
+  position: relative;
+  overflow: hidden;
+  gap: 1.2rem;
+  padding: clamp(1rem, 3vw, 1.5rem);
+  background:
+    radial-gradient(circle at top left, rgba(222, 57, 70, 0.15), transparent 34%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.58));
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.miniapps-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0.55rem;
+  border-radius: calc(var(--radius-3xl) - 0.55rem);
+  border: 1px solid rgba(255, 255, 255, 0.48);
+  pointer-events: none;
+}
+
+.miniapps-frame.is-highlighted {
+  transform: translateY(-2px);
+  border-color: rgba(222, 57, 70, 0.42);
+  box-shadow:
+    var(--shadow-strong),
+    0 0 0 6px rgba(222, 57, 70, 0.12);
+}
+
+.miniapps-frame-patient.is-highlighted {
+  border-color: rgba(59, 111, 161, 0.45);
+  box-shadow:
+    var(--shadow-strong),
+    0 0 0 6px rgba(59, 111, 161, 0.13);
+}
+
+html.dark .miniapps-frame {
+  background:
+    radial-gradient(circle at top left, rgba(222, 57, 70, 0.2), transparent 34%),
+    linear-gradient(145deg, rgba(19, 21, 31, 0.94), rgba(9, 10, 15, 0.82));
+}
+
+.miniapps-topbar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 1rem;
+}
+
+.miniapps-topbar h3 {
+  margin-top: 0.25rem;
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+}
+
+.miniapp-link-button {
+  border: 0;
+  background: transparent;
+  color: var(--color-brand);
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
+
+.miniapps-frame-patient .miniapp-link-button {
+  color: var(--color-patient);
+}
+
+.miniapps-tabs,
+.wizard-progress,
+.mini-wizard {
+  position: relative;
+  z-index: 1;
+}
+
+.miniapps-tab-donor.is-active {
+  color: var(--color-brand);
+}
+
+.miniapps-tab-patient.is-active {
+  color: var(--color-patient);
+}
+
+.wizard-progress {
+  display: grid;
+  gap: 0.65rem;
+  padding: 0.85rem 1rem;
+  border-radius: 1.2rem;
+  background: rgba(255, 255, 255, 0.56);
+  border: 1px solid var(--color-border);
+}
+
+html.dark .wizard-progress {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.wizard-progress-copy {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--color-text-soft);
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.wizard-progress-copy span {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.wizard-progress-bar {
+  height: 0.45rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(17, 19, 26, 0.1);
+}
+
+.wizard-progress-bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--color-brand), var(--color-brand-deep));
+  transition: width 0.3s ease;
+}
+
+.miniapps-frame-patient .wizard-progress-bar span {
+  background: linear-gradient(90deg, var(--color-patient), #173956);
+}
+
+.mini-wizard {
+  min-height: 430px;
+  padding: clamp(1rem, 3vw, 1.35rem);
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid var(--color-border);
+}
+
+html.dark .mini-wizard {
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.wizard-step,
+.miniapp-welcome,
+.wizard-success {
+  animation: miniapp-step-in 0.28s ease both;
+}
+
+.choice-grid-entry .choice-card {
+  min-height: 260px;
+}
+
+.choice-grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.choice-card {
+  position: relative;
+  isolation: isolate;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.choice-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.choice-card:hover,
+.choice-card:focus-visible,
+.choice-card.is-selected {
+  transform: translateY(-2px);
+  border-color: rgba(222, 57, 70, 0.36);
+  box-shadow: var(--shadow-glow);
+}
+
+.choice-card-patient:hover,
+.choice-card-patient:focus-visible,
+.choice-card-patient.is-selected {
+  border-color: rgba(59, 111, 161, 0.38);
+  box-shadow: 0 24px 60px rgba(59, 111, 161, 0.2);
+}
+
+.choice-card-brand::before,
+.choice-card.is-selected::before {
+  opacity: 1;
+  background: linear-gradient(145deg, rgba(222, 57, 70, 0.1), transparent 58%);
+}
+
+.choice-card-patient::before {
+  opacity: 1;
+  background: linear-gradient(145deg, rgba(59, 111, 161, 0.13), transparent 58%);
+}
+
+.choice-kicker {
+  align-self: start;
+  width: fit-content;
+  padding: 0.38rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(222, 57, 70, 0.1);
+  color: var(--color-brand);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.choice-card-patient .choice-kicker {
+  background: rgba(59, 111, 161, 0.12);
+  color: var(--color-patient);
+}
+
+.miniapp-wizard-actions {
+  justify-content: space-between;
+  margin-top: 1.25rem;
+}
+
+.miniapp-wizard-actions .button:last-child {
+  min-width: min(220px, 100%);
+}
+
+.summary-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.summary-list div {
+  padding: 0.9rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid var(--color-border);
+}
+
+html.dark .summary-list div {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.summary-list dt {
+  color: var(--color-text-soft);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.summary-list dd {
+  margin-top: 0.25rem;
+  color: var(--color-text);
+  font-weight: 800;
+}
+
+.wizard-success {
+  min-height: 360px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.wizard-success p {
+  max-width: 58ch;
+  color: var(--color-text-soft);
+}
+
+.success-icon {
+  width: 4rem;
+  height: 4rem;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  color: #fff;
+  background: linear-gradient(135deg, #1f9d61, #157247);
+  box-shadow: 0 20px 60px rgba(31, 157, 97, 0.24);
+}
+
+.section-actions-spaced {
+  margin-top: 2rem;
+}
+
+@keyframes miniapp-step-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .metric-card,
 .timeline-card,
 .testimonial-card,
@@ -1262,6 +1567,12 @@ html.dark .theme-toggle-button {
   }
 
   .heartbeat-mark {
+    animation: none;
+  }
+
+  .wizard-step,
+  .miniapp-welcome,
+  .wizard-success {
     animation: none;
   }
 

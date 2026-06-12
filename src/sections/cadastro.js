@@ -5,10 +5,10 @@ export function renderCadastro() {
     <section class="section section-elevated" id="cadastro">
       <div class="container">
         <div class="section-heading section-heading-centered">
-          <span class="eyebrow">Mini apps de cadastro</span>
-          <h2>Tres caminhos, um mesmo proposito: organizar a rede para mobilizar melhor.</h2>
+          <span class="eyebrow">Mini app de cadastro</span>
+          <h2>Comece pelo caminho certo: doador ou paciente.</h2>
           <p>
-            Os fluxos abaixo deixam de ser formularios soltos e passam a operar como mini apps preparados para integrar dados reais no futuro.
+            O hub abaixo guia o cadastro em etapas, com consentimentos claros, resumo antes do envio e fallback seguro quando a integracao real ainda nao estiver ativa.
           </p>
         </div>
         ${renderMiniAppsShell()}

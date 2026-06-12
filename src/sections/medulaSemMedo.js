@@ -12,6 +12,10 @@ export function renderMedulaSemMedo(cards) {
           </p>
         </div>
         ${renderFlipCards(cards)}
+        <div class="section-actions section-actions-centered">
+          <a class="button button-brand" href="#cadastro" data-open-flow="donor">Comecar cadastro de doador</a>
+          <a class="button button-patient" href="#cadastro" data-open-flow="patient">Preciso cadastrar um caso</a>
+        </div>
       </div>
     </section>
   `;

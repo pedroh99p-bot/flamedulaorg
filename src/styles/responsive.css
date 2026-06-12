@@ -150,6 +150,10 @@
   .field-grid-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+
+  .choice-grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 640px) {
@@ -175,6 +179,33 @@
 
   .hero-card {
     min-width: 88vw;
+  }
+
+  .miniapps-topbar,
+  .wizard-progress-copy,
+  .miniapp-wizard-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .miniapps-tabs {
+    width: 100%;
+  }
+
+  .mini-wizard {
+    min-height: auto;
+    padding: 1rem;
+  }
+
+  .choice-grid,
+  .choice-grid-3,
+  .summary-list {
+    grid-template-columns: 1fr;
+  }
+
+  .choice-grid-entry .choice-card,
+  .choice-card {
+    min-height: 180px;
   }
 
   .team-card,

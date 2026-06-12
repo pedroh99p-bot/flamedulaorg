@@ -7,6 +7,8 @@ function formatDate(date) {
 }
 
 function actionSlide(item, index) {
+  const opensDonorFlow = item.cta_url === "#cadastro";
+
   return `
     <article
       class="editorial-slide action-editorial-slide ${index === 0 ? "is-active" : ""}"
@@ -26,7 +28,7 @@ function actionSlide(item, index) {
           <i data-lucide="map-pin"></i>
           <span>${item.location}</span>
         </div>
-        <a class="button button-light" href="${item.cta_url}">${item.cta_label}</a>
+        <a class="button button-light" href="${item.cta_url}" ${opensDonorFlow ? 'data-open-flow="donor"' : ""}>${item.cta_label}</a>
       </div>
     </article>
   `;

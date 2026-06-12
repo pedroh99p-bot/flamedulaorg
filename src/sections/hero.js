@@ -1,4 +1,11 @@
 function heroSlide(item, index) {
+  const opensFlow =
+    item.cta_url === "#cadastro"
+      ? item.category === "acolhimento"
+        ? "patient"
+        : "donor"
+      : "";
+
   return `
     <article
       class="editorial-slide hero-editorial-slide ${index === 0 ? "is-active" : ""}"
@@ -11,7 +18,7 @@ function heroSlide(item, index) {
         <span class="hero-chip">${item.tag_emoji} ${item.category}</span>
         <h2>${item.title}</h2>
         <p>${item.excerpt}</p>
-        <a class="button button-light" href="${item.cta_url}">${item.cta_label}</a>
+        <a class="button button-light" href="${item.cta_url}" ${opensFlow ? `data-open-flow="${opensFlow}"` : ""}>${item.cta_label}</a>
       </div>
     </article>
   `;

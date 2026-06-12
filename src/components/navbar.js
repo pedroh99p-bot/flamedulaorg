@@ -14,11 +14,11 @@ export function renderNavbar(logoUrl) {
         </nav>
 
         <div class="header-actions">
-          <a class="button button-brand button-compact" href="#cadastro" data-miniapp-target="doador">
+          <a class="button button-brand button-compact" href="#cadastro" data-open-flow="donor">
             <span aria-hidden="true">🩸</span>
             <span>Sou doador</span>
           </a>
-          <a class="button button-patient button-compact" href="#cadastro" data-miniapp-target="paciente">
+          <a class="button button-patient button-compact" href="#cadastro" data-open-flow="patient">
             <span aria-hidden="true">💙</span>
             <span>Paciente</span>
           </a>
@@ -54,7 +54,7 @@ export function renderNavbar(logoUrl) {
           <a href="#como-funciona">Como funciona</a>
           <a href="#quem-somos">Quem somos</a>
           <a href="#acoes">Acoes</a>
-          <a href="#cadastro" data-miniapp-target="doador">Quero me cadastrar</a>
+          <a href="#cadastro" data-open-flow="donor">Quero me cadastrar</a>
           <a href="#atualizar-redome">Atualizar REDOME</a>
         </nav>
       </div>
