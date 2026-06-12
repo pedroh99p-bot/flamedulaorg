@@ -1,0 +1,40 @@
+:root {
+  color-scheme: light;
+  --font-body: "Plus Jakarta Sans", sans-serif;
+  --font-heading: "Space Grotesk", sans-serif;
+  --color-bg: #f5f3ef;
+  --color-surface: rgba(255, 255, 255, 0.74);
+  --color-surface-strong: #ffffff;
+  --color-surface-dark: #12131a;
+  --color-surface-darker: #0b0c10;
+  --color-text: #111218;
+  --color-text-soft: #5c6071;
+  --color-text-on-dark: #f7f6f3;
+  --color-brand: #de3946;
+  --color-brand-deep: #b32335;
+  --color-patient: #3b6fa1;
+  --color-warm: #f39b2b;
+  --color-border: rgba(22, 25, 37, 0.09);
+  --shadow-soft: 0 24px 70px rgba(15, 19, 32, 0.09);
+  --shadow-strong: 0 40px 120px rgba(8, 10, 16, 0.18);
+  --shadow-glow: 0 24px 60px rgba(222, 57, 70, 0.22);
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-3xl: 2.75rem;
+  --container: 1200px;
+}
+
+html.dark {
+  color-scheme: dark;
+  --color-bg: #090a0f;
+  --color-surface: rgba(14, 16, 24, 0.82);
+  --color-surface-strong: #141722;
+  --color-surface-dark: #090a0f;
+  --color-surface-darker: #06070b;
+  --color-text: #f7f6f3;
+  --color-text-soft: #afb5c3;
+  --color-text-on-dark: #f7f6f3;
+  --color-border: rgba(255, 255, 255, 0.08);
+  --shadow-soft: 0 24px 70px rgba(0, 0, 0, 0.34);
+  --shadow-strong: 0 40px 120px rgba(0, 0, 0, 0.5);
+}

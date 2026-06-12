@@ -1,0 +1,116 @@
+@media (max-width: 1080px) {
+  .section-heading-wide,
+  .video-intro-card,
+  .transparency-highlight,
+  .support-card,
+  .redome-card,
+  .split-layout,
+  .hero-card {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-card {
+    min-width: min(88vw, 640px);
+  }
+
+  .ambassador-grid,
+  .testimonial-grid,
+  .metrics-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 820px) {
+  .desktop-nav,
+  .header-actions .button-compact {
+    display: none;
+  }
+
+  .mobile-menu-toggle {
+    display: inline-flex;
+  }
+
+  .section {
+    padding: 4.5rem 0;
+  }
+
+  .container {
+    width: min(var(--container), calc(100% - 1.25rem));
+  }
+
+  .decision-grid,
+  .choice-grid,
+  .ambassador-grid,
+  .testimonial-grid,
+  .metrics-grid,
+  .flip-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .field-grid-2,
+  .field-grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .growth-bars {
+    min-height: 150px;
+  }
+}
+
+@media (min-width: 821px) {
+  .field-grid-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .field-grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .brand-logo {
+    height: 2.35rem;
+  }
+
+  .video-intro-player video {
+    min-height: 320px;
+  }
+
+  .hero-card-body,
+  .action-card-body,
+  .team-card,
+  .testimonial-card,
+  .metric-card,
+  .transparency-highlight,
+  .support-card,
+  .redome-card,
+  .miniapps-frame {
+    padding: 1rem;
+  }
+
+  .hero-card {
+    min-width: 88vw;
+  }
+
+  .team-card,
+  .action-card {
+    min-width: 84vw;
+  }
+
+  .ambassador-card {
+    grid-template-columns: 1fr;
+  }
+
+  .avatar-frame,
+  .action-card-media,
+  .ambassador-badge,
+  .testimonial-avatar,
+  .redome-icon {
+    min-height: 180px;
+  }
+
+  .roller-track {
+    gap: 1rem;
+    font-size: 0.72rem;
+  }
+}
