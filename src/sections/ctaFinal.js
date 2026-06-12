@@ -6,10 +6,10 @@ export function renderCtaFinal(redomeConfig) {
         <h2>Informacao vira cadastro. Cadastro vira possibilidade. Possibilidade pode virar vida.</h2>
         <div class="section-actions section-actions-centered">
           <a class="button button-brand button-large" href="#cadastro" data-open-flow="donor">
-            Quero me cadastrar como doador
+            Entrar para a rede
           </a>
           <a class="button button-patient button-large" href="#cadastro" data-open-flow="patient">
-            Cadastrar paciente ou caso
+            Enviar um caso para analise
           </a>
         </div>
         <a class="text-link-light" href="${redomeConfig.url}" target="_blank" rel="noreferrer">

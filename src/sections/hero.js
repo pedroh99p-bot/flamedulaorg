@@ -33,12 +33,6 @@ export function renderHero(heroNewsItems) {
         data-editorial-autoplay="6500"
         aria-label="Novidades da FlaMedula"
       >
-        <div class="hero-editorial-brand">
-          <span class="eyebrow eyebrow-light">Novidades CMS-ready</span>
-          <h1>FlaMedula</h1>
-          <p>Informacao, cadastro, dados atualizados e mobilizacao em uma rede viva pela doacao.</p>
-        </div>
-
         <div class="editorial-slides">
           ${heroNewsItems.map(heroSlide).join("")}
         </div>

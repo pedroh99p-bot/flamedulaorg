@@ -96,7 +96,7 @@ function renderTextField({ name, label, value, type = "text", required = true, a
   `;
 }
 
-function renderChoiceButton({ name, value, current, title, text, tone = "brand" }) {
+function renderChoiceButton({ name, value, current, title, text, tone = "brand", icon = "💧" }) {
   const active = current === value;
 
   return `
@@ -107,8 +107,11 @@ function renderChoiceButton({ name, value, current, title, text, tone = "brand" 
       data-choice-value="${value}"
       aria-pressed="${String(active)}"
     >
-      <strong>${title}</strong>
-      <span>${text}</span>
+      <span class="choice-emoji" aria-hidden="true">${icon}</span>
+      <span class="choice-content">
+        <strong>${title}</strong>
+        <span>${text}</span>
+      </span>
     </button>
   `;
 }
@@ -117,11 +120,12 @@ function renderProgress(state) {
   const steps = getSteps(state.activeFlow, state);
   const current = Math.min(state.steps[state.activeFlow] + 1, steps.length);
   const percent = Math.round((current / steps.length) * 100);
+  const icon = state.activeFlow === "patient" ? "🏥" : "🩸";
 
   return `
     <div class="wizard-progress" aria-label="Progresso do fluxo ${FLOW_LABELS[state.activeFlow]}">
       <div class="wizard-progress-copy">
-        <span>${FLOW_LABELS[state.activeFlow]}</span>
+        <span>${icon} ${FLOW_LABELS[state.activeFlow]}</span>
         <strong>Etapa ${current} de ${steps.length}</strong>
       </div>
       <div class="wizard-progress-bar" aria-hidden="true">
@@ -137,7 +141,8 @@ function getSteps(flow, state) {
       "Perfil",
       "Dados basicos",
       "Disponibilidade",
-      "Interesses",
+      "Sangue",
+      "Medula",
       "Contato e LGPD",
       "Resumo",
       "Sucesso"
@@ -158,25 +163,26 @@ function getSteps(flow, state) {
 function renderEntry() {
   return `
     <div class="miniapp-welcome">
-      <div class="miniapp-panel-copy">
-        <span class="eyebrow">Hub de conversao</span>
-        <h3>Como voce quer ajudar hoje?</h3>
-        <p>
-          Escolha um caminho e avance em etapas. A FlaMedula usa essas informacoes para orientar, organizar campanhas e aproximar pessoas da rede com responsabilidade.
-        </p>
-      </div>
+      <p class="miniapp-guidance">
+        O FlaMedula usa essas informacoes para orientar, organizar casos e mobilizar pessoas quando houver necessidade.
+      </p>
       <div class="choice-grid choice-grid-entry">
         <button class="choice-card choice-card-brand" type="button" data-open-mini-flow="donor">
-          <span class="choice-kicker">1. Doador</span>
-          <strong>Quero me cadastrar como doador</strong>
-          <span>Registre interesse, disponibilidade, canal de contato e consentimentos.</span>
+          <span class="choice-emoji" aria-hidden="true">🩸</span>
+          <span class="choice-content">
+            <strong>Quero me cadastrar como doador</strong>
+            <span>Para quem ja doa, quer doar sangue, quer receber orientacao ou tem interesse em medula.</span>
+          </span>
         </button>
         <button class="choice-card choice-card-patient" type="button" data-open-mini-flow="patient">
-          <span class="choice-kicker">2. Paciente</span>
-          <strong>Quero cadastrar um paciente/caso</strong>
-          <span>Envie dados iniciais para leitura, validacao e possivel mobilizacao responsavel.</span>
+          <span class="choice-emoji" aria-hidden="true">🏥</span>
+          <span class="choice-content">
+            <strong>Quero cadastrar um paciente</strong>
+            <span>Para responsaveis, familiares ou profissionais que querem informar um caso para analise e mobilizacao.</span>
+          </span>
         </button>
       </div>
+      <p class="miniapp-safe-note">🔒 Cada opcao abre apenas o mini app correspondente.</p>
     </div>
   `;
 }
@@ -200,6 +206,10 @@ function renderDonorStep(state, options) {
           <h3>Voce ja e doador?</h3>
           <p>Se ja for doador, mantenha seus dados oficiais atualizados no REDOME. Voce tambem pode seguir aqui para receber orientacoes e campanhas da rede.</p>
         </div>
+        <div class="miniapp-context-note">
+          <span aria-hidden="true">🔒</span>
+          <p>O cadastro no FlaMedula nao substitui canais oficiais de hemocentros, bancos de sangue ou REDOME. Ele ajuda na orientacao e mobilizacao.</p>
+        </div>
         <div class="choice-grid">
           ${renderChoiceButton({
             name: "ja_doador_sangue",
@@ -207,7 +217,8 @@ function renderDonorStep(state, options) {
             current: data.ja_doador_sangue,
             title: "Sim, ja sou doador",
             text: "Quero manter contato com a FlaMedula e lembrar de atualizar meus dados oficiais.",
-            tone: "brand"
+            tone: "brand",
+            icon: "🩸"
           })}
           ${renderChoiceButton({
             name: "ja_doador_sangue",
@@ -215,7 +226,8 @@ function renderDonorStep(state, options) {
             current: data.ja_doador_sangue,
             title: "Ainda nao sou doador",
             text: "Quero entender o caminho e registrar meu interesse com seguranca.",
-            tone: "brand"
+            tone: "brand",
+            icon: "✨"
           })}
         </div>
       </div>
@@ -263,9 +275,9 @@ function renderDonorStep(state, options) {
     return `
       <div class="wizard-step" data-wizard-step>
         <div class="miniapp-panel-copy">
-          <span class="eyebrow">Interesse</span>
-          <h3>Sangue, medula e orientacao.</h3>
-          <p>Medula ossea nao e medula espinhal. A orientacao correta reduz medo e ajuda uma decisao consciente.</p>
+          <span class="eyebrow">Interesse em sangue</span>
+          <h3>Voce tem interesse em doar sangue?</h3>
+          <p>Escolha uma opcao. O wizard avanca automaticamente para a orientacao sobre medula.</p>
         </div>
         <div class="choice-grid">
           ${renderChoiceButton({
@@ -274,7 +286,8 @@ function renderDonorStep(state, options) {
             current: data.quer_doar_sangue,
             title: "Tenho interesse em doar sangue",
             text: "Quero receber orientacao sobre campanhas e necessidades da rede.",
-            tone: "brand"
+            tone: "brand",
+            icon: "🩸"
           })}
           ${renderChoiceButton({
             name: "quer_doar_sangue",
@@ -282,15 +295,56 @@ function renderDonorStep(state, options) {
             current: data.quer_doar_sangue,
             title: "Nao neste momento",
             text: "Ainda posso receber orientacao e acompanhar a causa.",
-            tone: "brand"
+            tone: "brand",
+            icon: "🤝"
           })}
         </div>
-        ${renderMiniSelect("quer_doar_medula", "Voce tambem tem interesse em receber orientacao sobre doacao de medula?", data.quer_doar_medula, ["Sim", "Quero entender melhor", "Nao neste momento"])}
       </div>
     `;
   }
 
   if (step === 4) {
+    return `
+      <div class="wizard-step" data-wizard-step>
+        <div class="miniapp-panel-copy">
+          <span class="eyebrow">Orientacao sobre medula</span>
+          <h3>Voce tambem quer receber orientacao sobre doacao de medula?</h3>
+          <p>Medula ossea nao e medula espinhal. A orientacao correta reduz medo e ajuda uma decisao consciente.</p>
+        </div>
+        <div class="choice-grid choice-grid-3">
+          ${renderChoiceButton({
+            name: "quer_doar_medula",
+            value: "Sim",
+            current: data.quer_doar_medula,
+            title: "Sim",
+            text: "Quero receber orientacao e acompanhar campanhas de medula.",
+            tone: "brand",
+            icon: "🧬"
+          })}
+          ${renderChoiceButton({
+            name: "quer_doar_medula",
+            value: "Quero entender melhor",
+            current: data.quer_doar_medula,
+            title: "Quero entender melhor",
+            text: "Ainda tenho duvidas e quero informacao responsavel.",
+            tone: "brand",
+            icon: "💬"
+          })}
+          ${renderChoiceButton({
+            name: "quer_doar_medula",
+            value: "Nao neste momento",
+            current: data.quer_doar_medula,
+            title: "Nao neste momento",
+            text: "Prefiro seguir apenas acompanhando a rede agora.",
+            tone: "brand",
+            icon: "🤍"
+          })}
+        </div>
+      </div>
+    `;
+  }
+
+  if (step === 5) {
     return `
       <div class="wizard-step" data-wizard-step>
         <div class="miniapp-panel-copy">
@@ -350,6 +404,10 @@ function renderPatientStep(state, options) {
           <h3>Quem esta cadastrando este caso?</h3>
           <p>Essa resposta ajusta as proximas perguntas e ajuda a equipe a entender o contexto de validacao.</p>
         </div>
+        <div class="miniapp-context-note miniapp-context-note-patient">
+          <span aria-hidden="true">🛡️</span>
+          <p>Antes de qualquer divulgacao publica, a equipe pode precisar validar informacoes e autorizacoes com responsaveis ou profissionais.</p>
+        </div>
         <div class="choice-grid choice-grid-3">
           ${options.patientRoles
             .map((role) =>
@@ -364,7 +422,13 @@ function renderPatientStep(state, options) {
                     : role === "Responsavel ou familiar"
                       ? "Cadastre o caso com seus dados de responsavel."
                       : "Ajude a rede a validar informacoes antes de divulgar.",
-                tone: "patient"
+                tone: "patient",
+                icon:
+                  role === "Medico ou profissional de saude"
+                    ? "🩺"
+                    : role === "Responsavel ou familiar"
+                      ? "👨‍👩‍👧"
+                      : "🤝"
               })
             )
             .join("")}
@@ -551,6 +615,16 @@ function validateChoice(state) {
     return false;
   }
 
+  if (state.activeFlow === "donor" && state.steps.donor === 3 && !state.donor.quer_doar_sangue) {
+    state.error = "Escolha seu interesse em doar sangue.";
+    return false;
+  }
+
+  if (state.activeFlow === "donor" && state.steps.donor === 4 && !state.donor.quer_doar_medula) {
+    state.error = "Escolha seu interesse em receber orientacao sobre medula.";
+    return false;
+  }
+
   if (state.activeFlow === "patient" && state.steps.patient === 0 && !state.patient.cadastro_por) {
     state.error = "Escolha quem esta cadastrando o caso.";
     return false;
@@ -558,6 +632,13 @@ function validateChoice(state) {
 
   state.error = "";
   return true;
+}
+
+function isAutoAdvanceStep(flow, step) {
+  return (
+    (flow === "donor" && [0, 3, 4].includes(step)) ||
+    (flow === "patient" && step === 0)
+  );
 }
 
 function donorPayload(data) {
@@ -657,22 +738,22 @@ export function initMiniApps({ miniAppOptions }) {
       <div class="miniapps-frame ${state.activeFlow ? `miniapps-frame-${state.activeFlow}` : ""}">
         <div class="miniapps-topbar">
           <div>
-            <span class="eyebrow">Mini app FlaMedula</span>
-            <h3>${state.activeFlow ? `Fluxo guiado: ${FLOW_LABELS[state.activeFlow]}` : "Cadastro guiado em poucos passos"}</h3>
+            <h3>Como voce quer participar?</h3>
+            <p>${state.activeFlow ? `Cadastro de ${FLOW_LABELS[state.activeFlow].toLowerCase()} em etapas guiadas.` : "Escolha uma opcao para abrir o cadastro correto."}</p>
           </div>
           ${
             state.activeFlow
-              ? `<button class="miniapp-link-button" type="button" data-reset-miniapp>Trocar fluxo</button>`
+              ? `<button class="miniapp-link-button" type="button" data-reset-miniapp>← Voltar para escolher outra opcao</button>`
               : ""
           }
         </div>
 
         <div class="miniapps-tabs" role="tablist" aria-label="Escolha entre cadastro de doador ou paciente">
           <button class="miniapps-tab miniapps-tab-donor ${isDonor ? "is-active" : ""}" type="button" role="tab" aria-selected="${String(isDonor)}" data-open-mini-flow="donor">
-            Doador
+            🩸 Doador
           </button>
           <button class="miniapps-tab miniapps-tab-patient ${isPatient ? "is-active" : ""}" type="button" role="tab" aria-selected="${String(isPatient)}" data-open-mini-flow="patient">
-            Paciente
+            🏥 Paciente
           </button>
         </div>
 
@@ -697,10 +778,64 @@ export function initMiniApps({ miniAppOptions }) {
     bindEvents();
   };
 
+  const advanceCurrentStep = async () => {
+    if (!state.activeFlow || state.submitting) {
+      return;
+    }
+
+    if (!collectCurrentStep(root, state) || !validateChoice(state)) {
+      render();
+      return;
+    }
+
+    const steps = getSteps(state.activeFlow, state);
+    const current = state.steps[state.activeFlow];
+    const isSummary = current === steps.length - 2;
+
+    if (!isSummary) {
+      state.steps[state.activeFlow] = Math.min(current + 1, steps.length - 2);
+      state.status = null;
+      state.error = "";
+      render();
+      return;
+    }
+
+    state.submitting = true;
+    state.status = null;
+    state.error = "";
+    render();
+
+    const result =
+      state.activeFlow === "donor"
+        ? await submitDonorLead(donorPayload(state.donor))
+        : await submitPatientCase(patientPayload(state.patient));
+
+    state.submitting = false;
+    state.status = { type: result.ok ? "success" : "error", message: result.message };
+
+    if (result.ok) {
+      state.success[state.activeFlow] = true;
+      state.steps[state.activeFlow] = steps.length - 1;
+    }
+
+    render();
+  };
+
   const renderWizardActions = () => {
     const steps = getSteps(state.activeFlow, state);
     const current = state.steps[state.activeFlow];
     const isSummary = current === steps.length - 2;
+    const autoAdvance = isAutoAdvanceStep(state.activeFlow, current);
+
+    if (autoAdvance) {
+      return current === 0
+        ? ""
+        : `
+          <div class="miniapp-actions miniapp-wizard-actions">
+            <button class="button button-secondary" type="button" data-wizard-back>Voltar</button>
+          </div>
+        `;
+    }
 
     return `
       <div class="miniapp-actions miniapp-wizard-actions">
@@ -719,8 +854,15 @@ export function initMiniApps({ miniAppOptions }) {
 
     root.querySelectorAll("[data-choice-name]").forEach((button) => {
       button.addEventListener("click", () => {
+        const shouldAutoAdvance = isAutoAdvanceStep(state.activeFlow, state.steps[state.activeFlow]);
         setFlowData(state, button.dataset.choiceName, button.dataset.choiceValue);
         state.error = "";
+
+        if (shouldAutoAdvance) {
+          advanceCurrentStep();
+          return;
+        }
+
         render();
       });
     });
@@ -754,48 +896,7 @@ export function initMiniApps({ miniAppOptions }) {
       render();
     });
 
-    root.querySelector("[data-wizard-next]")?.addEventListener("click", async () => {
-      if (!state.activeFlow || state.submitting) {
-        return;
-      }
-
-      if (!collectCurrentStep(root, state) || !validateChoice(state)) {
-        render();
-        return;
-      }
-
-      const steps = getSteps(state.activeFlow, state);
-      const current = state.steps[state.activeFlow];
-      const isSummary = current === steps.length - 2;
-
-      if (!isSummary) {
-        state.steps[state.activeFlow] = Math.min(current + 1, steps.length - 2);
-        state.status = null;
-        state.error = "";
-        render();
-        return;
-      }
-
-      state.submitting = true;
-      state.status = null;
-      state.error = "";
-      render();
-
-      const result =
-        state.activeFlow === "donor"
-          ? await submitDonorLead(donorPayload(state.donor))
-          : await submitPatientCase(patientPayload(state.patient));
-
-      state.submitting = false;
-      state.status = { type: result.ok ? "success" : "error", message: result.message };
-
-      if (result.ok) {
-        state.success[state.activeFlow] = true;
-        state.steps[state.activeFlow] = steps.length - 1;
-      }
-
-      render();
-    });
+    root.querySelector("[data-wizard-next]")?.addEventListener("click", advanceCurrentStep);
   };
 
   render();

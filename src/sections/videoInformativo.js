@@ -3,6 +3,13 @@ import { renderVideoPlayer } from "../components/videoPlayer.js";
 export function renderVideoInformativo(siteAssets) {
   return `
     <section class="section section-elevated" id="video-informativo">
+      <div class="container">
+        <div class="section-heading section-heading-centered">
+          <span class="eyebrow">Tira-duvidas em video</span>
+          <h2>Antes de se cadastrar, entenda o que realmente acontece.</h2>
+          <p>Um bloco curto para reduzir medo, separar mito de informacao correta e direcionar o proximo passo dentro do mini app.</p>
+        </div>
+      </div>
       <div class="container split-layout split-layout-video">
         <div class="video-info-shell">
           ${renderVideoPlayer({
@@ -28,8 +35,8 @@ export function renderVideoInformativo(siteAssets) {
             <li>Informacao certa reduz medo e aumenta o cadastro consciente.</li>
           </ul>
           <div class="section-actions">
-            <a class="button button-brand" href="#cadastro" data-open-flow="donor">Quero me cadastrar como doador</a>
-            <a class="button button-patient" href="#cadastro" data-open-flow="patient">Cadastrar paciente ou caso</a>
+            <a class="button button-brand" href="#cadastro" data-open-flow="donor">Entendi e quero ajudar</a>
+            <a class="button button-patient" href="#cadastro" data-open-flow="patient">Tenho um caso para orientar</a>
           </div>
         </div>
       </div>

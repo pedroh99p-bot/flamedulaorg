@@ -505,7 +505,7 @@ html.dark .testimonial-card {
 }
 
 .editorial-hero-section {
-  min-height: calc(100dvh - 5.4rem);
+  min-height: clamp(520px, 72dvh, 760px);
   display: grid;
   align-items: stretch;
   background: #090a0f;
@@ -513,7 +513,7 @@ html.dark .testimonial-card {
 
 .hero-editorial {
   position: relative;
-  min-height: calc(100dvh - 5.4rem);
+  min-height: clamp(520px, 72dvh, 760px);
   overflow: hidden;
   color: #fff;
   isolation: isolate;
@@ -563,7 +563,7 @@ html.dark .testimonial-card {
 .hero-editorial-slide {
   display: grid;
   align-items: end;
-  padding: 15rem max(1rem, calc((100vw - var(--container)) / 2)) 6rem;
+  padding: 7rem max(1rem, calc((100vw - var(--container)) / 2)) 6rem;
   background:
     linear-gradient(90deg, rgba(5, 6, 10, 0.92) 0%, rgba(5, 6, 10, 0.68) 42%, rgba(5, 6, 10, 0.2) 100%),
     var(--slide-image) center / cover no-repeat,

@@ -811,7 +811,7 @@ html.dark .checkbox-row {
   position: relative;
   overflow: hidden;
   gap: 1.2rem;
-  padding: clamp(1rem, 3vw, 1.5rem);
+  padding: 0;
   background:
     radial-gradient(circle at top left, rgba(222, 57, 70, 0.15), transparent 34%),
     linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.58));
@@ -822,12 +822,7 @@ html.dark .checkbox-row {
 }
 
 .miniapps-frame::before {
-  content: "";
-  position: absolute;
-  inset: 0.55rem;
-  border-radius: calc(var(--radius-3xl) - 0.55rem);
-  border: 1px solid rgba(255, 255, 255, 0.48);
-  pointer-events: none;
+  display: none;
 }
 
 .miniapps-frame.is-highlighted {
@@ -858,24 +853,40 @@ html.dark .miniapps-frame {
   justify-content: space-between;
   align-items: start;
   gap: 1rem;
+  padding: clamp(1.35rem, 4vw, 2.1rem);
+  color: #fff;
+  text-align: center;
+  background: linear-gradient(135deg, #8f0508, #c40005);
 }
 
 .miniapps-topbar h3 {
-  margin-top: 0.25rem;
+  margin: 0;
   font-size: clamp(1.5rem, 3vw, 2.2rem);
 }
 
+.miniapps-topbar > div {
+  flex: 1;
+}
+
+.miniapps-topbar p {
+  margin-top: 0.5rem;
+  color: rgba(255, 255, 255, 0.88);
+  font-weight: 700;
+}
+
 .miniapp-link-button {
-  border: 0;
-  background: transparent;
-  color: var(--color-brand);
+  align-self: center;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 999px;
+  padding: 0.55rem 0.8rem;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
   font-weight: 800;
-  text-decoration: underline;
-  text-underline-offset: 0.25em;
+  text-decoration: none;
 }
 
 .miniapps-frame-patient .miniapp-link-button {
-  color: var(--color-patient);
+  color: #fff;
 }
 
 .miniapps-tabs,
@@ -883,6 +894,16 @@ html.dark .miniapps-frame {
 .mini-wizard {
   position: relative;
   z-index: 1;
+}
+
+.miniapps-tabs,
+.wizard-progress,
+.mini-wizard {
+  margin-inline: clamp(1rem, 3vw, 1.5rem);
+}
+
+.miniapps-tabs {
+  margin-top: clamp(1rem, 3vw, 1.5rem);
 }
 
 .miniapps-tab-donor.is-active {
@@ -941,6 +962,7 @@ html.dark .wizard-progress {
 
 .mini-wizard {
   min-height: 430px;
+  margin-bottom: clamp(1rem, 3vw, 1.5rem);
   padding: clamp(1rem, 3vw, 1.35rem);
   border-radius: 2rem;
   background: rgba(255, 255, 255, 0.62);
@@ -958,7 +980,7 @@ html.dark .mini-wizard {
 }
 
 .choice-grid-entry .choice-card {
-  min-height: 260px;
+  min-height: 88px;
 }
 
 .choice-grid-3 {
@@ -968,6 +990,12 @@ html.dark .mini-wizard {
 .choice-card {
   position: relative;
   isolation: isolate;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  align-content: center;
+  min-height: 88px;
+  padding: 1rem 1.15rem;
   transition:
     transform 0.2s ease,
     border-color 0.2s ease,
@@ -1008,6 +1036,70 @@ html.dark .mini-wizard {
 .choice-card-patient::before {
   opacity: 1;
   background: linear-gradient(145deg, rgba(59, 111, 161, 0.13), transparent 58%);
+}
+
+.choice-emoji {
+  width: 3.25rem;
+  height: 3.25rem;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 1rem;
+  background: rgba(222, 57, 70, 0.08);
+  font-size: 1.9rem;
+}
+
+.choice-card-patient .choice-emoji {
+  background: rgba(59, 111, 161, 0.1);
+}
+
+.choice-content {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.choice-content strong {
+  font-size: clamp(1rem, 2vw, 1.22rem);
+  line-height: 1.15;
+}
+
+.choice-content > span {
+  line-height: 1.32;
+}
+
+.miniapp-guidance {
+  margin-bottom: 1.2rem;
+  color: var(--color-text-soft);
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.miniapp-safe-note {
+  margin-top: 1rem;
+  color: var(--color-text-soft);
+  font-weight: 800;
+}
+
+.miniapp-context-note {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.8rem;
+  align-items: start;
+  margin-bottom: 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(222, 57, 70, 0.2);
+  background: rgba(222, 57, 70, 0.06);
+  color: var(--color-text-soft);
+  font-size: 0.9rem;
+}
+
+.miniapp-context-note-patient {
+  border-color: rgba(59, 111, 161, 0.22);
+  background: rgba(59, 111, 161, 0.07);
+}
+
+.miniapp-context-note p {
+  margin: 0;
 }
 
 .choice-kicker {
@@ -1405,7 +1497,7 @@ html.dark .footer-badges span {
 }
 
 .brand-logo {
-  height: 3.55rem;
+  height: clamp(4rem, 5vw, 4.8rem);
   filter: drop-shadow(0 12px 24px rgba(10, 12, 18, 0.16));
 }
 
