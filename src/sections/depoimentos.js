@@ -20,7 +20,7 @@ export function renderDepoimentos(testimonials) {
         <div class="section-heading section-heading-centered">
           <span class="eyebrow">Depoimentos</span>
           <h2>Histórias que mostram por que essa rede importa.</h2>
-          <p>Relatos curtos, humanos e preparados para edição futura no painel ADM.</p>
+          <p>Relatos curtos de quem entende, apoia ou já foi tocado pela causa.</p>
         </div>
         <div class="testimonial-grid">
           ${testimonials.map(testimonialCard).join("")}

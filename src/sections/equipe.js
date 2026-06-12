@@ -22,7 +22,7 @@ export function renderEquipe(teamMembers) {
         <div class="section-heading section-heading-centered">
           <span class="eyebrow">Equipe FlaMedula</span>
           <h2>Pessoas que sustentam acolhimento, organização e presença.</h2>
-          <p>Equipe preparada para evoluir com conteúdo editável no painel ADM.</p>
+          <p>Gente que organiza orientação, acolhimento e presença em campo.</p>
         </div>
         ${renderCarousel({
           id: "team-carousel",

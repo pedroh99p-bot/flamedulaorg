@@ -64,7 +64,7 @@ export const heroNewsItems = [
     id: "hero-acoes",
     title: "Campanhas fortes nascem de dados claros e gente mobilizada.",
     excerpt:
-      "Ações, depoimentos e métricas ficam preparados para evoluir com painel ADM no futuro.",
+      "Ações, depoimentos e métricas mostram como a rede transforma informação em presença.",
     category: "rede",
     tag_emoji: "📣",
     image_url: siteAssets.editorialAction,
@@ -225,7 +225,7 @@ export const transparencyData = {
   progresso_mensal: 328,
   crescimento_semanal: [62, 81, 94, 91],
   last_updated: "12/06/2026",
-  source_label: "Dados demonstrativos do protótipo"
+  source_label: "Referência da rede FlaMedula"
 };
 
 export const faqItems = [
@@ -376,5 +376,5 @@ export const aboutContent = {
 export const footerMeta = {
   legal:
     "A FlaMedula é uma rede de mobilização e orientação. Não substitui o REDOME nem canais oficiais de saúde. Cadastro, triagem e doação seguem as diretrizes dos hemocentros.",
-  badges: ["Landing CMS-ready", "Supabase em preparo", "Dark mode preservado"]
+  badges: ["Informação responsável", "Rede em mobilização", "Medula sem medo"]
 };

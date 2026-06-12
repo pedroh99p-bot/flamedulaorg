@@ -19,7 +19,7 @@ export function renderApoioCta() {
             <a class="button button-light button-large" href="/apoie/">
               Quero me tornar apoiador
             </a>
-            <small>O apoio financeiro continua em uma rota separada: /apoie/.</small>
+            <small>Seu apoio ajuda a manter campanhas, orientação e mobilização em movimento.</small>
           </div>
         </article>
       </div>

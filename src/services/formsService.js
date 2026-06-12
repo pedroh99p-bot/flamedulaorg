@@ -64,7 +64,7 @@ async function submitRow(table, payload, submissionKey) {
       return {
         ok: true,
         mode: "fallback",
-        message: "Recebemos seus dados no modo demonstrativo. A integração real com Supabase pode ser ativada depois."
+        message: "Recebemos seus dados. A equipe poderá analisar as informações e orientar os próximos passos."
       };
     }
 

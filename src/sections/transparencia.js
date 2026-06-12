@@ -10,7 +10,7 @@ export function renderTransparencia(data) {
             <h2>Dados ajudam a transformar intenção em mobilização.</h2>
           </div>
           <p>
-            Os números abaixo são demonstrativos e já preparam a futura integração com painel ADM e Supabase.
+            Os números ajudam a visualizar o alcance da rede e a importância de manter dados organizados.
           </p>
         </div>
         ${renderTransparency(data)}

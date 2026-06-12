@@ -41,7 +41,7 @@ export function renderAcoes(actions) {
         <div class="section-heading section-heading-centered">
           <span class="eyebrow">Ações da FlaMedula</span>
           <h2>Campanhas e encontros que colocam a rede em movimento.</h2>
-          <p>Registros editoriais de mobilização, prontos para evoluir com painel ADM.</p>
+          <p>Registros de campanhas, encontros e mobilizações que aproximam pessoas da causa.</p>
         </div>
         <div
           class="action-editorial"

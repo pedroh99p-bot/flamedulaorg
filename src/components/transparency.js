@@ -34,7 +34,7 @@ export function renderTransparency(data) {
 
       <article class="transparency-highlight">
         <div class="transparency-copy">
-          <span class="eyebrow">Dados demonstrativos do protótipo</span>
+          <span class="eyebrow">Transparência da rede</span>
           <h3>Meta do mês: ampliar a base acionável da rede</h3>
           <p>
             Cada novo cadastro ajuda a FlaMedula a entender onde existem pessoas disponíveis para orientar, mobilizar e fortalecer campanhas.
@@ -46,7 +46,7 @@ export function renderTransparency(data) {
           <div class="progress-bar" aria-hidden="true">
             <span class="progress-fill" data-width="${progressPercent}%"></span>
           </div>
-          <small>Última referência local: ${data.last_updated} · ${data.source_label}</small>
+          <small>Última atualização: ${data.last_updated} · ${data.source_label}</small>
         </div>
         <div class="growth-panel" aria-label="Crescimento semanal">
           <strong>Crescimento semanal</strong>

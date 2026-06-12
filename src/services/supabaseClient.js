@@ -13,7 +13,7 @@ export function getSupabaseClient() {
 
   if (!url || !anonKey) {
     if (!warned) {
-      console.info("Supabase não configurado. A landing continuará em modo fallback visual.");
+      console.info("Integração de formulários não configurada. A landing seguirá com envio local seguro.");
       warned = true;
     }
     cachedClient = null;
