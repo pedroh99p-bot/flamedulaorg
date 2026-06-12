@@ -13,6 +13,10 @@
     min-width: min(88vw, 640px);
   }
 
+  .video-intro-player {
+    width: min(86vw, 360px);
+  }
+
   .ambassador-grid,
   .testimonial-grid,
   .metrics-grid {
@@ -72,8 +76,8 @@
     height: 2.35rem;
   }
 
-  .video-intro-player video {
-    min-height: 320px;
+  .video-intro-scroll {
+    max-height: calc(100dvh - 1rem - env(safe-area-inset-top) - env(safe-area-inset-bottom));
   }
 
   .hero-card-body,
@@ -112,5 +116,27 @@
   .roller-track {
     gap: 1rem;
     font-size: 0.72rem;
+  }
+
+  .video-intro-card {
+    width: min(100%, 420px);
+    padding: 1rem;
+  }
+
+  .video-intro-stage {
+    gap: 0.85rem;
+  }
+
+  .video-intro-player {
+    width: min(90vw, 340px);
+    max-height: min(56dvh, 620px);
+  }
+
+  .video-controls {
+    grid-template-columns: auto auto;
+  }
+
+  .video-progress-group {
+    grid-column: 1 / -1;
   }
 }
