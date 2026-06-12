@@ -37,6 +37,8 @@ import { initMotionSystem } from "./components/motion.js";
 import { initTransparency } from "./components/transparency.js";
 import { initFaq, renderFaq } from "./components/faq.js";
 import { renderRoller } from "./components/rollers.js";
+import { renderHeartbeatDivider } from "./components/decorativeDivider.js";
+import { initVideoPlayers } from "./components/videoPlayer.js";
 import { renderAcoes } from "./sections/acoes.js";
 import { renderApoioCta } from "./sections/apoioCta.js";
 import { renderCadastro } from "./sections/cadastro.js";
@@ -76,19 +78,22 @@ async function renderApp() {
       <main>
         ${renderHero(heroNewsItems)}
         ${renderDecisionCtas(redomeConfig)}
-        ${renderRoller(rollerItems.authority, "brand")}
+        ${renderRoller(rollerItems.authority, "brand", "left")}
+        ${renderHeartbeatDivider()}
         ${renderMedulaSemMedo(fearCards)}
         ${renderVideoInformativo(siteAssets)}
         ${renderRedomeUpdate(redomeConfig)}
         ${renderCadastro()}
+        ${renderHeartbeatDivider()}
         ${renderTransparencia(transparencyData)}
         ${renderComoFunciona(journeySteps)}
         ${renderQuemSomos(aboutContent)}
         ${renderEquipe(teamMembers)}
         ${renderEmbaixadores(ambassadors)}
+        ${renderHeartbeatDivider()}
         ${renderAcoes(actions)}
         ${renderApoioCta()}
-        ${renderRoller(rollerItems.support, "dark")}
+        ${renderRoller(rollerItems.support, "dark", "right")}
         ${renderDepoimentos(testimonials)}
         <section class="section" id="faq">
           <div class="container">
@@ -109,6 +114,7 @@ async function renderApp() {
   createIcons({ icons });
   initThemeToggle();
   initMobileMenu();
+  initVideoPlayers();
   initPreloaderVideoGate();
   initCarousels();
   initFlipCards();

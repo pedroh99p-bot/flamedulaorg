@@ -280,6 +280,7 @@ export const rollerItems = {
 
 export const redomeConfig = {
   url: "https://redome.inca.gov.br/",
+  logo_url: "https://res.cloudinary.com/dm9mnc97u/image/upload/v1781283383/logo-redome_wmvgt8.png",
   cta_label: "Atualizar cadastro no REDOME",
   disclaimer:
     "A atualizacao oficial precisa ser feita nos canais do REDOME. A FlaMedula orienta e mobiliza, mas nao substitui o cadastro oficial."

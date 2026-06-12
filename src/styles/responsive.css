@@ -45,6 +45,10 @@
     width: min(86vw, 360px);
   }
 
+  .informative-video-player {
+    width: min(76vw, 330px);
+  }
+
   .ambassador-grid,
   .testimonial-grid,
   .metrics-grid {
@@ -186,13 +190,24 @@
   .action-card-media,
   .ambassador-badge,
   .testimonial-avatar,
-  .redome-icon {
+  .redome-icon,
+  .redome-logo-panel {
     min-height: 180px;
   }
 
   .roller-track {
     gap: 1rem;
-    font-size: 0.72rem;
+    font-size: 0.78rem;
+  }
+
+  .heartbeat-divider {
+    width: min(100% - 1.25rem, 520px);
+    margin-block: 1.6rem;
+  }
+
+  .heartbeat-mark {
+    width: 2.35rem;
+    height: 2.35rem;
   }
 
   .brand-logo {
@@ -259,6 +274,10 @@
   .video-intro-player {
     width: min(90vw, 340px);
     max-height: min(56dvh, 620px);
+  }
+
+  .informative-video-player {
+    width: min(88vw, 320px);
   }
 
   .video-controls {

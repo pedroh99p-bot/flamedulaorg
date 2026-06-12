@@ -3,9 +3,8 @@ export function renderRedomeUpdate(redomeConfig) {
     <section class="section section-tight" id="atualizar-redome">
       <div class="container">
         <article class="redome-card">
-          <div class="redome-icon">
-            <i data-lucide="refresh-cw"></i>
-            <span>REDOME</span>
+          <div class="redome-logo-panel">
+            <img src="${redomeConfig.logo_url}" alt="Logo REDOME" loading="lazy" />
           </div>
           <div class="redome-copy">
             <span class="eyebrow eyebrow-warm">Atualizacao REDOME</span>

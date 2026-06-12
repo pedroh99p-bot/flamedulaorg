@@ -1,11 +1,20 @@
+import { renderVideoPlayer } from "../components/videoPlayer.js";
+
 export function renderVideoInformativo(siteAssets) {
   return `
     <section class="section section-elevated" id="video-informativo">
       <div class="container split-layout split-layout-video">
-        <div class="video-card">
-          <video controls preload="metadata" poster="${siteAssets.logoPrimary}">
-            <source src="${siteAssets.informativeVideo}" type="video/mp4" />
-          </video>
+        <div class="video-info-shell">
+          ${renderVideoPlayer({
+            id: "informative-video",
+            src: siteAssets.informativeVideo,
+            type: "video/mp4",
+            poster: siteAssets.logoPrimary,
+            label: "Video informativo sobre doacao de medula",
+            autoplay: false,
+            muted: true,
+            className: "informative-video-player"
+          })}
         </div>
         <div class="section-copy">
           <span class="eyebrow">Video informativo</span>
