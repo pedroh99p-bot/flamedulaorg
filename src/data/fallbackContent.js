@@ -264,6 +264,20 @@ export const rollerItems = {
     "VIDA",
     "REDE ORGANIZADA"
   ],
+  trust: [
+    "MEDULA SEM MEDO",
+    "INFORMAÇÃO CLARA",
+    "DADOS ATUALIZADOS",
+    "ORIENTAÇÃO RESPONSÁVEL",
+    "REDE POR REGIÃO"
+  ],
+  action: [
+    "CAMPANHAS COM PROPÓSITO",
+    "PRESENÇA EM CAMPO",
+    "CASOS ORGANIZADOS",
+    "APOIO REAL",
+    "MOBILIZAÇÃO VIVA"
+  ],
   support: [
     "CAMPANHAS MAIS FORTES",
     "DADOS MAIS CLAROS",

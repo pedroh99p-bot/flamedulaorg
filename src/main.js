@@ -83,12 +83,14 @@ async function renderApp() {
         ${renderQuemSomos(aboutContent)}
         ${renderEquipe(teamMembers)}
         ${renderEmbaixadores(ambassadors)}
+        ${renderRoller(rollerItems.trust, "dark", "right")}
         ${renderHeartbeatDivider()}
         ${renderVideoInformativo(siteAssets)}
         ${renderRedomeUpdate(redomeConfig)}
         ${renderHeartbeatDivider()}
         ${renderTransparencia(transparencyData)}
         ${renderComoFunciona(journeySteps)}
+        ${renderRoller(rollerItems.action, "brand", "left")}
         ${renderAcoes(actions)}
         ${renderApoioCta()}
         ${renderRoller(rollerItems.support, "dark", "right")}

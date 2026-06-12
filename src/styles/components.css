@@ -1528,7 +1528,7 @@ html.dark .theme-toggle-button {
 .roller-track {
   gap: 1.6rem;
   padding: 1.08rem 0;
-  animation-duration: 36s;
+  animation-duration: 28s;
   font-family: var(--font-heading);
   font-size: clamp(0.82rem, 1.2vw, 1.02rem);
   font-weight: 900;
