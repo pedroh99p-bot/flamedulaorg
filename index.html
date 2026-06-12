@@ -2,317 +2,292 @@
 <html lang="pt-BR" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>FlaMedula | Informação, Mobilização e Vida</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlaMedula - Rede de Mobilização</title>
     
-    <!-- Tipografia Premium: Inter para leitura, Sora para Destaques -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
     
-    <!-- Ícones -->
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Tailwind CSS (Design System iOS Style) -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind Configuration -->
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', '-apple-system', 'sans-serif'],
-                        heading: ['Sora', '-apple-system', 'sans-serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        heading: ['Manrope', 'system-ui', 'sans-serif'],
                     },
                     colors: {
-                        brand: { DEFAULT: '#E63946', dark: '#B91C28', light: '#FFEBED', glow: 'rgba(230, 57, 70, 0.15)' },
-                        patient: { DEFAULT: '#007AFF', dark: '#0056B3', light: '#E5F1FF', glow: 'rgba(0, 122, 255, 0.15)' },
-                        surface: { light: '#FFFFFF', dark: '#1C1C1E', strongLight: '#F5F5F7', strongDark: '#2C2C2E' }
+                        brand: {
+                            DEFAULT: '#E63946', // Vermelho FlaMedula
+                            dark: '#B01E28',
+                            light: '#FF6B76'
+                        },
+                        patient: {
+                            DEFAULT: '#457B9D', // Azul
+                            dark: '#1D3557'
+                        },
+                        surface: {
+                            light: '#F8F9FA',
+                            dark: '#121214',
+                            strongDark: '#0C0C0E'
+                        }
+                    },
+                    backgroundImage: {
+                        'grid-pattern': 'linear-gradient(to right, #8882 1px, transparent 1px), linear-gradient(to bottom, #8882 1px, transparent 1px)',
+                        'dot-pattern': 'radial-gradient(circle, #8884 1px, transparent 1px)'
+                    },
+                    backgroundSize: {
+                        'grid-pattern': '40px 40px',
+                        'dot-pattern': '20px 20px'
                     },
                     boxShadow: {
-                        'ios': '0 4px 24px rgba(0, 0, 0, 0.04)',
-                        'ios-hover': '0 12px 32px rgba(0, 0, 0, 0.08)',
-                        'ios-dark': '0 4px 24px rgba(0, 0, 0, 0.3)',
+                        'ios': '0 10px 30px -10px rgba(0, 0, 0, 0.05)',
+                        'ios-dark': '0 10px 30px -10px rgba(0, 0, 0, 0.5)',
+                        'glow-brand': '0 0 20px -5px rgba(230, 57, 70, 0.4)',
+                        'glow-patient': '0 0 20px -5px rgba(69, 123, 157, 0.4)'
                     },
                     animation: {
                         'marquee': 'marquee 30s linear infinite',
                         'marquee-reverse': 'marquee-reverse 30s linear infinite',
+                        'loading-bar': 'loading-infinite 1.5s infinite ease-in-out',
+                        'heartbeat': 'heartbeat 1.5s ease-in-out infinite'
                     },
                     keyframes: {
                         marquee: { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
-                        'marquee-reverse': { '0%': { transform: 'translateX(-50%)' }, '100%': { transform: 'translateX(0)' } }
+                        'marquee-reverse': { '0%': { transform: 'translateX(-50%)' }, '100%': { transform: 'translateX(0)' } },
+                        'loading-infinite': { '0%': { transform: 'translateX(-100%)' }, '100%': { transform: 'translateX(200%)' } },
+                        heartbeat: {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '14%': { transform: 'scale(1.15)' },
+                            '28%': { transform: 'scale(1)' },
+                            '42%': { transform: 'scale(1.15)' },
+                            '70%': { transform: 'scale(1)' }
+                        }
                     }
                 }
             }
         }
     </script>
 
-    <!-- Estilos Customizados (Texturas, Animações e UX) -->
     <style>
-        body { -webkit-tap-highlight-color: transparent; }
+        body.locked { overflow: hidden; }
         
-        /* Oculta scrollbar */
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        /* Glassmorphism utilities */
+        .glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dark .glass {
+            background: rgba(18, 18, 20, 0.85);
+        }
 
-        /* Gate Locking */
-        body.locked { overflow: hidden; height: 100vh; }
+        /* Hide Scrollbar but keep functionality */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Flip Cards 3D */
+        /* Flip Card 3D CSS */
         .perspective-1000 { perspective: 1000px; }
         .transform-style-3d { transform-style: preserve-3d; }
-        .backface-hidden { backface-visibility: hidden; }
+        .backface-hidden { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
         .rotate-y-180 { transform: rotateY(180deg); }
-        @media (hover: hover) { .group:hover .group-hover\:rotate-y-180 { transform: rotateY(180deg); } }
-        .flip-active .flip-inner { transform: rotateY(180deg); }
+        
+        /* Fix for Safari Flip Cards */
+        .flip-inner { position: relative; width: 100%; height: 100%; }
 
-        /* Texturas Premium via CSS */
-        .bg-grid-pattern {
-            background-size: 40px 40px;
-            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
-        }
-        .dark .bg-grid-pattern {
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-        }
-        .bg-dot-pattern {
-            background-image: radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-        .dark .bg-dot-pattern {
-            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-        }
-
-        /* Glassmorphism e Glows */
-        .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
-        .dark .glass { background: rgba(28, 28, 30, 0.85); }
-        .glass-card { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.2); }
-        .dark .glass-card { background: rgba(44, 44, 46, 0.6); border-color: rgba(255,255,255,0.05); }
-
-        /* Toggle Switch iOS Style */
-        .toggle-checkbox:checked { right: 0; border-color: #34C759; }
-        .toggle-checkbox:checked + .toggle-label { background-color: #34C759; }
-        .toggle-checkbox:checked + .toggle-label:after { transform: translateX(100%); border-color: white; }
-
-        /* Barra de Carregamento Infinita */
-        @keyframes loading-infinite {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(200%); }
-        }
-        .animate-loading-bar { animation: loading-infinite 1.5s infinite ease-in-out; }
-
-        /* Progress Bar Timeline Animada */
-        #timeline-progress { transition: height 0.1s ease-out; }
+        /* Progress Bar Timeline */
+        .timeline-line { transition: height 0.3s ease; }
     </style>
 </head>
-<body class="bg-surface-strongLight text-gray-900 dark:bg-black dark:text-gray-100 transition-colors duration-500 locked antialiased selection:bg-brand selection:text-white">
+<body class="bg-surface-light dark:bg-surface-dark text-gray-900 dark:text-gray-100 antialiased locked transition-colors duration-300">
 
-    <div id="gate-container" class="fixed inset-0 z-[9999] bg-gradient-to-br from-gray-900 via-brand-dark to-black overflow-y-auto transition-opacity duration-700">
+    <div id="flow-gate" class="fixed inset-0 z-[100] flex flex-col bg-surface-dark w-full min-h-screen">
         
         <!-- Preloader -->
         <div id="preloader-view" class="absolute inset-0 z-20 flex flex-col items-center justify-center transition-opacity duration-700 bg-black min-h-screen">
-            <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1777674863/FLA_7_1_kkc5qi.png" alt="FlaMedula Logo" class="w-32 mb-6 opacity-90">
+            <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1781277293/Untitled_design_16_1_h5rpcj.webp" alt="FlaMedula Logo" class="w-36 md:w-44 mb-8 opacity-95">
             <p class="text-white/70 tracking-widest text-xs sm:text-sm uppercase mb-4 font-medium font-heading">Carregando a rede FlaMedula...</p>
             
-            <!-- Barra Infinita Vermelha -->
-            <div class="w-48 h-1.5 bg-white/10 rounded-full overflow-hidden relative shadow-[0_0_10px_rgba(230,57,70,0.3)]">
-                <div class="absolute top-0 left-0 h-full w-1/2 bg-brand rounded-full animate-loading-bar shadow-[0_0_8px_rgba(230,57,70,0.8)]"></div>
+            <!-- Barra de progresso vermelha infinita -->
+            <div class="w-48 sm:w-64 h-1.5 bg-white/10 rounded-full overflow-hidden relative shadow-[0_0_15px_rgba(230,57,70,0.3)]">
+                <div class="absolute top-0 left-0 h-full w-1/2 bg-brand rounded-full animate-loading-bar shadow-[0_0_10px_rgba(230,57,70,0.8)]"></div>
             </div>
         </div>
 
-        <!-- Tela Intermediária de Vídeo (Reels Style) -->
-        <div id="video-view" class="relative z-10 w-full min-h-screen flex flex-col items-center justify-center py-10 px-4 opacity-0 hidden transition-opacity duration-700 pointer-events-none bg-dot-pattern">
-            
+        <!-- Video Intermediário (Estilo Reels) -->
+        <div id="video-intro-view" class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-surface-strongDark bg-dot-pattern opacity-0 pointer-events-none transition-opacity duration-700 p-4">
             <div class="max-w-md w-full bg-surface-dark/60 backdrop-blur-xl border border-white/10 p-6 md:p-8 rounded-[2rem] shadow-2xl flex flex-col items-center text-center mt-auto mb-auto pointer-events-auto relative overflow-hidden">
                 <div class="absolute -top-20 -left-20 w-40 h-40 bg-brand/20 blur-[80px] rounded-full pointer-events-none"></div>
 
                 <!-- Player Vertical Reduzido -->
-                <div class="w-[85vw] max-w-[320px] aspect-[9/16] bg-black rounded-2xl overflow-hidden shadow-lg border border-white/10 mb-6 relative">
-                    <video id="intro-video" class="w-full h-full object-cover" playsinline muted controls preload="metadata" poster="https://res.cloudinary.com/dm9mnc97u/image/upload/v1777674863/FLA_7_1_kkc5qi.png">
+                <div class="w-[82vw] max-w-[340px] aspect-[9/16] bg-black rounded-3xl overflow-hidden shadow-2xl border border-white/10 mb-6 relative group">
+                    <video id="intro-video" class="w-full h-full object-cover" playsinline muted controls preload="metadata" poster="https://res.cloudinary.com/dm9mnc97u/image/upload/v1781277293/Untitled_design_16_1_h5rpcj.webp">
                         <source src="https://res.cloudinary.com/dm9mnc97u/video/upload/v1780677944/WhatsApp-Video-2026-06-05-at-13.40.33_xxhh84.webm" type="video/webm">
-                        Seu navegador não suporta vídeos HTML5.
                     </video>
                 </div>
 
-                <!-- Resumo Contextual -->
-                <div class="text-white mb-8 w-full">
-                    <h2 class="text-2xl md:text-3xl font-heading font-extrabold mb-3 leading-tight tracking-tight">Dedeco explica:<br><span class="text-brand-light">medula sem medo</span></h2>
-                    
-                    <p class="text-gray-300 text-sm mb-4 leading-relaxed font-medium">
-                        André Matos, o Dedeco, fundador da FlaMedula, apresenta de forma simples como a informação correta ajuda a reduzir o medo sobre a doação.
+                <h2 class="text-xl font-heading font-bold text-white mb-2">Dedeco explica: medula sem medo</h2>
+                <p class="text-gray-400 text-sm mb-4 leading-relaxed">
+                    André Matos, fundador da FlaMedula, mostra como a informação correta ajuda a reduzir o medo sobre a doação.
+                </p>
+                <div class="bg-white/5 border border-white/10 rounded-xl p-3 mb-6 w-full">
+                    <p class="text-xs text-gray-300">
+                        Aleta: <span class="text-brand font-semibold">Medula óssea não é medula espinhal.</span> A coleta pode ser por sangue periférico ou punção, sempre definida pela equipe médica.
                     </p>
-                    
-                    <div class="bg-black/40 p-4 rounded-2xl border border-white/5 mb-5 shadow-inner">
-                        <p class="text-gray-400 text-xs leading-relaxed text-left">
-                            Em alguns casos, a coleta pode acontecer pelo sangue periférico, por aférese — um processo feito pela veia do braço. Em outros casos, pode ser por punção da medula óssea. A definição do método é sempre conduzida pela equipe médica.
-                        </p>
-                    </div>
-
-                    <!-- Alerta Curto -->
-                    <div class="inline-flex items-center gap-2 bg-brand/10 text-brand-light px-4 py-2.5 rounded-full border border-brand/30 shadow-[0_0_15px_rgba(230,57,70,0.15)]">
-                        <i data-lucide="alert-circle" class="w-4 h-4"></i>
-                        <p class="text-[11px] font-bold uppercase tracking-widest">Medula óssea não é medula espinhal</p>
-                    </div>
                 </div>
 
-                <!-- Botão Continuar -->
-                <button id="btn-enter-landing" class="w-full bg-brand hover:bg-brand-dark text-white px-6 py-4 rounded-2xl text-lg font-bold shadow-[0_4px_20px_rgba(230,57,70,0.4)] hover:shadow-[0_8px_30px_rgba(230,57,70,0.6)] hover:-translate-y-1 transition-all flex items-center justify-center gap-2 font-heading tracking-wide">
-                    Continuar para a página <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                <button id="btn-enter-site" class="w-full bg-brand hover:bg-brand-dark text-white font-bold py-4 px-8 rounded-2xl shadow-glow-brand transition-all transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 group relative z-10">
+                    Continuar para a página
+                    <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
                 </button>
             </div>
         </div>
     </div>
 
-    <header class="glass fixed top-0 w-full z-50 border-b border-gray-200/50 dark:border-gray-800/50 transition-colors">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <!-- Cápsula Escura Premium para a Logo para Garantir Contraste -->
-                <div class="flex-shrink-0 flex items-center">
-                    <a href="#inicio" class="bg-[#0c0c0e] border border-white/10 hover:border-brand/40 px-4 py-2 rounded-2xl shadow-md transition-all duration-300 flex items-center justify-center">
-                        <img class="h-9 w-auto" src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1777674863/FLA_7_1_kkc5qi.png" alt="FlaMedula Logo">
-                    </a>
-                </div>
-                
-                <nav class="hidden lg:flex space-x-6 items-center">
-                    <a href="#medula-sem-medo" class="text-sm font-semibold text-gray-600 hover:text-brand dark:text-gray-300 dark:hover:text-white transition-colors tracking-wide">Sem medo</a>
-                    <a href="#transparencia" class="text-sm font-semibold text-gray-600 hover:text-brand dark:text-gray-300 dark:hover:text-white transition-colors tracking-wide">Transparência</a>
-                    <a href="#como-funciona" class="text-sm font-semibold text-gray-600 hover:text-brand dark:text-gray-300 dark:hover:text-white transition-colors tracking-wide">Como funciona</a>
-                    <a href="#acoes" class="text-sm font-semibold text-gray-600 hover:text-brand dark:text-gray-300 dark:hover:text-white transition-colors tracking-wide">Ações</a>
-                    <a href="#faq" class="text-sm font-semibold text-gray-600 hover:text-brand dark:text-gray-300 dark:hover:text-white transition-colors tracking-wide">FAQ</a>
-                </nav>
-
-                <!-- Desktop CTAs (com botão doador, botão paciente e modo noturno) -->
-                <div class="hidden md:flex items-center space-x-3">
-                    <a href="#hub-cadastro" class="bg-brand hover:bg-brand-dark text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-md shadow-brand/20 transition-all hover:-translate-y-0.5 flex items-center gap-2">
-                        🩸 Sou doador
-                    </a>
-                    <a href="#hub-cadastro" onclick="setTimeout(()=>document.getElementById('tab-paciente').click(), 100)" class="bg-patient hover:bg-patient-dark text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-md shadow-patient/20 transition-all hover:-translate-y-0.5 flex items-center gap-2">
-                        💙 Paciente
-                    </a>
-                    <button id="theme-toggle" class="p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors border border-gray-200 dark:border-gray-700" aria-label="Alternar tema">
-                        <i data-lucide="moon" class="w-4 h-4 dark:hidden"></i>
-                        <i data-lucide="sun" class="w-4 h-4 hidden dark:block"></i>
-                    </button>
-                </div>
-
-                <!-- Mobile CTAs Alinhados Lateralmente -->
-                <div class="flex md:hidden items-center space-x-2">
-                    <a href="#hub-cadastro" class="bg-brand text-white px-3.5 py-2 rounded-full text-xs font-bold shadow-sm flex items-center gap-1">🩸 Doador</a>
-                    <a href="#hub-cadastro" onclick="setTimeout(()=>document.getElementById('tab-paciente').click(), 100)" class="bg-patient text-white px-3.5 py-2 rounded-full text-xs font-bold shadow-sm flex items-center gap-1">💙 Paciente</a>
-                    <button id="theme-toggle-nav-mobile" class="p-2 bg-gray-100 dark:bg-gray-800 rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300">
-                        <i data-lucide="moon" class="w-4 h-4 dark:hidden"></i>
-                        <i data-lucide="sun" class="w-4 h-4 hidden dark:block"></i>
-                    </button>
-                    <button id="mobile-menu-btn" class="p-2 text-gray-600 dark:text-gray-300 focus:outline-none bg-gray-100 dark:bg-gray-800 rounded-full border border-gray-200 dark:border-gray-700">
-                        <i data-lucide="menu" class="w-5 h-5"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <div id="mobile-menu" class="fixed inset-0 z-[60] bg-surface-light dark:bg-surface-dark transform translate-y-full transition-transform duration-400 ease-in-out flex flex-col pt-24 pb-8 px-6 overflow-y-auto">
-        <button id="close-menu-btn" class="absolute top-6 right-6 p-2 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700">
-            <i data-lucide="x" class="w-6 h-6"></i>
-        </button>
+    <div id="main-content" class="opacity-0 transition-opacity duration-1000 hidden">
         
-        <div class="flex flex-col space-y-6 mt-4">
-            <a href="#medula-sem-medo" class="mobile-link text-2xl font-heading font-bold border-b border-gray-100 dark:border-gray-800 pb-4">Medula sem medo</a>
-            <a href="#transparencia" class="mobile-link text-2xl font-heading font-bold border-b border-gray-100 dark:border-gray-800 pb-4">Transparência</a>
-            <a href="#como-funciona" class="mobile-link text-2xl font-heading font-bold border-b border-gray-100 dark:border-gray-800 pb-4">Como funciona</a>
-            <a href="#quem-somos" class="mobile-link text-2xl font-heading font-bold border-b border-gray-100 dark:border-gray-800 pb-4">Quem somos</a>
-            <a href="#acoes" class="mobile-link text-2xl font-heading font-bold border-b border-gray-100 dark:border-gray-800 pb-4">Ações da rede</a>
-            <a href="#faq" class="mobile-link text-2xl font-heading font-bold border-b border-gray-100 dark:border-gray-800 pb-4">Dúvidas Frequentes</a>
-        </div>
-
-        <div class="mt-auto space-y-4 pt-8">
-            <a href="#hub-cadastro" onclick="setTimeout(()=>document.getElementById('tab-paciente').click(), 100)" class="mobile-link w-full bg-patient text-white flex justify-center py-4 rounded-xl font-bold text-lg shadow-lg shadow-patient/20">💙 Cadastrar Paciente</a>
-            <a href="#atualizar-redome" class="mobile-link w-full border-2 border-gray-200 dark:border-gray-700 text-gray-800 dark:text-white flex justify-center py-4 rounded-xl font-bold text-lg bg-gray-50 dark:bg-gray-800">🔄 Atualizar REDOME</a>
-            <a href="#apoio" class="mobile-link w-full bg-gray-900 dark:bg-white text-white dark:text-black flex justify-center py-4 rounded-xl font-bold text-lg">❤️ Apoiar FlaMedula</a>
-            <div class="flex justify-between items-center pt-6 border-t border-gray-200 dark:border-gray-800">
-                <span class="font-bold font-heading">Modo Noturno</span>
-                <button id="theme-toggle-mobile" class="p-3 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
-                    <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
-                    <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <main id="main-content" class="opacity-0 transition-opacity duration-1000 pt-24 pb-0">
-        
-        <section id="inicio" class="py-8 relative overflow-hidden bg-grid-pattern">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] max-w-[600px] bg-brand/5 blur-[120px] rounded-full pointer-events-none"></div>
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div class="relative group">
-                    <div id="hero-carousel" class="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4 pb-8 scroll-smooth">
-                        <!-- JS renders dynamic CMS-ready items here -->
-                    </div>
-                    <button id="hero-prev" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-surface-strongDark/90 backdrop-blur border border-gray-200 dark:border-gray-700 shadow-ios rounded-full p-3 opacity-0 group-hover:opacity-100 transition-all disabled:opacity-0 hidden md:flex items-center justify-center hover:scale-110">
-                        <i data-lucide="chevron-left" class="w-5 h-5"></i>
-                    </button>
-                    <button id="hero-next" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-surface-strongDark/90 backdrop-blur border border-gray-200 dark:border-gray-700 shadow-ios rounded-full p-3 opacity-0 group-hover:opacity-100 transition-all hidden md:flex items-center justify-center hover:scale-110">
-                        <i data-lucide="chevron-right" class="w-5 h-5"></i>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <section id="decisao" class="py-16 bg-surface-light dark:bg-surface-dark border-y border-gray-200/50 dark:border-gray-800/50 relative">
-            <div class="max-w-4xl mx-auto px-4 text-center">
-                <h1 class="text-3xl md:text-5xl font-heading font-extrabold tracking-tight mb-4">Escolha seu próximo passo</h1>
-                <p class="text-lg text-gray-500 dark:text-gray-400 mb-10 max-w-2xl mx-auto">A rede cresce quando cada pessoa sabe como pode ajudar.</p>
-                
-                <div class="grid md:grid-cols-2 gap-4 mb-8">
-                    <a href="#hub-cadastro" class="relative overflow-hidden bg-brand hover:bg-brand-dark text-white p-6 rounded-3xl font-bold text-lg shadow-ios hover:shadow-ios-hover transition-all flex items-center justify-center gap-3 group">
-                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-                        <span class="text-2xl drop-shadow-md">🩸</span> Quero me cadastrar como doador
-                    </a>
-                    <a href="#hub-cadastro" onclick="setTimeout(()=>document.getElementById('tab-paciente').click(), 100)" class="relative overflow-hidden bg-patient hover:bg-patient-dark text-white p-6 rounded-3xl font-bold text-lg shadow-ios hover:shadow-ios-hover transition-all flex items-center justify-center gap-3 group">
-                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-                        <span class="text-2xl drop-shadow-md">💙</span> Quero cadastrar um paciente
-                    </a>
-                </div>
-                
-                <a href="#atualizar-redome" class="inline-flex items-center justify-center p-4 rounded-2xl border-2 border-dashed border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-bold hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors w-full md:w-auto">
-                    <i data-lucide="refresh-cw" class="w-5 h-5 mr-2 text-brand"></i>
-                    Já sou cadastrado no REDOME. Quero atualizar meus dados.
-                </a>
-                <p class="mt-4 text-xs text-gray-400 uppercase tracking-widest font-semibold">Manter seus dados atualizados pode ser essencial para que você seja encontrado.</p>
-            </div>
-        </section>
-
-        <div class="overflow-hidden bg-gray-900 text-white py-3 flex whitespace-nowrap border-y border-gray-800 shadow-inner">
-            <div class="animate-marquee font-heading font-extrabold tracking-widest text-xs uppercase flex items-center opacity-80">
-                <span class="mx-8">🩸 Informação</span> <span class="opacity-50">•</span>
-                <span class="mx-8">🧬 Cadastro Consciente</span> <span class="opacity-50">•</span>
-                <span class="mx-8">🤝 Orientação</span> <span class="opacity-50">•</span>
-                <span class="mx-8">📣 Mobilização</span> <span class="opacity-50">•</span>
-                <span class="mx-8">❤️ Vida</span> <span class="opacity-50">•</span>
-            </div>
-            <div class="animate-marquee font-heading font-extrabold tracking-widest text-xs uppercase flex items-center opacity-80" aria-hidden="true">
-                <span class="mx-8">🩸 Informação</span> <span class="opacity-50">•</span>
-                <span class="mx-8">🧬 Cadastro Consciente</span> <span class="opacity-50">•</span>
-                <span class="mx-8">🤝 Orientação</span> <span class="opacity-50">•</span>
-                <span class="mx-8">📣 Mobilização</span> <span class="opacity-50">•</span>
-                <span class="mx-8">❤️ Vida</span> <span class="opacity-50">•</span>
-            </div>
-        </div>
-
-        <section id="medula-sem-medo" class="py-24 bg-surface-strongLight dark:bg-black bg-dot-pattern">
+        <!-- NAVBAR FIXA -->
+        <header class="glass fixed top-0 w-full z-50 border-b border-gray-200/50 dark:border-gray-800/50 transition-colors">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-3xl mx-auto mb-16">
-                    <h2 class="text-3xl md:text-5xl font-heading font-extrabold mb-4 flex justify-center items-center gap-3 tracking-tight">
-                        <span class="text-4xl">🧬</span> Medula sem medo
-                    </h2>
-                    <p class="text-lg text-gray-600 dark:text-gray-400">Muita gente não se cadastra porque imagina algo pior do que realmente é. <strong class="text-brand dark:text-brand-light font-bold">Informação correta transforma medo em decisão consciente.</strong></p>
+                <div class="flex justify-between items-center h-20">
+                    <!-- Cápsula Escura Premium para a Logo para Garantir Contraste -->
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="#inicio" class="bg-[#0c0c0e] border border-white/10 hover:border-brand/40 px-5 py-2.5 rounded-2xl shadow-md transition-all duration-300 flex items-center justify-center group">
+                            <img class="h-10 md:h-12 w-auto transform group-hover:scale-105 transition-transform" src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1781277293/Untitled_design_16_1_h5rpcj.webp" alt="FlaMedula Logo">
+                        </a>
+                    </div>
+
+                    <!-- Desktop Menu -->
+                    <nav class="hidden md:flex space-x-6 items-center">
+                        <a href="#medula-sem-medo" class="text-sm font-semibold text-gray-600 hover:text-brand dark:text-gray-300 dark:hover:text-brand transition-colors">Medula sem medo</a>
+                        <a href="#transparencia" class="text-sm font-semibold text-gray-600 hover:text-brand dark:text-gray-300 dark:hover:text-brand transition-colors">Transparência</a>
+                        <a href="#acoes-e-apoio" class="text-sm font-semibold text-gray-600 hover:text-brand dark:text-gray-300 dark:hover:text-brand transition-colors">Ações</a>
+                        <a href="#faq" class="text-sm font-semibold text-gray-600 hover:text-brand dark:text-gray-300 dark:hover:text-brand transition-colors">FAQ</a>
+                    </nav>
+
+                    <!-- CTAs & Actions (Desktop & Mobile Unified Flow) -->
+                    <div class="flex items-center gap-2 md:gap-4">
+                        <!-- Botão Doador -->
+                        <a href="#cadastro" onclick="openMiniApp('doador')" class="bg-brand hover:bg-brand-dark text-white shadow-glow-brand px-3 md:px-5 py-2 rounded-xl text-xs md:text-sm font-bold transition-all flex items-center gap-1.5 whitespace-nowrap">
+                            <span class="text-sm md:text-base">🩸</span> <span class="hidden md:inline">Sou doador</span><span class="md:hidden">Doador</span>
+                        </a>
+                        
+                        <!-- Botão Paciente -->
+                        <a href="#cadastro" onclick="openMiniApp('paciente')" class="bg-patient hover:bg-patient-dark text-white shadow-glow-patient px-3 md:px-5 py-2 rounded-xl text-xs md:text-sm font-bold transition-all flex items-center gap-1.5 whitespace-nowrap">
+                            <span class="text-sm md:text-base">💙</span> <span class="hidden md:inline">Paciente</span>
+                        </a>
+
+                        <button id="theme-toggle" class="p-2 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors rounded-lg bg-gray-100 dark:bg-gray-800">
+                            <i data-lucide="moon" id="theme-icon-moon" class="w-5 h-5 hidden"></i>
+                            <i data-lucide="sun" id="theme-icon-sun" class="w-5 h-5 hidden"></i>
+                            <span class="md:hidden ml-1" id="theme-icon-fallback">🌙</span>
+                        </button>
+                        
+                        <!-- Mobile Menu Button -->
+                        <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                            <i data-lucide="menu" class="w-6 h-6"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div id="mobile-menu" class="fixed inset-0 z-40 bg-surface-light/95 dark:bg-surface-dark/95 backdrop-blur-xl hidden flex-col pt-24 px-6 pb-8 h-screen overflow-y-auto border-t border-gray-200 dark:border-gray-800">
+            <nav class="flex flex-col gap-6 text-xl font-heading font-bold">
+                <a href="#medula-sem-medo" class="mobile-link text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800 pb-2">Medula sem medo</a>
+                <a href="#transparencia" class="mobile-link text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800 pb-2">Transparência</a>
+                <a href="#como-funciona" class="mobile-link text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800 pb-2">Como funciona</a>
+                <a href="#quem-somos" class="mobile-link text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800 pb-2">Quem somos</a>
+                <a href="#acoes-e-apoio" class="mobile-link text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800 pb-2">Ações e Apoio</a>
+                <a href="#atualizar-redome" class="mobile-link text-brand border-b border-brand/20 pb-2 flex justify-between items-center">Atualizar REDOME <i data-lucide="refresh-cw" class="w-5 h-5"></i></a>
+            </nav>
+        </div>
+
+        <section id="inicio" class="pt-32 pb-16 px-4 md:px-8 bg-gradient-to-b from-transparent to-gray-50/50 dark:to-gray-900/20">
+            <div class="max-w-7xl mx-auto">
+                <div id="hero-slider" class="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 no-scrollbar scroll-smooth">
+                    <!-- Cards rendered via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- CTAs de Decisão (Pós-Hero) -->
+        <section id="decisao" class="pb-16 px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl font-heading font-extrabold mb-3 tracking-tight">Escolha seu próximo passo</h2>
+                <p class="text-gray-500 font-medium mb-10">A rede cresce quando cada pessoa sabe como pode ajudar.</p>
+                
+                <div class="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto mb-6">
+                    <a href="#cadastro" onclick="openMiniApp('doador')" class="bg-brand hover:bg-brand-dark text-white rounded-[2rem] p-6 shadow-glow-brand transition-transform hover:-translate-y-1 flex flex-col items-center justify-center group border border-brand-light/30 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <span class="text-4xl mb-3 group-hover:scale-110 transition-transform">🩸</span>
+                        <span class="font-bold text-lg mb-1 relative z-10">Quero me cadastrar como doador</span>
+                        <span class="text-xs text-white/80 font-medium relative z-10">Leva menos de 2 minutos</span>
+                    </a>
+                    
+                    <a href="#cadastro" onclick="openMiniApp('paciente')" class="bg-patient hover:bg-patient-dark text-white rounded-[2rem] p-6 shadow-glow-patient transition-transform hover:-translate-y-1 flex flex-col items-center justify-center group border border-[#8ecae6]/30 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <span class="text-4xl mb-3 group-hover:scale-110 transition-transform">💙</span>
+                        <span class="font-bold text-lg mb-1 relative z-10">Quero cadastrar um paciente</span>
+                        <span class="text-xs text-white/80 font-medium relative z-10">Para análise e orientação da equipe</span>
+                    </a>
                 </div>
 
-                <!-- Grid Refinado 2x2 para os Cards Flip -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto" id="flip-cards-container">
-                    <!-- JS renders exactly 4 optimized items here -->
+                <a href="#atualizar-redome" class="inline-flex items-center gap-2 text-sm font-bold text-gray-700 dark:text-gray-300 bg-white dark:bg-surface-strongDark border border-gray-200 dark:border-gray-800 px-6 py-3 rounded-full hover:border-gray-300 dark:hover:border-gray-600 transition-colors shadow-sm">
+                    <i data-lucide="refresh-cw" class="w-4 h-4 text-brand"></i>
+                    Já sou cadastrado no REDOME. Quero atualizar meus dados
+                </a>
+            </div>
+        </section>
+
+        <div class="bg-brand text-brand-light py-4 border-y border-brand-dark/50 overflow-hidden shadow-inner flex relative">
+            <div class="absolute inset-0 bg-black/10 pointer-events-none"></div>
+            <div class="flex animate-marquee whitespace-nowrap items-center font-bold text-sm tracking-widest relative z-10">
+                <span class="mx-4">🩸 INFORMAÇÃO</span><span class="mx-4">•</span>
+                <span class="mx-4">🧬 CADASTRO</span><span class="mx-4">•</span>
+                <span class="mx-4">🤝 ORIENTAÇÃO</span><span class="mx-4">•</span>
+                <span class="mx-4">📣 MOBILIZAÇÃO</span><span class="mx-4">•</span>
+                <span class="mx-4">❤️ VIDA</span><span class="mx-4">•</span>
+                <!-- Duplicate for seamless loop -->
+                <span class="mx-4">🩸 INFORMAÇÃO</span><span class="mx-4">•</span>
+                <span class="mx-4">🧬 CADASTRO</span><span class="mx-4">•</span>
+                <span class="mx-4">🤝 ORIENTAÇÃO</span><span class="mx-4">•</span>
+                <span class="mx-4">📣 MOBILIZAÇÃO</span><span class="mx-4">•</span>
+                <span class="mx-4">❤️ VIDA</span>
+            </div>
+            <div class="flex animate-marquee whitespace-nowrap items-center font-bold text-sm tracking-widest absolute top-4 relative z-10">
+                <!-- Secondary wrapper to assure infinite visual fill -->
+            </div>
+        </div>
+
+        <!-- Separador Decorativo de Coração -->
+        <div class="py-12 flex justify-center bg-surface-light dark:bg-surface-dark">
+            <div class="bg-brand/5 p-4 rounded-full border border-brand/10 shadow-[0_0_20px_rgba(230,57,70,0.1)]">
+                <i data-lucide="heart" class="w-6 h-6 text-brand animate-heartbeat fill-brand/20"></i>
+            </div>
+        </div>
+
+        <section id="medula-sem-medo" class="py-16 bg-surface-light dark:bg-surface-dark relative">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <div class="inline-block bg-brand/10 text-brand px-4 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase mb-4 border border-brand/20">Educação e Consciência</div>
+                    <h2 class="text-3xl md:text-5xl font-heading font-extrabold mb-6 tracking-tight">🧬 Medula sem medo</h2>
+                    <p class="text-lg text-gray-500 font-medium leading-relaxed">Muita gente não se cadastra porque imagina algo pior do que realmente é. Informação correta transforma medo em decisão consciente.</p>
+                </div>
+
+                <!-- Grid de Cards Flip Corrigido (2x2 com 4 cards) -->
+                <div id="flip-cards-container" class="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                    <!-- Gerado via JS para manter HTML limpo, mas a estrutura são 4 cards -->
                 </div>
             </div>
         </section>
@@ -322,282 +297,327 @@
                 <div class="grid lg:grid-cols-2 gap-12 items-center">
                     
                     <div class="rounded-[2.5rem] overflow-hidden shadow-ios-dark border border-gray-200/50 dark:border-gray-700/50 bg-black aspect-[4/5] md:aspect-video relative group">
-                        <video controls poster="https://res.cloudinary.com/dm9mnc97u/image/upload/v1777674863/FLA_7_1_kkc5qi.png" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity">
+                        <video controls poster="https://res.cloudinary.com/dm9mnc97u/image/upload/v1781277293/Untitled_design_16_1_h5rpcj.webp" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity">
                             <source src="https://res.cloudinary.com/dm9mnc97u/video/upload/v1777677171/download_wq1ltu.mp4" type="video/mp4">
                         </video>
                     </div>
 
-                    <div>
-                        <h2 class="text-3xl md:text-4xl font-heading font-extrabold mb-6 flex items-center gap-2 tracking-tight">
-                            🎥 Entenda a doação sem medo
-                        </h2>
-                        <p class="text-lg text-gray-600 dark:text-gray-300 mb-8 border-l-4 border-brand pl-5 bg-gray-50/50 dark:bg-gray-800/30 p-4 rounded-r-2xl">
-                            Em alguns casos, a coleta pode acontecer por <strong>aférese</strong> (pelo sangue periférico). Em outros, por <strong>punção da medula óssea</strong>. A decisão sobre o método é conduzida exclusivamente pela equipe médica.
-                        </p>
-
-                        <div class="space-y-4 mb-8">
-                            <div class="flex items-start gap-4 p-4 rounded-2xl bg-white dark:bg-surface-strongDark border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow">
-                                <div class="bg-brand/10 text-brand rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold font-heading"><i data-lucide="check" class="w-4 h-4"></i></div>
-                                <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">Medula óssea não é medula espinhal.</p>
+                    <div class="flex flex-col">
+                        <h2 class="text-3xl md:text-4xl font-heading font-extrabold mb-6 tracking-tight">🎥 Entenda a doação sem medo</h2>
+                        <p class="text-lg text-gray-500 mb-8 font-medium leading-relaxed">Em alguns casos, a coleta pode acontecer por aférese, pelo sangue periférico. Em outros, por punção da medula óssea. A decisão é conduzida pela equipe médica.</p>
+                        
+                        <div class="space-y-4 mb-10">
+                            <div class="flex gap-4 p-4 rounded-2xl bg-white dark:bg-surface-strongDark border border-gray-100 dark:border-gray-800 shadow-sm items-start">
+                                <div class="bg-brand/10 p-2 rounded-lg text-brand shrink-0"><i data-lucide="info" class="w-5 h-5"></i></div>
+                                <p class="text-sm font-medium">Medula óssea <strong class="text-gray-900 dark:text-white">não é</strong> medula espinhal.</p>
                             </div>
-                            <div class="flex items-start gap-4 p-4 rounded-2xl bg-white dark:bg-surface-strongDark border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow">
-                                <div class="bg-brand/10 text-brand rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold font-heading"><i data-lucide="check" class="w-4 h-4"></i></div>
-                                <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">O cadastro, triagem e doação seguem pelos canais oficiais de saúde.</p>
+                            <div class="flex gap-4 p-4 rounded-2xl bg-white dark:bg-surface-strongDark border border-gray-100 dark:border-gray-800 shadow-sm items-start">
+                                <div class="bg-brand/10 p-2 rounded-lg text-brand shrink-0"><i data-lucide="check-circle" class="w-5 h-5"></i></div>
+                                <p class="text-sm font-medium">O cadastro oficial é feito exclusivamente nos canais de saúde (Hemocentros).</p>
                             </div>
-                            <div class="flex items-start gap-4 p-4 rounded-2xl bg-white dark:bg-surface-strongDark border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow">
-                                <div class="bg-brand/10 text-brand rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold font-heading"><i data-lucide="check" class="w-4 h-4"></i></div>
-                                <p class="text-sm font-semibold text-gray-800 dark:text-gray-200">Informação certa reduz o medo e aumenta o cadastro consciente.</p>
+                            <div class="flex gap-4 p-4 rounded-2xl bg-white dark:bg-surface-strongDark border border-gray-100 dark:border-gray-800 shadow-sm items-start">
+                                <div class="bg-brand/10 p-2 rounded-lg text-brand shrink-0"><i data-lucide="shield" class="w-5 h-5"></i></div>
+                                <p class="text-sm font-medium">Informação certa reduz medo e aumenta o cadastro consciente.</p>
                             </div>
                         </div>
-                        <a href="#decisao" class="inline-flex items-center justify-center bg-gray-900 dark:bg-white text-white dark:text-black px-6 py-3 rounded-full font-bold shadow-md hover:scale-105 transition-transform">
-                            Quero escolher meu próximo passo
-                        </a>
+                        
+                        <a href="#decisao" class="bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-200 font-bold py-4 px-8 rounded-2xl text-center transition-colors">Quero escolher meu próximo passo</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="atualizar-redome" class="py-20 bg-gradient-to-br from-orange-500/10 via-orange-500/5 to-transparent border-y border-orange-500/20 relative overflow-hidden">
-            <div class="absolute -top-32 -right-32 w-96 h-96 bg-orange-500/5 blur-[120px] rounded-full pointer-events-none"></div>
-            <div class="max-w-4xl mx-auto px-4 relative z-10">
-                <div class="bg-white/70 dark:bg-surface-strongDark/70 backdrop-blur-xl rounded-[2.5rem] p-8 md:p-12 border border-orange-500/20 shadow-xl relative overflow-hidden">
-                    <div class="absolute top-4 right-4 text-orange-500/10"><i data-lucide="refresh-cw" class="w-24 h-24"></i></div>
-                    
-                    <div class="flex flex-col md:flex-row gap-8 items-start md:items-center">
-                        <div class="flex-1">
-                            <span class="inline-flex items-center gap-1.5 bg-orange-500/10 text-orange-600 dark:text-orange-400 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-4 border border-orange-500/20">
-                                <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Campanha de Atualização
-                            </span>
-                            <h2 class="text-2xl md:text-4xl font-heading font-extrabold mb-3 text-gray-900 dark:text-white tracking-tight">🔄 Já é cadastrado no REDOME?</h2>
-                            <p class="text-lg font-bold text-orange-600 dark:text-orange-400 mb-4">Atualizar seus dados pode ser tão importante quanto se cadastrar.</p>
-                            <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-                                Se seu telefone, e-mail, cidade ou endereço mudaram, você pode deixar de ser encontrado quando surgir uma possível compatibilidade. Manter seus dados atualizados ajuda os canais oficiais a entrarem em contato no momento certo.
-                            </p>
-                            
-                            <div class="grid sm:grid-cols-2 gap-3 mb-8">
-                                <div class="flex items-center gap-2.5 text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                    <span class="bg-orange-500/10 p-1.5 rounded-lg text-orange-500"><i data-lucide="phone-call" class="w-4 h-4"></i></span> Telefone evita perda de contato
-                                </div>
-                                <div class="flex items-center gap-2.5 text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                    <span class="bg-orange-500/10 p-1.5 rounded-lg text-orange-500"><i data-lucide="map-pin" class="w-4 h-4"></i></span> Cidade correta ajuda a localizar
-                                </div>
-                                <div class="flex items-center gap-2.5 text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                    <span class="bg-orange-500/10 p-1.5 rounded-lg text-orange-500"><i data-lucide="mail" class="w-4 h-4"></i></span> E-mail ativo facilita instruções
-                                </div>
-                                <div class="flex items-center gap-2.5 text-sm font-semibold text-gray-700 dark:text-gray-300">
-                                    <span class="bg-orange-500/10 p-1.5 rounded-lg text-orange-500"><i data-lucide="heart" class="w-4 h-4"></i></span> Aumenta chances de resposta rápida
-                                </div>
-                            </div>
+        <section id="atualizar-redome" class="py-16 px-4">
+            <div class="max-w-4xl mx-auto bg-gradient-to-br from-orange-50 to-orange-100/50 dark:from-orange-950/30 dark:to-surface-strongDark border border-orange-200 dark:border-orange-900/50 rounded-[2.5rem] p-8 md:p-12 shadow-lg relative overflow-hidden">
+                <!-- Decoração Laranja -->
+                <div class="absolute -top-24 -right-24 w-64 h-64 bg-orange-500/20 blur-[80px] rounded-full pointer-events-none"></div>
+                
+                <div class="flex flex-col md:flex-row gap-10 items-center relative z-10">
+                    <div class="md:w-1/3 flex justify-center">
+                        <div class="w-32 h-32 bg-white dark:bg-surface-dark rounded-full shadow-ios flex items-center justify-center border-4 border-orange-100 dark:border-orange-900/50 relative">
+                            <i data-lucide="refresh-cw" class="w-12 h-12 text-orange-500"></i>
+                            <div class="absolute -bottom-2 bg-orange-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Atenção</div>
                         </div>
                     </div>
                     
-                    <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-orange-500/10 items-center justify-between">
-                        <p class="text-xs text-gray-400 font-medium max-w-sm">
-                            A atualização oficial deve ser feita nos canais do REDOME. A FlaMedula orienta e mobiliza, mas não substitui o cadastro oficial.
+                    <div class="md:w-2/3">
+                        <h2 class="text-2xl md:text-3xl font-heading font-extrabold text-gray-900 dark:text-white mb-3">🔄 Já é cadastrado no REDOME?</h2>
+                        <p class="text-lg text-orange-800 dark:text-orange-200 font-medium mb-6">Atualizar seus dados pode ser tão importante quanto se cadastrar.</p>
+                        
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                            Se seu telefone, e-mail, cidade ou endereço mudaram, você pode deixar de ser encontrado quando surgir uma possível compatibilidade.
                         </p>
-                        <a href="http://redome.inca.gov.br/" target="_blank" rel="noopener noreferrer" class="bg-orange-500 hover:bg-orange-600 text-white font-extrabold px-8 py-4 rounded-2xl shadow-lg shadow-orange-500/20 hover:shadow-orange-500/30 hover:-translate-y-0.5 transition-all w-full sm:w-auto text-center font-heading">
-                            Atualizar cadastro no REDOME
-                        </a>
+                        
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-start gap-3">
+                                <i data-lucide="smartphone" class="w-5 h-5 text-orange-500 shrink-0 mt-0.5"></i>
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Telefone atualizado evita perda de contato</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i data-lucide="map-pin" class="w-5 h-5 text-orange-500 shrink-0 mt-0.5"></i>
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Cidade e estado corretos ajudam na localização</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i data-lucide="mail" class="w-5 h-5 text-orange-500 shrink-0 mt-0.5"></i>
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">E-mail ativo facilita novas orientações</span>
+                            </li>
+                        </ul>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="#" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3.5 px-6 rounded-xl shadow-[0_0_15px_rgba(249,115,22,0.4)] transition-all text-center flex-1 flex justify-center items-center gap-2">
+                                Atualizar cadastro no REDOME <i data-lucide="external-link" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                        
+                        <p class="text-xs text-gray-500 mt-4 text-center sm:text-left">
+                            <i data-lucide="info" class="w-3 h-3 inline mr-1"></i> A atualização oficial deve ser feita nos canais do REDOME. A FlaMedula orienta e mobiliza, mas não substitui o cadastro oficial.
+                        </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="hub-cadastro" class="py-24 bg-surface-strongLight dark:bg-black">
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-2xl mx-auto mb-12">
+        <!-- Separador Decorativo de Coração 2 -->
+        <div class="py-12 flex justify-center bg-surface-light dark:bg-surface-dark border-t border-gray-200/50 dark:border-gray-800/50">
+            <div class="bg-brand/5 p-4 rounded-full border border-brand/10 shadow-[0_0_20px_rgba(230,57,70,0.1)]">
+                <i data-lucide="heart" class="w-6 h-6 text-brand animate-heartbeat fill-brand/20"></i>
+            </div>
+        </div>
+
+        <section id="cadastro" class="py-24 bg-surface-light dark:bg-surface-dark relative">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-5xl font-heading font-extrabold mb-4 tracking-tight">Três caminhos, um só propósito</h2>
-                    <p class="text-lg text-gray-500">A rede cresce organizando a mobilização. Interfaces preparadas para direcionar você sem burocracia.</p>
+                    <p class="text-lg text-gray-500 font-medium">Organizar a rede para mobilizar melhor. Escolha sua interface visual.</p>
                 </div>
 
                 <!-- Tabs Navigation -->
-                <div class="flex justify-center mb-8">
-                    <div class="bg-gray-200/50 dark:bg-gray-800/50 p-1 rounded-full inline-flex relative shadow-inner">
-                        <button id="tab-doador" class="relative z-10 px-6 py-3 rounded-full text-sm font-bold transition-colors text-white" onclick="switchTab('doador')">🩸 Doador / Interesse</button>
-                        <button id="tab-paciente" class="relative z-10 px-6 py-3 rounded-full text-sm font-bold transition-colors text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white" onclick="switchTab('paciente')">💙 Paciente</button>
-                        <!-- Pílula animada -->
-                        <div id="tab-pill" class="absolute top-1 left-1 bottom-1 w-[50%] bg-brand rounded-full shadow-md transition-transform duration-300 ease-out"></div>
-                    </div>
+                <div class="flex justify-center mb-8 p-1.5 bg-gray-200/50 dark:bg-gray-800/50 rounded-2xl max-w-md mx-auto relative z-20 backdrop-blur-sm">
+                    <button onclick="switchTab('doador')" id="tab-doador" class="flex-1 py-2.5 px-4 rounded-xl text-sm font-bold transition-all bg-white dark:bg-surface-strongDark text-brand shadow-sm">Doador</button>
+                    <button onclick="switchTab('paciente')" id="tab-paciente" class="flex-1 py-2.5 px-4 rounded-xl text-sm font-bold transition-all text-gray-500 hover:text-gray-900 dark:hover:text-white">Paciente</button>
                 </div>
 
-                <!-- Doador App -->
-                <div id="app-doador" class="glass-card rounded-[2.5rem] shadow-ios relative overflow-hidden transition-all duration-500 transform border border-brand/20">
-                    <div class="absolute -top-32 -left-32 w-64 h-64 bg-brand/10 blur-[80px] rounded-full pointer-events-none"></div>
-                    <div class="p-8 md:p-12 relative z-10">
-                        
-                        <!-- Step 1: Escolha Inicial -->
-                        <div id="doador-step-1" class="text-center">
-                            <h3 class="text-2xl font-heading font-extrabold mb-8 text-gray-900 dark:text-white">Você já é doador oficial?</h3>
-                            <div class="grid sm:grid-cols-2 gap-4 max-w-lg mx-auto">
-                                <button onclick="setDoadorStep('ja')" class="p-6 rounded-2xl border-2 border-gray-200 dark:border-gray-700 hover:border-brand hover:bg-brand/5 dark:hover:border-brand font-bold text-lg transition-all shadow-sm">Sim, já sou doador</button>
-                                <button onclick="setDoadorStep('novo')" class="p-6 rounded-2xl border-2 border-gray-200 dark:border-gray-700 hover:border-brand hover:bg-brand/5 dark:hover:border-brand font-bold text-lg transition-all shadow-sm">Ainda não sou doador</button>
+                <!-- App Container -->
+                <div class="bg-white dark:bg-surface-strongDark border border-gray-200 dark:border-gray-800 rounded-[2.5rem] shadow-ios dark:shadow-ios-dark overflow-hidden relative z-10 transition-all duration-500 min-h-[500px]">
+                    
+                    <!-- TAB DOADOR (Corrigido conforme prompt) -->
+                    <div id="content-doador" class="p-8 md:p-12 transition-opacity duration-300">
+                        <!-- Pergunta Inicial -->
+                        <div id="doador-step-1">
+                            <h3 class="text-2xl font-heading font-bold mb-6 text-center">Você já é doador de sangue/medula?</h3>
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <button onclick="selectDoadorType('sim')" class="p-6 border-2 border-gray-100 dark:border-gray-800 rounded-2xl hover:border-brand dark:hover:border-brand hover:bg-brand/5 transition-all text-center group">
+                                    <div class="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-brand/10 group-hover:text-brand transition-colors"><i data-lucide="check" class="w-6 h-6"></i></div>
+                                    <span class="font-bold block">Sim, já sou doador</span>
+                                </button>
+                                <button onclick="selectDoadorType('nao')" class="p-6 border-2 border-gray-100 dark:border-gray-800 rounded-2xl hover:border-brand dark:hover:border-brand hover:bg-brand/5 transition-all text-center group">
+                                    <div class="w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-brand/10 group-hover:text-brand transition-colors"><i data-lucide="user-plus" class="w-6 h-6"></i></div>
+                                    <span class="font-bold block">Ainda não sou doador</span>
+                                </button>
                             </div>
                         </div>
 
-                        <!-- Step 2a: Já é doador (Update) -->
-                        <div id="doador-step-ja" class="hidden animate-fade-in">
-                            <button onclick="setDoadorStep('1')" class="text-sm text-gray-500 mb-6 flex items-center hover:text-brand transition-colors"><i data-lucide="arrow-left" class="w-4 h-4 mr-1"></i> Voltar</button>
-                            <h3 class="text-2xl font-heading font-extrabold mb-2 text-brand flex items-center gap-2"><i data-lucide="user-check"></i> Já sou doador</h3>
-                            <p class="text-gray-500 mb-8 font-medium">Atualize seus dados para continuar encontrável quando surgir uma campanha ou possível compatibilidade.</p>
+                        <!-- Fluxo: Já é Doador (Atualização) -->
+                        <div id="doador-flow-update" class="hidden animate-fade-in">
+                            <button onclick="backToDoadorStep1()" class="text-sm text-gray-500 mb-6 flex items-center hover:text-brand"><i data-lucide="arrow-left" class="w-4 h-4 mr-1"></i> Voltar</button>
+                            <h3 class="text-xl font-heading font-bold mb-2">Mantenha-se encontrável</h3>
+                            <p class="text-sm text-gray-500 mb-6">Atualizar seus dados é fundamental. Se a equipe do REDOME não conseguir ligar, a doação não acontece.</p>
                             
-                            <div class="grid md:grid-cols-2 gap-6 opacity-60 pointer-events-none mb-8">
-                                <div class="space-y-2">
-                                    <label class="text-xs font-bold uppercase tracking-wider text-gray-500 ml-1">Telefone Atualizado</label>
-                                    <div class="h-14 bg-gray-50 dark:bg-black/50 rounded-xl border border-gray-200 dark:border-gray-800 px-4 flex items-center text-gray-400">(XX) 9XXXX-XXXX</div>
-                                </div>
-                                <div class="space-y-2">
-                                    <label class="text-xs font-bold uppercase tracking-wider text-gray-500 ml-1">E-mail Atualizado</label>
-                                    <div class="h-14 bg-gray-50 dark:bg-black/50 rounded-xl border border-gray-200 dark:border-gray-800 px-4 flex items-center text-gray-400">exemplo@email.com</div>
-                                </div>
-                                <div class="space-y-2 md:col-span-2">
-                                    <label class="text-xs font-bold uppercase tracking-wider text-gray-500 ml-1">Cidade / Estado Atual</label>
-                                    <div class="h-14 bg-gray-50 dark:bg-black/50 rounded-xl border border-gray-200 dark:border-gray-800 px-4 flex items-center text-gray-400">Cidade - UF</div>
-                                </div>
+                            <div class="space-y-4 mb-8">
+                                <div class="relative"><i data-lucide="smartphone" class="absolute left-4 top-3.5 w-5 h-5 text-gray-400"></i><input type="tel" placeholder="Telefone atualizado" class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-all"></div>
+                                <div class="relative"><i data-lucide="mail" class="absolute left-4 top-3.5 w-5 h-5 text-gray-400"></i><input type="email" placeholder="E-mail atualizado" class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:border-brand transition-all"></div>
+                                <div class="relative"><i data-lucide="map-pin" class="absolute left-4 top-3.5 w-5 h-5 text-gray-400"></i><input type="text" placeholder="Cidade / Estado atual" class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:border-brand transition-all"></div>
+                            </div>
+
+                            <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-xl border border-blue-100 dark:border-blue-800 mb-6">
+                                <p class="text-xs text-blue-800 dark:text-blue-300 font-medium">
+                                    <i data-lucide="info" class="w-4 h-4 inline mr-1"></i> A atualização oficial deve ser feita nos canais do REDOME. A FlaMedula orienta e mobiliza.
+                                </p>
                             </div>
                             
-                            <div class="bg-brand/5 border border-brand/20 p-6 rounded-2xl mb-8 flex items-start gap-4">
-                                <i data-lucide="info" class="w-6 h-6 text-brand mt-0.5 shrink-0"></i>
-                                <p class="text-sm text-gray-700 dark:text-gray-300 font-medium">A atualização oficial deve ser feita nos canais do REDOME. A FlaMedula orienta e mobiliza.</p>
-                            </div>
-
-                            <button class="w-full bg-brand text-white font-bold py-4 rounded-xl shadow-md hover:bg-brand-dark transition-colors text-lg">Atualizar cadastro no REDOME <i data-lucide="external-link" class="w-4 h-4 inline-block ml-1"></i></button>
-                        </div>
-
-                        <!-- Step 2b: Novo Doador/Interesse -->
-                        <div id="doador-step-novo" class="hidden animate-fade-in">
-                            <button onclick="setDoadorStep('1')" class="text-sm text-gray-500 mb-6 flex items-center hover:text-brand transition-colors"><i data-lucide="arrow-left" class="w-4 h-4 mr-1"></i> Voltar</button>
-                            <h3 class="text-2xl font-heading font-extrabold mb-2 text-brand flex items-center gap-2"><i data-lucide="droplet"></i> Novo Interesse</h3>
-                            <p class="text-gray-500 mb-8 font-medium">Entre para a rede de pessoas que podem ser orientadas e mobilizadas em campanhas na sua região.</p>
-                            
-                            <div class="grid md:grid-cols-2 gap-4 opacity-70 pointer-events-none mb-8">
-                                <div class="h-14 bg-gray-50 dark:bg-black/50 rounded-xl border border-gray-200 dark:border-gray-800 px-4 flex items-center text-gray-400">Nome completo</div>
-                                <div class="h-14 bg-gray-50 dark:bg-black/50 rounded-xl border border-gray-200 dark:border-gray-800 px-4 flex items-center text-gray-400">WhatsApp</div>
-                                <div class="h-14 bg-gray-50 dark:bg-black/50 rounded-xl border border-gray-200 dark:border-gray-800 px-4 flex items-center text-gray-400">Cidade / Estado</div>
-                                <div class="h-14 bg-gray-50 dark:bg-black/50 rounded-xl border border-gray-200 dark:border-gray-800 px-4 flex items-center text-gray-400 justify-between">Tipo Sanguíneo <i data-lucide="chevron-down" class="w-4 h-4"></i></div>
-                                
-                                <div class="md:col-span-2 space-y-2 mt-2">
-                                    <label class="text-xs font-bold uppercase tracking-wider text-gray-500 ml-1">Você tem interesse em se tornar doador de medula?</label>
-                                    <div class="h-14 bg-gray-50 dark:bg-black/50 rounded-xl border border-gray-200 dark:border-gray-800 px-4 flex items-center text-gray-400 justify-between">Sim, quero receber orientação <i data-lucide="chevron-down" class="w-4 h-4"></i></div>
-                                </div>
-                            </div>
-
-                            <div class="bg-gray-50 dark:bg-surface-strongDark border border-gray-200 dark:border-gray-700 p-5 rounded-2xl mb-8 flex items-start gap-4">
-                                <div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in mt-1 shrink-0 opacity-80 pointer-events-none">
-                                    <input type="checkbox" name="toggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none border-gray-300 dark:border-gray-600 top-0 left-0" checked/>
-                                    <label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 dark:bg-gray-600"></label>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-sm mb-1 text-gray-900 dark:text-white">Autorização de Contato</h4>
-                                    <p class="text-xs text-gray-500 leading-relaxed">Autorizo a equipe FlaMedula a entrar em contato para orientação, campanhas e mobilizações relacionadas à doação solidária.</p>
-                                </div>
-                            </div>
-
-                            <button class="w-full bg-brand/20 text-brand font-bold py-4 rounded-xl border border-brand/30 hover:bg-brand hover:text-white transition-colors text-lg opacity-80 cursor-not-allowed">
-                                Protótipo Visual - Envio Futuro
+                            <button class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 rounded-xl shadow-md transition-all flex justify-center items-center gap-2">
+                                Atualizar cadastro no REDOME <i data-lucide="external-link" class="w-4 h-4"></i>
                             </button>
                         </div>
-                    </div>
-                </div>
 
-                <!-- Paciente App -->
-                <div id="app-paciente" class="hidden glass-card rounded-[2.5rem] shadow-ios relative overflow-hidden transition-all duration-500 transform border border-patient/20">
-                    <div class="absolute -top-32 -right-32 w-64 h-64 bg-patient/10 blur-[80px] rounded-full pointer-events-none"></div>
-                    <div class="p-8 md:p-12 relative z-10">
-                        <h3 class="text-2xl font-heading font-extrabold mb-2 text-patient flex items-center gap-2"><i data-lucide="heart-pulse"></i> Cadastrar Paciente</h3>
-                        <p class="text-gray-500 mb-8 font-medium">Informe um caso para que a equipe possa analisar, orientar e organizar possibilidades de mobilização responsável.</p>
-
-                        <div class="space-y-6 opacity-70 pointer-events-none mb-8">
-                            <div class="space-y-2">
-                                <label class="text-xs font-bold uppercase tracking-wider text-gray-500 ml-1">Quem está cadastrando este caso?</label>
-                                <div class="grid grid-cols-3 gap-2">
-                                    <div class="h-12 bg-patient/10 text-patient border border-patient/30 rounded-xl flex items-center justify-center text-xs font-bold">Familiar/Resp.</div>
-                                    <div class="h-12 bg-gray-50 dark:bg-black/50 border border-gray-200 dark:border-gray-700 rounded-xl flex items-center justify-center text-xs text-gray-400">Médico</div>
-                                    <div class="h-12 bg-gray-50 dark:bg-black/50 border border-gray-200 dark:border-gray-700 rounded-xl flex items-center justify-center text-xs text-gray-400">Apoiador</div>
+                        <!-- Fluxo: Novo Doador -->
+                        <div id="doador-flow-new" class="hidden animate-fade-in">
+                            <button onclick="backToDoadorStep1()" class="text-sm text-gray-500 mb-6 flex items-center hover:text-brand"><i data-lucide="arrow-left" class="w-4 h-4 mr-1"></i> Voltar</button>
+                            <h3 class="text-xl font-heading font-bold mb-2">🩸 Cadastro de Interesse</h3>
+                            <p class="text-sm text-gray-500 mb-6">Entre para a rede. Preencha os dados básicos (visualização de protótipo).</p>
+                            
+                            <div class="space-y-4 mb-6">
+                                <input type="text" placeholder="Nome completo" class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl py-3 px-4 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <input type="tel" placeholder="Telefone" class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl py-3 px-4 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand">
+                                    <input type="text" placeholder="Cidade/UF" class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl py-3 px-4 focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand">
                                 </div>
                             </div>
 
-                            <div class="grid md:grid-cols-2 gap-4">
-                                <div class="h-14 bg-gray-50 dark:bg-black/50 rounded-xl border border-gray-200 dark:border-gray-800 px-4 flex items-center text-gray-400">Nome do Paciente</div>
-                                <div class="h-14 bg-gray-50 dark:bg-black/50 rounded-xl border border-gray-200 dark:border-gray-800 px-4 flex items-center text-gray-400 justify-between">Necessidade <i data-lucide="chevron-down" class="w-4 h-4"></i></div>
-                                <div class="h-14 bg-gray-50 dark:bg-black/50 rounded-xl border border-gray-200 dark:border-gray-800 px-4 flex items-center text-gray-400">Hospital / Cidade</div>
-                                <div class="h-14 bg-gray-50 dark:bg-black/50 rounded-xl border border-gray-200 dark:border-gray-800 px-4 flex items-center text-gray-400 justify-between">Urgência <i data-lucide="chevron-down" class="w-4 h-4"></i></div>
+                            <div class="mb-6 p-5 border border-gray-200 dark:border-gray-700 rounded-2xl bg-gray-50 dark:bg-gray-900">
+                                <h4 class="font-bold text-sm mb-3">Você também tem interesse em se tornar doador de medula?</h4>
+                                <div class="space-y-2">
+                                    <label class="flex items-center gap-3 p-3 border border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-brand transition-colors bg-white dark:bg-surface-strongDark">
+                                        <input type="radio" name="medula_interest" class="w-4 h-4 text-brand focus:ring-brand border-gray-300">
+                                        <span class="text-sm font-medium">Sim, quero receber orientação</span>
+                                    </label>
+                                    <label class="flex items-center gap-3 p-3 border border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-brand transition-colors bg-white dark:bg-surface-strongDark">
+                                        <input type="radio" name="medula_interest" class="w-4 h-4 text-brand focus:ring-brand border-gray-300">
+                                        <span class="text-sm font-medium">Talvez, quero entender melhor</span>
+                                    </label>
+                                    <label class="flex items-center gap-3 p-3 border border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-brand transition-colors bg-white dark:bg-surface-strongDark">
+                                        <input type="radio" name="medula_interest" class="w-4 h-4 text-brand focus:ring-brand border-gray-300">
+                                        <span class="text-sm font-medium">Não neste momento</span>
+                                    </label>
+                                </div>
                             </div>
+
+                            <div class="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl border border-gray-200 dark:border-gray-700 mb-6 flex items-start gap-3">
+                                <div class="mt-0.5">
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" value="" class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-500"></div>
+                                    </label>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-bold">Autorização de contato</h4>
+                                    <p class="text-xs text-gray-500 mt-1">Autorizo a equipe FlaMedula a entrar em contato para orientação, campanhas e mobilizações relacionadas à doação.</p>
+                                </div>
+                            </div>
+
+                            <button class="w-full bg-brand hover:bg-brand-dark text-white font-bold py-4 rounded-xl shadow-glow-brand transition-all text-center block">Enviar (Simulação visual)</button>
+                        </div>
+                    </div>
+
+                    <!-- TAB PACIENTE -->
+                    <div id="content-paciente" class="hidden p-8 md:p-12 transition-opacity duration-300">
+                        <h3 class="text-2xl font-heading font-bold mb-2 text-center text-patient">💙 Cadastro de Paciente</h3>
+                        <p class="text-sm text-gray-500 mb-6 text-center">Informe um caso para que a equipe possa analisar e organizar possibilidades de mobilização.</p>
+
+                        <div class="mb-6">
+                            <label class="block text-sm font-bold mb-2">Quem está cadastrando este caso?</label>
+                            <select id="paciente-role" class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl py-3 px-4 focus:outline-none focus:border-patient focus:ring-1 focus:ring-patient text-sm">
+                                <option>Sou responsável/familiar</option>
+                                <option>Sou médico/profissional de saúde</option>
+                                <option>Sou apoiador ajudando um caso</option>
+                            </select>
                         </div>
 
-                        <div class="bg-gray-50 dark:bg-surface-strongDark border border-gray-200 dark:border-gray-700 p-5 rounded-2xl mb-8 flex items-start gap-4">
-                            <div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in mt-1 shrink-0 opacity-80 pointer-events-none">
-                                <input type="checkbox" name="toggle" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none border-gray-300 dark:border-gray-600 top-0 left-0" checked/>
-                                <label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 dark:bg-gray-600"></label>
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <input type="text" placeholder="Nome do paciente" class="col-span-2 w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl py-3 px-4 focus:outline-none focus:border-patient text-sm">
+                            <input type="text" placeholder="Cidade/UF" class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl py-3 px-4 focus:outline-none focus:border-patient text-sm">
+                            <input type="text" placeholder="Hospital" class="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl py-3 px-4 focus:outline-none focus:border-patient text-sm">
+                            <select class="col-span-2 w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl py-3 px-4 focus:outline-none focus:border-patient text-sm">
+                                <option disabled selected>Necessidade principal...</option>
+                                <option>Doação de Sangue</option>
+                                <option>Plaquetas</option>
+                                <option>Mobilização para Medula</option>
+                                <option>Outro apoio</option>
+                            </select>
+                        </div>
+
+                        <div class="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl border border-gray-200 dark:border-gray-700 mb-6 flex items-start gap-3">
+                            <div class="mt-0.5">
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" value="" class="sr-only peer">
+                                    <div class="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-green-500"></div>
+                                </label>
                             </div>
                             <div>
-                                <h4 class="font-bold text-sm mb-1 text-gray-900 dark:text-white">Autorização e cuidado</h4>
-                                <p class="text-xs text-gray-500 leading-relaxed">As informações serão usadas para análise, orientação e possível mobilização responsável. A FlaMedula orienta e mobiliza, não substitui atendimento médico.</p>
+                                <h4 class="text-sm font-bold text-patient dark:text-patient-light">Autorização e cuidado com o caso</h4>
+                                <p class="text-xs text-gray-500 mt-1">As informações serão usadas para análise, orientação e possível mobilização responsável. A divulgação pública depende de autorização da família/médico.</p>
                             </div>
                         </div>
 
-                        <button class="w-full bg-patient/20 text-patient font-bold py-4 rounded-xl border border-patient/30 hover:bg-patient hover:text-white transition-colors text-lg opacity-80 cursor-not-allowed">
-                            Protótipo Visual - Envio Futuro
-                        </button>
+                        <button class="w-full bg-patient hover:bg-patient-dark text-white font-bold py-4 rounded-xl shadow-glow-patient transition-all text-center block">Enviar caso (Simulação visual)</button>
                     </div>
-                </div>
 
+                </div>
             </div>
         </section>
 
-        <section id="transparencia" class="py-24 bg-surface-light dark:bg-surface-dark border-t border-gray-200/50 dark:border-gray-800/50">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section id="transparencia" class="py-24 bg-surface-light dark:bg-surface-dark border-t border-gray-200/50 dark:border-gray-800/50 relative overflow-hidden">
+            <div class="absolute inset-0 bg-grid-pattern opacity-30 pointer-events-none"></div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
                     <div class="max-w-2xl">
-                        <h2 class="text-3xl md:text-5xl font-heading font-extrabold mb-4 tracking-tight">📊 Transparência que fortalece a confiança</h2>
-                        <p class="text-lg text-gray-500 font-medium">A FlaMedula está estruturando uma base para acompanhar cadastros, casos, campanhas e metas com mais clareza.</p>
+                        <h2 class="text-3xl md:text-5xl font-heading font-extrabold mb-4 tracking-tight">📊 Transparência da rede</h2>
+                        <p class="text-lg text-gray-500 font-medium">Dados ajudam a FlaMedula a transformar intenção em mobilização organizada.</p>
                     </div>
-                    <div class="text-xs font-bold font-mono bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-500 px-4 py-2 rounded-lg border border-yellow-200 dark:border-yellow-800 self-start md:self-auto flex items-center gap-2">
-                        <i data-lucide="database" class="w-4 h-4"></i> Dados demonstrativos (Protótipo)
+                    <div class="text-[10px] sm:text-xs font-bold font-mono bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-500 px-4 py-2.5 rounded-xl border border-yellow-200 dark:border-yellow-800 self-start md:self-auto flex items-center gap-2 shadow-sm backdrop-blur-sm">
+                        <i data-lucide="database" class="w-4 h-4 shrink-0"></i> Dados demonstrativos do protótipo — futura integração com painel ADM/Supabase.
                     </div>
                 </div>
 
-                <div class="grid lg:grid-cols-3 gap-6" id="metrics-container">
-                    <!-- Grid 2x2 para os 4 Cards Principais (ocupa 2 colunas no desktop) -->
-                    <div class="lg:col-span-2 grid sm:grid-cols-2 gap-6">
-                        <div class="bg-white dark:bg-surface-strongDark p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow">
-                            <div class="w-12 h-12 bg-brand/10 text-brand rounded-full flex items-center justify-center mb-6"><i data-lucide="droplet" class="w-6 h-6"></i></div>
-                            <div class="text-5xl font-heading font-black mb-2 text-gray-900 dark:text-white"><span class="count-up" data-target="128">0</span></div>
-                            <div class="text-sm font-bold text-gray-500 uppercase tracking-wider">Cadastros orientados este mês</div>
+                <div class="flex flex-col gap-8" id="metrics-container">
+                    <!-- Grid 2x2 para os 4 Cards Principais -->
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="bg-white/80 dark:bg-surface-strongDark/80 backdrop-blur p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow group">
+                            <div class="w-12 h-12 bg-brand/10 text-brand rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"><i data-lucide="droplet" class="w-6 h-6"></i></div>
+                            <div class="text-4xl xl:text-5xl font-heading font-black mb-2 text-gray-900 dark:text-white"><span class="count-up" data-target="328">0</span></div>
+                            <h3 class="text-sm font-bold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-1">Doadores cadastrados</h3>
+                            <p class="text-xs text-gray-500 font-medium">pessoas adicionadas à base da rede</p>
                         </div>
-                        <div class="bg-white dark:bg-surface-strongDark p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow">
-                            <div class="w-12 h-12 bg-purple-500/10 text-purple-500 rounded-full flex items-center justify-center mb-6"><i data-lucide="dna" class="w-6 h-6"></i></div>
-                            <div class="text-5xl font-heading font-black mb-2 text-gray-900 dark:text-white"><span class="count-up" data-target="47">0</span></div>
-                            <div class="text-sm font-bold text-gray-500 uppercase tracking-wider">Interessados em medula</div>
+                        <div class="bg-white/80 dark:bg-surface-strongDark/80 backdrop-blur p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow group">
+                            <div class="w-12 h-12 bg-purple-500/10 text-purple-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"><i data-lucide="dna" class="w-6 h-6"></i></div>
+                            <div class="text-4xl xl:text-5xl font-heading font-black mb-2 text-gray-900 dark:text-white"><span class="count-up" data-target="146">0</span></div>
+                            <h3 class="text-sm font-bold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-1">Possíveis doadores</h3>
+                            <p class="text-xs text-gray-500 font-medium">interessados em orientação sobre medula</p>
                         </div>
-                        <div class="bg-white dark:bg-surface-strongDark p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow">
-                            <div class="w-12 h-12 bg-patient/10 text-patient rounded-full flex items-center justify-center mb-6"><i data-lucide="folder-heart" class="w-6 h-6"></i></div>
-                            <div class="text-5xl font-heading font-black mb-2 text-gray-900 dark:text-white"><span class="count-up" data-target="12">0</span></div>
-                            <div class="text-sm font-bold text-gray-500 uppercase tracking-wider">Casos recebidos p/ análise</div>
+                        <div class="bg-white/80 dark:bg-surface-strongDark/80 backdrop-blur p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow group">
+                            <div class="w-12 h-12 bg-orange-500/10 text-orange-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"><i data-lucide="refresh-cw" class="w-6 h-6"></i></div>
+                            <div class="text-4xl xl:text-5xl font-heading font-black mb-2 text-gray-900 dark:text-white"><span class="count-up" data-target="89">0</span></div>
+                            <h3 class="text-sm font-bold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-1">Já no REDOME</h3>
+                            <p class="text-xs text-gray-500 font-medium">pessoas lembradas sobre atualização de dados</p>
                         </div>
-                        <div class="bg-white dark:bg-surface-strongDark p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow">
-                            <div class="w-12 h-12 bg-green-500/10 text-green-500 rounded-full flex items-center justify-center mb-6"><i data-lucide="megaphone" class="w-6 h-6"></i></div>
-                            <div class="text-5xl font-heading font-black mb-2 text-gray-900 dark:text-white"><span class="count-up" data-target="8">0</span></div>
-                            <div class="text-sm font-bold text-gray-500 uppercase tracking-wider">Ações e campanhas registradas</div>
+                        <div class="bg-white/80 dark:bg-surface-strongDark/80 backdrop-blur p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow group">
+                            <div class="w-12 h-12 bg-patient/10 text-patient rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"><i data-lucide="folder-heart" class="w-6 h-6"></i></div>
+                            <div class="text-4xl xl:text-5xl font-heading font-black mb-2 text-gray-900 dark:text-white"><span class="count-up" data-target="24">0</span></div>
+                            <h3 class="text-sm font-bold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-1">Casos recebidos</h3>
+                            <p class="text-xs text-gray-500 font-medium">casos enviados para análise inicial</p>
                         </div>
                     </div>
 
-                    <!-- Bloco Horizontal Abaixo (Meta Mensal & Status) -->
-                    <div class="flex flex-col gap-6">
-                        <div class="bg-gradient-to-br from-gray-900 to-black dark:from-white dark:to-gray-200 p-8 rounded-3xl shadow-lg text-white dark:text-black flex-1 flex flex-col justify-center">
-                            <h4 class="text-lg font-bold mb-6 opacity-90">Meta mensal de orientação</h4>
-                            <div class="text-4xl font-heading font-black mb-4"><span class="count-up" data-target="64">0</span>% <span class="text-xl font-medium opacity-60">alcançada</span></div>
-                            <div class="w-full bg-white/20 dark:bg-black/10 h-3 rounded-full overflow-hidden mb-3">
-                                <div class="fill-bar bg-brand h-full w-0 transition-all duration-1000 ease-out rounded-full" data-width="64%"></div>
+                    <!-- Bloco Horizontal Abaixo (Meta Mensal) -->
+                    <div class="bg-gradient-to-br from-gray-900 to-black dark:from-surface-strongDark dark:to-[#111] p-8 md:p-10 rounded-[2.5rem] shadow-xl text-white border border-gray-800 flex flex-col lg:flex-row items-center gap-10 relative overflow-hidden">
+                        <div class="absolute -top-32 -left-32 w-64 h-64 bg-brand/20 blur-[100px] rounded-full pointer-events-none"></div>
+                        <div class="flex-1 w-full relative z-10">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="bg-brand/20 p-2.5 rounded-full text-brand shadow-[0_0_15px_rgba(230,57,70,0.3)]"><i data-lucide="target" class="w-6 h-6"></i></div>
+                                <h4 class="text-xl md:text-2xl font-heading font-bold">Meta do mês: ampliar a base acionável</h4>
                             </div>
-                            <p class="text-xs font-bold uppercase tracking-widest opacity-60">128 de 200 cadastros</p>
+                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-end mb-4 gap-2">
+                                <div class="text-4xl font-heading font-black"><span class="count-up" data-target="66">0</span>% <span class="text-lg font-medium opacity-60 font-sans tracking-normal">da meta mensal</span></div>
+                                <p class="text-xs font-bold uppercase tracking-widest text-brand-light bg-brand/10 px-3 py-1.5 rounded-full border border-brand/20 inline-block">328 de 500 cadastros mapeados</p>
+                            </div>
+                            <div class="w-full bg-white/10 h-4 rounded-full overflow-hidden mb-5 shadow-inner">
+                                <div class="fill-bar bg-brand h-full w-0 transition-all duration-1000 ease-out rounded-full shadow-[0_0_10px_rgba(230,57,70,0.8)] relative" data-width="66%">
+                                    <div class="absolute inset-0 bg-white/20 w-full animate-heartbeat opacity-50"></div>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-400 font-medium leading-relaxed max-w-2xl">A cada novo cadastro, a FlaMedula entende melhor onde existem pessoas disponíveis para orientar, mobilizar e fortalecer campanhas.</p>
                         </div>
-                        
-                        <div class="bg-white dark:bg-surface-strongDark p-6 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm">
-                            <h4 class="font-bold text-sm uppercase tracking-wider text-gray-500 mb-4">Status da Rede (Mock)</h4>
-                            <div class="space-y-3">
-                                <div class="flex justify-between items-center text-sm font-medium"><span class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-yellow-500"></div> Em análise</span> <span>5</span></div>
-                                <div class="flex justify-between items-center text-sm font-medium"><span class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-blue-500"></div> Orientados</span> <span>4</span></div>
-                                <div class="flex justify-between items-center text-sm font-medium"><span class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-brand"></div> Mobilização ativa</span> <span>3</span></div>
+
+                        <!-- Mini Gráfico de Crescimento -->
+                        <div class="w-full lg:w-auto bg-white/5 border border-white/10 p-6 rounded-3xl shrink-0 relative z-10">
+                            <h5 class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6 text-center">Crescimento Semanal</h5>
+                            <div class="flex items-end gap-5 h-24 justify-center">
+                                <div class="flex flex-col items-center gap-2 group">
+                                    <div class="w-8 bg-brand/40 group-hover:bg-brand transition-colors rounded-t-lg relative" style="height: 40%;"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity">62</span></div>
+                                    <span class="text-[10px] font-bold text-gray-500">S1</span>
+                                </div>
+                                <div class="flex flex-col items-center gap-2 group">
+                                    <div class="w-8 bg-brand/60 group-hover:bg-brand transition-colors rounded-t-lg relative" style="height: 60%;"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity">81</span></div>
+                                    <span class="text-[10px] font-bold text-gray-500">S2</span>
+                                </div>
+                                <div class="flex flex-col items-center gap-2 group">
+                                    <div class="w-8 bg-brand/80 group-hover:bg-brand transition-colors rounded-t-lg relative" style="height: 80%;"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity">94</span></div>
+                                    <span class="text-[10px] font-bold text-gray-500">S3</span>
+                                </div>
+                                <div class="flex flex-col items-center gap-2 group">
+                                    <div class="w-8 bg-brand transition-colors rounded-t-lg relative shadow-[0_0_10px_rgba(230,57,70,0.5)]" style="height: 75%;"><span class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] font-bold text-brand-light">91</span></div>
+                                    <span class="text-[10px] font-bold text-brand-light">S4</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -605,57 +625,50 @@
             </div>
         </section>
 
-        <section id="como-funciona" class="py-24 bg-surface-strongLight dark:bg-black overflow-hidden">
+        <section id="como-funciona" class="py-24 bg-surface-light dark:bg-surface-dark border-t border-gray-200/50 dark:border-gray-800/50 relative">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-20">
+                <div class="text-center mb-16">
                     <h2 class="text-3xl md:text-5xl font-heading font-extrabold mb-4 tracking-tight">🧭 Como funciona</h2>
-                    <p class="text-lg text-gray-500 max-w-2xl mx-auto font-medium">A FlaMedula orienta e mobiliza. REDOME, hemocentros e equipes médicas continuam sendo os canais oficiais de cadastro, triagem e doação.</p>
+                    <p class="text-lg text-gray-500 font-medium">A jornada que transforma intenção em ação concreta.</p>
                 </div>
 
-                <div class="relative ml-4 md:ml-[50%] pb-12" id="timeline-container">
-                    <!-- Linha de fundo -->
-                    <div class="absolute top-0 bottom-0 left-[-1px] w-[3px] bg-gray-200 dark:bg-gray-800"></div>
-                    <!-- Linha animada -->
-                    <div id="timeline-progress" class="absolute top-0 left-[-1px] w-[3px] bg-brand h-0 shadow-[0_0_10px_rgba(230,57,70,0.8)] z-10"></div>
-                    
+                <div class="relative pl-8 md:pl-0">
+                    <!-- Linha Vertical (Timeline) -->
+                    <div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-1 bg-gray-200 dark:bg-gray-800 -translate-x-1/2 rounded-full overflow-hidden">
+                        <div id="timeline-progress" class="timeline-line w-full bg-brand rounded-full h-0 shadow-[0_0_10px_rgba(230,57,70,0.5)]"></div>
+                    </div>
+
+                    <!-- Passos -->
                     <div class="space-y-16">
-                        <!-- Passo 1 -->
-                        <div class="relative flex items-start timeline-step group">
-                            <div class="absolute -left-[9px] top-1 w-5 h-5 rounded-full bg-white dark:bg-black border-4 border-gray-300 dark:border-gray-600 z-20 transition-colors duration-300 step-dot"></div>
-                            <div class="ml-8 md:w-1/2 md:-ml-[50%] md:pr-16 md:text-right transition-opacity duration-500 opacity-50 step-content">
-                                <span class="text-brand font-bold text-sm tracking-widest uppercase mb-1 block">Passo 01</span>
-                                <h4 class="text-2xl font-heading font-bold mb-3">Entenda a causa</h4>
-                                <p class="text-gray-500 leading-relaxed font-medium">Informação clara reduz medo e ajuda a tomar uma decisão consciente sobre seu papel na rede.</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Passo 2 -->
-                        <div class="relative flex items-start timeline-step group">
-                            <div class="absolute -left-[9px] top-1 w-5 h-5 rounded-full bg-white dark:bg-black border-4 border-gray-300 dark:border-gray-600 z-20 transition-colors duration-300 step-dot"></div>
-                            <div class="ml-8 md:w-1/2 md:ml-0 md:pl-16 transition-opacity duration-500 opacity-50 step-content">
-                                <span class="text-brand font-bold text-sm tracking-widest uppercase mb-1 block">Passo 02</span>
-                                <h4 class="text-2xl font-heading font-bold mb-3">Escolha como participar</h4>
-                                <p class="text-gray-500 leading-relaxed font-medium">Você pode se cadastrar, atualizar seus dados oficiais, informar um caso ou apoiar financeiramente a rede.</p>
+                        <div class="timeline-item relative md:w-1/2 md:pr-12 md:text-right flex md:block items-center opacity-50 transition-opacity duration-500">
+                            <div class="absolute left-[-32px] md:left-auto md:-right-3 top-1/2 md:top-6 -translate-y-1/2 w-6 h-6 rounded-full bg-white dark:bg-surface-dark border-4 border-gray-300 dark:border-gray-700 z-10 indicator transition-colors duration-300"></div>
+                            <div class="ml-6 md:ml-0 bg-white dark:bg-surface-strongDark p-6 md:p-8 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-md transition-shadow">
+                                <h3 class="text-xl font-heading font-bold mb-2">1. Entenda a causa</h3>
+                                <p class="text-gray-500 text-sm leading-relaxed">Informação clara reduz medo e ajuda a tomar uma decisão consciente sobre o cadastro.</p>
                             </div>
                         </div>
 
-                        <!-- Passo 3 -->
-                        <div class="relative flex items-start timeline-step group">
-                            <div class="absolute -left-[9px] top-1 w-5 h-5 rounded-full bg-white dark:bg-black border-4 border-gray-300 dark:border-gray-600 z-20 transition-colors duration-300 step-dot"></div>
-                            <div class="ml-8 md:w-1/2 md:-ml-[50%] md:pr-16 md:text-right transition-opacity duration-500 opacity-50 step-content">
-                                <span class="text-brand font-bold text-sm tracking-widest uppercase mb-1 block">Passo 03</span>
-                                <h4 class="text-2xl font-heading font-bold mb-3">A equipe organiza os dados</h4>
-                                <p class="text-gray-500 leading-relaxed font-medium">As informações estruturadas ajudam a orientar campanhas, direcionar regiões e criar possibilidades reais de mobilização.</p>
+                        <div class="timeline-item relative md:w-1/2 md:ml-auto md:pl-12 flex md:block items-center opacity-50 transition-opacity duration-500">
+                            <div class="absolute left-[-32px] md:-left-3 top-1/2 md:top-6 -translate-y-1/2 w-6 h-6 rounded-full bg-white dark:bg-surface-dark border-4 border-gray-300 dark:border-gray-700 z-10 indicator transition-colors duration-300"></div>
+                            <div class="ml-6 md:ml-0 bg-white dark:bg-surface-strongDark p-6 md:p-8 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-md transition-shadow">
+                                <h3 class="text-xl font-heading font-bold mb-2">2. Escolha como participar</h3>
+                                <p class="text-gray-500 text-sm leading-relaxed">Você pode se cadastrar, atualizar seus dados, informar um caso ou apoiar a rede financeiramente.</p>
                             </div>
                         </div>
 
-                        <!-- Passo 4 -->
-                        <div class="relative flex items-start timeline-step group">
-                            <div class="absolute -left-[9px] top-1 w-5 h-5 rounded-full bg-white dark:bg-black border-4 border-gray-300 dark:border-gray-600 z-20 transition-colors duration-300 step-dot"></div>
-                            <div class="ml-8 md:w-1/2 md:ml-0 md:pl-16 transition-opacity duration-500 opacity-50 step-content">
-                                <span class="text-brand font-bold text-sm tracking-widest uppercase mb-1 block">Passo 04</span>
-                                <h4 class="text-2xl font-heading font-bold mb-3">A rede é mobilizada</h4>
-                                <p class="text-gray-500 leading-relaxed font-medium">Quando surge uma necessidade crítica, a FlaMedula ajuda a aproximar a informação, as pessoas corretas e a ação.</p>
+                        <div class="timeline-item relative md:w-1/2 md:pr-12 md:text-right flex md:block items-center opacity-50 transition-opacity duration-500">
+                            <div class="absolute left-[-32px] md:left-auto md:-right-3 top-1/2 md:top-6 -translate-y-1/2 w-6 h-6 rounded-full bg-white dark:bg-surface-dark border-4 border-gray-300 dark:border-gray-700 z-10 indicator transition-colors duration-300"></div>
+                            <div class="ml-6 md:ml-0 bg-white dark:bg-surface-strongDark p-6 md:p-8 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-md transition-shadow">
+                                <h3 class="text-xl font-heading font-bold mb-2">3. A equipe organiza os dados</h3>
+                                <p class="text-gray-500 text-sm leading-relaxed">As informações ajudam a orientar campanhas, regiões e mapear possibilidades de mobilização rápida.</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item relative md:w-1/2 md:ml-auto md:pl-12 flex md:block items-center opacity-50 transition-opacity duration-500">
+                            <div class="absolute left-[-32px] md:-left-3 top-1/2 md:top-6 -translate-y-1/2 w-6 h-6 rounded-full bg-white dark:bg-surface-dark border-4 border-gray-300 dark:border-gray-700 z-10 indicator transition-colors duration-300"></div>
+                            <div class="ml-6 md:ml-0 bg-white dark:bg-surface-strongDark p-6 md:p-8 rounded-[2rem] shadow-sm border border-gray-100 dark:border-gray-800 hover:shadow-md transition-shadow">
+                                <h3 class="text-xl font-heading font-bold mb-2">4. A rede pode ser mobilizada</h3>
+                                <p class="text-gray-500 text-sm leading-relaxed">Quando surge uma necessidade, a FlaMedula ajuda a aproximar informação, pessoas prontas e ação em campo.</p>
                             </div>
                         </div>
                     </div>
@@ -663,520 +676,557 @@
             </div>
         </section>
 
-        <section id="quem-somos" class="py-24 bg-surface-light dark:bg-surface-dark bg-grid-pattern relative">
-            <div class="max-w-5xl mx-auto px-4 text-center relative z-10">
-                <div class="bg-gradient-to-br from-brand-dark to-brand rounded-[3rem] p-10 md:p-20 text-white shadow-2xl relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-[80%] h-[80%] bg-white/5 blur-[100px] rounded-full pointer-events-none"></div>
-                    <i data-lucide="network" class="absolute -left-10 -bottom-10 w-64 h-64 opacity-10 text-black"></i>
-                    
-                    <h2 class="text-4xl md:text-6xl font-heading font-black mb-8 tracking-tight">FlaMedula é mobilização em forma de rede.</h2>
-                    <p class="text-xl md:text-2xl font-medium opacity-90 mb-6 max-w-3xl mx-auto leading-relaxed">
-                        Nascemos para transformar informação em mobilização. A rede ajuda a organizar pessoas dispostas a doar, casos que precisam de apoio e ações que podem alcançar quem está perto.
-                    </p>
-                    <p class="text-lg md:text-xl font-medium opacity-80 mb-12 max-w-3xl mx-auto leading-relaxed">
-                        A causa vive de cadastro consciente, orientação segura, dados atualizados, famílias acolhidas e campanhas que transformam solidariedade em presença.
-                    </p>
-                    
-                    <div class="inline-block bg-white/10 backdrop-blur-md px-8 py-5 rounded-3xl border border-white/20 shadow-lg">
-                        <p class="font-heading font-bold text-2xl text-white/95">"Quando a informação está organizada, a solidariedade chega mais rápido."</p>
-                    </div>
+        <section id="quem-somos" class="py-24 bg-surface-dark relative overflow-hidden">
+            <!-- Overlay escuro com textura leve -->
+            <div class="absolute inset-0 bg-[url('https://res.cloudinary.com/dm9mnc97u/image/upload/v1777677171/FLA_7_1_kkc5qi.png')] bg-cover bg-center opacity-5 mix-blend-overlay"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-surface-dark to-transparent"></div>
+            
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                <i data-lucide="network" class="w-12 h-12 text-brand mx-auto mb-8 opacity-80"></i>
+                <h2 class="text-3xl md:text-5xl font-heading font-black text-white mb-8 tracking-tight leading-tight">FlaMedula é mobilização em forma de rede.</h2>
+                
+                <p class="text-xl md:text-2xl text-gray-300 font-medium leading-relaxed mb-6">
+                    A FlaMedula nasceu para transformar informação em mobilização. A rede ajuda a organizar pessoas dispostas a doar, casos que precisam de apoio e ações que podem alcançar quem está perto.
+                </p>
+                <p class="text-lg text-gray-400 mb-12 max-w-2xl mx-auto">
+                    A causa vive de cadastro consciente, orientação segura, dados atualizados, famílias acolhidas e campanhas que transformam solidariedade em presença.
+                </p>
+                
+                <div class="bg-white/10 backdrop-blur-md border border-white/20 p-6 md:p-8 rounded-3xl inline-block shadow-2xl">
+                    <p class="text-brand-light font-heading font-bold text-xl md:text-2xl italic tracking-wide">"Quando a informação está organizada, a solidariedade chega mais rápido."</p>
                 </div>
             </div>
         </section>
 
-        <section id="equipe" class="py-20 bg-surface-strongLight dark:bg-black">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
-                <div class="mb-12 text-center md:text-left">
-                    <h2 class="text-3xl md:text-4xl font-heading font-extrabold mb-3 tracking-tight">👥 Equipe FlaMedula</h2>
-                    <p class="text-lg text-gray-500 font-medium">Pessoas que ajudam a organizar, acolher e colocar a causa em movimento.</p>
+        <section id="equipe" class="py-24 bg-surface-light dark:bg-surface-strongDark">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Equipe -->
+                <div class="mb-24">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-heading font-extrabold mb-4">👥 Equipe FlaMedula</h2>
+                        <p class="text-lg text-gray-500 font-medium">Pessoas que ajudam a organizar, acolher e colocar a causa em movimento.</p>
+                    </div>
+                    <div id="team-container" class="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 no-scrollbar scroll-smooth">
+                        <!-- JS renders here -->
+                    </div>
                 </div>
-                <div class="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-6 pb-8" id="team-carousel">
-                    <!-- JS renders dynamic items here -->
-                </div>
-            </div>
 
-            <!-- Bloco de Embaixadores / Vozes da Causa -->
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-10 border-t border-gray-200/50 dark:border-gray-800/50">
-                <h2 class="text-3xl md:text-4xl font-heading font-extrabold mb-4 tracking-tight">🎙️ Vozes da Causa</h2>
-                <p class="text-lg text-gray-500 mb-12 max-w-2xl mx-auto font-medium">Vozes que ampliam o alcance da causa e ajudam a convocar mais pessoas para nossa rede.</p>
-                <div class="flex flex-wrap justify-center gap-8" id="ambassadors-container">
-                    <!-- JS renders dynamic items here -->
+                <!-- Embaixadores -->
+                <div id="embaixadores">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-heading font-extrabold mb-4">🌟 Embaixadores</h2>
+                        <p class="text-lg text-gray-500 font-medium">Vozes que ampliam o alcance da causa e ajudam a convocar mais pessoas.</p>
+                    </div>
+                    <div id="ambassadors-container" class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                        <!-- JS renders here -->
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="acoes-e-apoio" class="py-24 bg-surface-light dark:bg-surface-dark border-t border-gray-200/50 dark:border-gray-800/50 bg-dot-pattern">
-            
-            <!-- Bloco Ações -->
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-                <div class="mb-12">
-                    <h2 class="text-3xl md:text-5xl font-heading font-extrabold mb-4 tracking-tight">📸 Ações que tiram a solidariedade do discurso</h2>
-                    <p class="text-lg text-gray-500 font-medium">Campanhas, encontros e mobilizações que mostram a rede acontecendo na prática.</p>
-                </div>
-                <div class="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-8 pb-8" id="actions-carousel">
-                    <!-- JS renders dynamic items here -->
-                </div>
-            </div>
-
-            <!-- Bloco Apoio Financeiro (Conectado estruturalmente) -->
-            <div id="apoio" class="max-w-4xl mx-auto px-4 text-center">
-                <div class="bg-gradient-to-b from-white to-gray-50 dark:from-surface-strongDark dark:to-black rounded-[3rem] p-10 md:p-16 border border-gray-200 dark:border-gray-800 shadow-2xl relative overflow-hidden">
-                    <div class="absolute -top-32 -right-32 w-64 h-64 bg-brand/5 blur-[80px] rounded-full pointer-events-none"></div>
-                    <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-brand/10 text-brand p-4 rounded-full border border-brand/20 backdrop-blur-sm shadow-sm">
-                        <i data-lucide="heart-handshake" class="w-10 h-10"></i>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <!-- Bloco de Ações -->
+                <div class="mb-20">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-heading font-extrabold mb-4">📸 Ações que tiram a solidariedade do discurso</h2>
+                        <p class="text-lg text-gray-500 font-medium max-w-2xl mx-auto">Campanhas, encontros e mobilizações que mostram a rede acontecendo na prática.</p>
                     </div>
                     
-                    <h2 class="text-3xl md:text-5xl font-heading font-black mt-8 mb-6 tracking-tight">❤️ Torne-se apoiador da FlaMedula</h2>
-                    <p class="text-gray-600 dark:text-gray-300 text-lg md:text-xl mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
-                        Por trás de cada campanha existe comunicação, tecnologia, deslocamento, organization e gente fazendo a rede acontecer. Seu apoio ajuda a manter essa mobilização viva.
-                    </p>
-                    
-                    <div class="grid sm:grid-cols-2 gap-4 max-w-xl mx-auto mb-10 text-left">
-                        <div class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand shrink-0"></i> <span class="text-sm font-bold text-gray-700 dark:text-gray-300">Ajude a manter campanhas ativas</span></div>
-                        <div class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand shrink-0"></i> <span class="text-sm font-bold text-gray-700 dark:text-gray-300">Fortaleça a comunicação</span></div>
-                        <div class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand shrink-0"></i> <span class="text-sm font-bold text-gray-700 dark:text-gray-300">Apoie tecnologia e dados</span></div>
-                        <div class="flex items-center gap-3"><i data-lucide="check-circle-2" class="text-brand shrink-0"></i> <span class="text-sm font-bold text-gray-700 dark:text-gray-300">Mais orientação salva vidas</span></div>
+                    <div id="actions-slider" class="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 no-scrollbar scroll-smooth">
+                        <!-- JS renders here -->
                     </div>
-
-                    <button class="bg-gray-900 dark:bg-white text-white dark:text-black hover:scale-105 transition-transform px-10 py-5 rounded-full font-heading font-bold text-xl shadow-xl w-full md:w-auto">
-                        Quero me tornar apoiador
-                    </button>
-                    <p class="mt-6 text-xs font-bold text-gray-400 uppercase tracking-widest">O apoio financeiro será direcionado para uma página própria.</p>
                 </div>
+
+                <!-- Bloco de Apoio Financeiro -->
+                <div id="apoio" class="max-w-4xl mx-auto bg-gradient-to-br from-brand to-brand-dark rounded-[3rem] p-8 md:p-14 shadow-2xl text-white relative overflow-hidden border border-brand-light/30">
+                    <div class="absolute inset-0 bg-[url('https://res.cloudinary.com/dm9mnc97u/image/upload/v1777674863/FLA_7_1_kkc5qi.png')] bg-cover bg-center opacity-[0.03] mix-blend-overlay"></div>
+                    <div class="relative z-10 flex flex-col md:flex-row items-center gap-10">
+                        <div class="md:w-3/5 text-center md:text-left">
+                            <h2 class="text-3xl md:text-4xl font-heading font-black mb-4 leading-tight">❤️ Torne-se apoiador da FlaMedula</h2>
+                            <p class="text-white/80 font-medium text-lg mb-6 leading-relaxed">
+                                Por trás de cada campanha existe comunicação, tecnologia, deslocamento, organização e gente fazendo a rede acontecer. Seu apoio ajuda a manter essa mobilização viva.
+                            </p>
+                            <ul class="space-y-3 mb-8 text-sm font-medium text-white/90 text-left mx-auto max-w-sm md:mx-0">
+                                <li class="flex items-center gap-2"><i data-lucide="check" class="w-5 h-5 text-brand-light"></i> Ajude a manter campanhas ativas</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check" class="w-5 h-5 text-brand-light"></i> Fortaleça a comunicação da causa</li>
+                                <li class="flex items-center gap-2"><i data-lucide="check" class="w-5 h-5 text-brand-light"></i> Apoie tecnologia e organização de dados</li>
+                            </ul>
+                        </div>
+                        <div class="md:w-2/5 flex flex-col items-center">
+                            <button class="bg-white text-brand hover:bg-gray-100 font-bold py-5 px-8 rounded-2xl shadow-xl transition-transform hover:scale-105 active:scale-95 text-lg w-full mb-4">
+                                Quero me tornar apoiador
+                            </button>
+                            <p class="text-[10px] uppercase tracking-widest text-white/50 text-center font-bold">O apoio será direcionado para uma página segura</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <!-- Roller Separador Horizontal 2 -->
-        <div class="overflow-hidden bg-gray-100 dark:bg-gray-900 text-gray-400 dark:text-gray-600 py-4 flex whitespace-nowrap border-y border-gray-200 dark:border-gray-800">
-            <div class="animate-marquee-reverse font-heading font-extrabold tracking-widest text-sm uppercase flex items-center">
-                <span class="mx-8">Dados Organizados</span> <span class="opacity-50">•</span>
-                <span class="mx-8">Campanhas Mais Fortes</span> <span class="opacity-50">•</span>
-                <span class="mx-8">Rede Mais Pronta</span> <span class="opacity-50">•</span>
-                <span class="mx-8">Causa Mais Visível</span> <span class="opacity-50">•</span>
-            </div>
-            <div class="animate-marquee-reverse font-heading font-extrabold tracking-widest text-sm uppercase flex items-center" aria-hidden="true">
-                <span class="mx-8">Dados Organizados</span> <span class="opacity-50">•</span>
-                <span class="mx-8">Campanhas Mais Fortes</span> <span class="opacity-50">•</span>
-                <span class="mx-8">Rede Mais Pronta</span> <span class="opacity-50">•</span>
-                <span class="mx-8">Causa Mais Visível</span> <span class="opacity-50">•</span>
+        <div class="bg-surface-strongDark text-gray-400 py-3 border-y border-gray-800 overflow-hidden flex relative">
+            <div class="flex animate-marquee-reverse whitespace-nowrap items-center font-bold text-xs tracking-widest">
+                <span class="mx-4">DADOS ORGANIZADOS</span><span class="mx-4">•</span>
+                <span class="mx-4">CAMPANHAS MAIS FORTES</span><span class="mx-4">•</span>
+                <span class="mx-4">REDE MAIS PRONTA</span><span class="mx-4">•</span>
+                <span class="mx-4">CAUSA MAIS VISÍVEL</span><span class="mx-4">•</span>
+                <!-- Duplicate -->
+                <span class="mx-4">DADOS ORGANIZADOS</span><span class="mx-4">•</span>
+                <span class="mx-4">CAMPANHAS MAIS FORTES</span><span class="mx-4">•</span>
+                <span class="mx-4">REDE MAIS PRONTA</span><span class="mx-4">•</span>
+                <span class="mx-4">CAUSA MAIS VISÍVEL</span>
             </div>
         </div>
 
-        <section id="depoimentos" class="py-24 bg-surface-strongLight dark:bg-black">
+        <section id="depoimentos" class="py-24 bg-surface-light dark:bg-surface-dark">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
-                    <h2 class="text-3xl md:text-4xl font-heading font-extrabold mb-4 tracking-tight">💬 Histórias que mostram por que essa rede importa</h2>
-                    <p class="text-lg text-gray-500 font-medium max-w-2xl mx-auto">Relatos, mensagens e reconhecimentos de quem acompanha, apoia ou participa ativamente da causa.</p>
+                    <h2 class="text-3xl md:text-4xl font-heading font-extrabold mb-4">💬 Histórias que mostram por que essa rede importa</h2>
+                    <p class="text-lg text-gray-500 font-medium">Relatos e reconhecimentos de quem acompanha ou participa da causa.</p>
                 </div>
-                <div class="grid md:grid-cols-3 gap-8" id="testimonials-container">
-                    <!-- JS renders dynamic items here -->
-                </div>
-            </div>
-        </section>
-
-        <section id="faq" class="py-24 bg-surface-light dark:bg-surface-dark border-t border-gray-200/50 dark:border-gray-800/50">
-            <div class="max-w-3xl mx-auto px-4">
-                <h2 class="text-3xl md:text-4xl font-heading font-extrabold mb-12 text-center tracking-tight">Dúvidas Frequentes</h2>
-                <div class="space-y-4" id="faq-container">
-                    <!-- JS renders dynamic items here -->
+                <div id="testimonials-container" class="grid md:grid-cols-3 gap-6">
+                    <!-- JS renders here -->
                 </div>
             </div>
         </section>
 
-        <section id="cta-final" class="py-32 bg-surface-strongLight dark:bg-black border-t border-gray-200/50 dark:border-gray-800/50 relative overflow-hidden bg-grid-pattern">
-            <div class="absolute inset-0 bg-gradient-to-b from-transparent to-brand/5 pointer-events-none"></div>
-            <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
-                <h2 class="text-4xl md:text-6xl font-heading font-black mb-10 leading-tight tracking-tight">
-                    Informação vira cadastro.<br>
-                    <span class="text-brand">Cadastro vira possibilidade.</span><br>
-                    Possibilidade pode virar vida.
-                </h2>
-                <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-8">
-                    <a href="#hub-cadastro" class="w-full sm:w-auto bg-brand text-white px-8 py-5 rounded-full font-bold text-lg hover:bg-brand-dark transition-all shadow-lg hover:shadow-brand/30 hover:-translate-y-1">🩸 Quero me cadastrar</a>
-                    <a href="#hub-cadastro" onclick="setTimeout(()=>document.getElementById('tab-paciente').click(), 100)" class="w-full sm:w-auto bg-patient text-white px-8 py-5 rounded-full font-bold text-lg hover:bg-patient-dark transition-all shadow-lg hover:shadow-patient/30 hover:-translate-y-1">💙 Cadastrar paciente</a>
+        <section id="faq" class="py-24 bg-white dark:bg-surface-strongDark border-t border-gray-200/50 dark:border-gray-800/50">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-heading font-extrabold mb-4">Perguntas Frequentes</h2>
+                    <p class="text-gray-500">Tudo o que você precisa saber antes de dar o próximo passo.</p>
                 </div>
-                <a href="#atualizar-redome" class="inline-flex items-center justify-center gap-2 text-gray-500 hover:text-brand dark:hover:text-brand-light font-bold text-sm bg-white dark:bg-surface-strongDark px-6 py-3 rounded-full border border-gray-200 dark:border-gray-800 shadow-sm transition-colors">
-                    <i data-lucide="refresh-cw" class="w-4 h-4"></i> Atualizar REDOME
-                </a>
+                <div id="faq-container" class="space-y-4">
+                    <!-- JS renders here -->
+                </div>
+            </div>
+        </section>
+
+        <section id="cta-final" class="py-24 bg-surface-dark relative overflow-hidden text-center">
+            <div class="absolute inset-0 bg-brand/10 bg-dot-pattern mix-blend-overlay"></div>
+            <div class="max-w-3xl mx-auto px-4 relative z-10">
+                <h2 class="text-3xl md:text-5xl font-heading font-black text-white mb-6 leading-tight">Informação vira cadastro. Cadastro vira possibilidade. <span class="text-brand">Possibilidade pode virar vida.</span></h2>
+                <div class="flex flex-col sm:flex-row justify-center gap-4 mt-10">
+                    <a href="#cadastro" onclick="openMiniApp('doador')" class="bg-brand hover:bg-brand-dark text-white font-bold py-4 px-8 rounded-xl shadow-glow-brand transition-transform hover:-translate-y-1">🩸 Quero me cadastrar</a>
+                    <a href="#cadastro" onclick="openMiniApp('paciente')" class="bg-patient hover:bg-patient-dark text-white font-bold py-4 px-8 rounded-xl shadow-glow-patient transition-transform hover:-translate-y-1">💙 Cadastrar paciente</a>
+                </div>
+                <a href="#atualizar-redome" class="inline-block mt-8 text-gray-400 hover:text-white font-medium transition-colors text-sm"><i data-lucide="refresh-cw" class="w-4 h-4 inline mr-1"></i> Atualizar REDOME</a>
             </div>
         </section>
 
         <!-- FOOTER -->
         <footer class="bg-white dark:bg-surface-strongDark py-16 border-t border-gray-200/50 dark:border-gray-800/50 text-center px-4">
-            <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1777674863/FLA_7_1_kkc5qi.png" alt="FlaMedula Logo" class="h-10 mx-auto mb-8 grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition-all">
+            <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1781277293/Untitled_design_16_1_h5rpcj.webp" alt="FlaMedula Logo" class="h-12 md:h-14 mx-auto mb-8 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all">
             <p class="text-xs text-gray-500 max-w-2xl mx-auto mb-8 leading-relaxed font-medium">
-                A FlaMedula é uma rede independente de mobilização e orientação solidária. Não substituímos o REDOME, hemocentros ou entidades oficiais de saúde. Todo cadastro oficial, triagem clínica e procedimento médico seguem regras e protocolos exclusivos das autoridades governamentais.
+                A FlaMedula é uma rede de mobilização e orientação. <strong class="text-gray-700 dark:text-gray-300">Não substituímos o REDOME nem canais oficiais de saúde.</strong> Todo o processo clínico de cadastro, triagem e doação segue as diretrizes dos hemocentros.
             </p>
-            <p class="text-xs text-gray-400 font-bold tracking-widest uppercase">© 2026 FlaMedula. A vida pede passagem.</p>
+            <div class="flex justify-center gap-6 mb-8">
+                <a href="#" class="text-gray-400 hover:text-brand transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                <a href="#" class="text-gray-400 hover:text-brand transition-colors"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                <a href="#" class="text-gray-400 hover:text-brand transition-colors"><i data-lucide="mail" class="w-5 h-5"></i></a>
+            </div>
+            <p class="text-[10px] text-gray-400 font-medium">© 2026 FlaMedula. Todos os direitos reservados. CNPJ: XX.XXX.XXX/0001-XX</p>
         </footer>
 
-    </main>
+    </div>
 
     <script>
-        // 1. Inicializa Ícones
+        // Data Mockup / Fallback for CMS (Supabase ready)
+        const mockData = {
+            heroNewsItems: [
+                { tag: "🧬 MEDULA SEM MEDO", title: "Você sabe como funciona o cadastro de medula?", excerpt: "Informação certa ajuda a vencer o medo e transforma intenção em possibilidade.", btn: "Entender agora", action: "#medula-sem-medo", bg: "from-brand/90 to-black/90", icon: "help-circle" },
+                { tag: "🩸 DOE SANGUE", title: "A Nação também salva vidas fora do campo.", excerpt: "Cada pessoa orientada fortalece campanhas, bancos de sangue e pacientes.", btn: "Quero me cadastrar", action: "#cadastro", bg: "from-red-900/90 to-black/90", icon: "droplet" },
+                { tag: "📣 CAMPANHAS", title: "Mobilização só acontece quando a rede está pronta.", excerpt: "Cadastros, ações e orientação ajudam a alcançar quem pode ajudar.", btn: "Ver ações", action: "#acoes-e-apoio", bg: "from-orange-600/90 to-black/90", icon: "megaphone" },
+                { tag: "💙 PACIENTES", title: "Um caso precisa de alcance, cuidado e organização.", excerpt: "Cadastre um paciente para análise e orientação da equipe.", btn: "Cadastrar paciente", action: "#cadastro", bg: "from-patient/90 to-black/90", icon: "folder-heart" }
+            ],
+            teamMembers: [
+                { name: "André Matos “Dedeco”", role: "Fundador e Diretor Geral", desc: "Lidera a mobilização que transforma informação e solidariedade em ação organizada." },
+                { name: "Danielli Oliveira", role: "Parceira Técnica", desc: "Conecta a causa com orientação técnica e responsabilidade sobre medula." },
+                { name: "Elaine Reixach", role: "Coordenação de Ações", desc: "Ajuda a organizar campanhas, eventos humanitários e ações de mobilização." },
+                { name: "Tio Maiko Castro", role: "Apoio e Acolhimento", desc: "Leva presença e suporte para famílias, crianças e casas de apoio." },
+                { name: "Artur Santos", role: "Logística e Execução", desc: "Atua na operação de campo para transformar mobilização em presença real." }
+            ],
+            ambassadors: [
+                { name: "Zico", role: "Embaixador Oficial", desc: "O maior camisa 10 abraça a FlaMedula como padrinho, convocando a Nação em campanhas oficiais." },
+                { name: "Tânia Bastos", role: "Madrinha Institucional", desc: "Ajuda a ampliar a visibilidade da causa e fortalecer sua presença institucional." }
+            ],
+            actionItems: [
+                { date: "12 Mar, 2026", title: "Mutirão de Cadastro", location: "Hemocentro Regional", desc: "Ação conjunta para orientação e cadastro de 150 novos possíveis doadores.", tag: "Concluído" },
+                { date: "05 Abr, 2026", title: "Apoio ao João", location: "Hospital de Base", desc: "Mobilização de plaquetas atingiu a meta em menos de 48 horas.", tag: "Caso Sucesso" },
+                { date: "Em Breve", title: "Dia D da FlaMedula", location: "Sede Oficial", desc: "Maior evento anual de conscientização sobre doação de medula.", tag: "Próxima Ação" }
+            ],
+            testimonials: [
+                { name: "Carlos Silva", relation: "Doador convocado", quote: "A orientação da FlaMedula tirou meu medo. Quando o REDOME ligou, eu estava pronto." },
+                { name: "Família Costa", relation: "Apoiados", quote: "No momento mais difícil, ver a rede se mobilizando nos deu a força que faltava." },
+                { name: "Dra. Mariana", relation: "Hematologista", quote: "Pacientes bem informados são a chave. O trabalho de desmistificação é essencial." }
+            ],
+            faqItems: [
+                { q: "Doar medula é pela coluna?", a: "Não. A medula espinhal (sistema nervoso) fica na coluna. A medula óssea fica dentro de ossos grandes, como a bacia. A coleta pode ser por aférese (veia do braço) ou por punção no osso da bacia." },
+                { q: "A FlaMedula substitui o REDOME?", a: "De forma alguma. Somos uma rede de mobilização. O REDOME e os Hemocentros são os órgãos oficiais responsáveis pelo cadastro, triagem e processo clínico." },
+                { q: "Como atualizar meus dados?", a: "A atualização deve ser feita no site oficial ou app do REDOME. Aqui no site temos botões que te direcionam para lá." },
+                { q: "Como cadastrar um paciente?", a: "Use a aba 'Paciente' na seção de cadastros. Nossa equipe analisará as informações para entender como a rede pode ajudar na mobilização." }
+            ]
+        };
+
+        // Initialize Lucide Icons
         lucide.createIcons();
 
-        // 2. Fluxo de Entrada (Gate)
-        const gateContainer = document.getElementById('gate-container');
-        const preloaderView = document.getElementById('preloader-view');
-        const videoView = document.getElementById('video-view');
-        const introVideo = document.getElementById('intro-video');
-        const btnEnterLanding = document.getElementById('btn-enter-landing');
-        const mainContent = document.getElementById('main-content');
-        const body = document.body;
+        // Flow Gate Logic (Preloader -> Video -> Landing)
+        document.addEventListener("DOMContentLoaded", () => {
+            const preloader = document.getElementById('preloader-view');
+            const videoView = document.getElementById('video-intro-view');
+            const mainContent = document.getElementById('main-content');
+            const btnEnter = document.getElementById('btn-enter-site');
+            const body = document.body;
 
-        // Tira o preloader após 2.5s e mostra o vídeo intermediário
-        setTimeout(() => {
-            preloaderView.classList.add('opacity-0');
+            // Step 1: Preloader finishes after short timeout
             setTimeout(() => {
-                preloaderView.classList.add('hidden');
-                videoView.classList.remove('hidden');
+                preloader.classList.add('opacity-0');
+                setTimeout(() => {
+                    preloader.classList.add('hidden');
+                    videoView.classList.remove('opacity-0');
+                    videoView.classList.add('opacity-100');
+                    videoView.classList.remove('pointer-events-none');
+                }, 700);
+            }, 2500);
+
+            // Step 2: User clicks "Continuar"
+            btnEnter.addEventListener('click', () => {
+                const video = document.getElementById('intro-video');
+                video.pause();
+                
+                videoView.classList.remove('opacity-100');
+                videoView.classList.add('opacity-0');
                 
                 setTimeout(() => {
-                    videoView.classList.remove('opacity-0');
-                    videoView.classList.remove('pointer-events-none');
-                }, 50);
-
-                const playPromise = introVideo.play();
-                if (playPromise !== undefined) {
-                    playPromise.catch(() => console.log("Autoplay prevenido. O usuário pode dar play."));
-                }
-            }, 700);
-        }, 2500);
-
-        // Libera a Landing Page pelo botão
-        btnEnterLanding.addEventListener('click', () => {
-            gateContainer.style.opacity = '0';
-            introVideo.pause();
-            body.classList.remove('locked');
-            mainContent.classList.remove('opacity-0');
-            
-            setTimeout(() => {
-                gateContainer.remove();
-                window.scrollTo({ top: 0, behavior: 'instant' }); 
-            }, 700);
-        });
-
-        // 3. Dark Mode
-        const themeToggleBtns = [
-            document.getElementById('theme-toggle'), 
-            document.getElementById('theme-toggle-mobile'),
-            document.getElementById('theme-toggle-nav-mobile')
-        ];
-        const htmlElement = document.documentElement;
-
-        function applyTheme(theme) {
-            theme === 'dark' ? htmlElement.classList.add('dark') : htmlElement.classList.remove('dark');
-        }
-        function toggleTheme() {
-            const newTheme = htmlElement.classList.contains('dark') ? 'light' : 'dark';
-            applyTheme(newTheme);
-            localStorage.setItem('flamedula-theme', newTheme);
-        }
-
-        const savedTheme = localStorage.getItem('flamedula-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        applyTheme(savedTheme);
-        themeToggleBtns.forEach(btn => btn?.addEventListener('click', toggleTheme));
-
-        // 4. Menu Mobile
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const closeMenuBtn = document.getElementById('close-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        
-        function toggleMobileMenu() {
-            const isOpen = !mobileMenu.classList.contains('translate-y-full');
-            if (isOpen) {
-                mobileMenu.classList.add('translate-y-full');
-                if(!gateContainer) body.style.overflow = '';
-            } else {
-                mobileMenu.classList.remove('translate-y-full');
-                body.style.overflow = 'hidden';
-            }
-        }
-        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-        closeMenuBtn.addEventListener('click', toggleMobileMenu);
-        document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', toggleMobileMenu));
-
-        // 5. CMS-Ready Mock Data e Renderizações
-
-        // Hero
-        const heroNewsItems = [
-            { tag: "🧬 MEDULA", emoji: "🧬", title: "Você sabe como funciona o cadastro?", excerpt: "Informação certa ajuda a vencer o medo e transforma intenção em possibilidade.", cta: "Entender agora", url: "#medula-sem-medo", bg: "bg-gray-900 dark:bg-surface-strongDark" },
-            { tag: "🩸 SANGUE", emoji: "🩸", title: "A Nação também salva vidas fora do campo.", excerpt: "Cada pessoa orientada fortalece campanhas e bancos de sangue.", cta: "Quero ajudar", url: "#hub-cadastro", bg: "bg-brand" },
-            { tag: "📣 CAMPANHAS", emoji: "📣", title: "Mobilização só acontece quando a rede está pronta.", excerpt: "Cadastros, ações e orientação ajudam a alcançar quem precisa.", cta: "Ver ações", url: "#acoes-e-apoio", bg: "bg-gray-800 dark:bg-black border border-gray-700" },
-            { tag: "💙 PACIENTES", emoji: "💙", title: "Um caso precisa de alcance e organização.", excerpt: "Cadastre um paciente para análise e orientação da equipe.", cta: "Informar caso", url: "#hub-cadastro", bg: "bg-patient" }
-        ];
-        document.getElementById('hero-carousel').innerHTML = heroNewsItems.map(item => `
-            <div class="min-w-[85vw] md:min-w-[420px] snap-center rounded-[2rem] p-8 md:p-10 flex flex-col justify-between shadow-ios text-white relative overflow-hidden ${item.bg}">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <div class="relative z-10">
-                    <span class="inline-block px-3 py-1.5 bg-white/20 backdrop-blur-md rounded-full text-[11px] font-bold tracking-widest uppercase mb-6 border border-white/20 shadow-sm">${item.tag}</span>
-                    <h3 class="text-2xl md:text-4xl font-heading font-extrabold mb-4 leading-tight tracking-tight">${item.title}</h3>
-                    <p class="text-white/80 font-medium mb-8 text-sm md:text-base leading-relaxed">${item.excerpt}</p>
-                </div>
-                <div class="relative z-10 mt-auto">
-                    <a href="${item.url}" class="inline-flex items-center gap-2 bg-white text-gray-900 px-6 py-3.5 rounded-full font-bold text-sm shadow-lg hover:scale-105 transition-transform group">
-                        ${item.cta} <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                </div>
-            </div>
-        `).join('');
-
-        // Flip Cards (Reduzido Cirurgicamente para exatamente 4 Cards em Grid 2x2)
-        const faqFlipItems = [
-            { q: "É sempre pela coluna?", a: "Não. Existem formas diferentes de coleta, incluindo aférese pelo sangue periférico e punção da medula óssea. A equipe médica orienta a forma indicada." },
-            { q: "Cadastro já é doação?", a: "Não. O cadastro indica que você pode ser chamado se houver compatibilidade. A doação só acontece após novas confirmações e avaliação médica." },
-            { q: "Medula óssea é medula espinhal?", a: "Não. A medula óssea fica dentro dos ossos e produz células do sangue. Medula espinhal faz parte do sistema nervoso." },
-            { q: "Por que atualizar meus dados importa?", a: "Se telefone, e-mail ou cidade estiverem desatualizados, você pode não ser encontrado quando surgir uma possível compatibilidade." }
-        ];
-        document.getElementById('flip-cards-container').innerHTML = faqFlipItems.map(item => `
-            <div class="group h-56 perspective-1000 cursor-pointer flip-card-mobile">
-                <div class="flip-inner relative w-full h-full transition-transform duration-700 transform-style-3d group-hover:rotate-y-180">
-                    <!-- Frente do Card -->
-                    <div class="absolute inset-0 backface-hidden bg-white dark:bg-surface-strongDark rounded-[2rem] border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow flex flex-col items-center justify-center p-8 text-center relative overflow-hidden">
-                        <!-- Logo discreta como selo de fundo -->
-                        <img class="absolute -bottom-6 -right-6 w-24 opacity-[0.03] dark:opacity-[0.015]" src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1777674863/FLA_7_1_kkc5qi.png" alt="Selo">
-                        <h3 class="font-heading font-bold text-xl text-gray-900 dark:text-white leading-tight relative z-10">${item.q}</h3>
-                        <div class="absolute bottom-4 right-4 text-brand bg-brand/10 p-2 rounded-full z-10"><i data-lucide="rotate-cw" class="w-4 h-4"></i></div>
-                    </div>
-                    <!-- Verso do Card -->
-                    <div class="absolute inset-0 backface-hidden bg-brand text-white rounded-[2rem] p-8 flex flex-col justify-center text-center rotate-y-180 shadow-lg border border-brand-light/20">
-                        <p class="font-medium text-sm md:text-base leading-relaxed">${item.a}</p>
-                    </div>
-                </div>
-            </div>
-        `).join('');
-
-        // Equipe
-        const teamMembers = [
-            { name: "André Matos “Dedeco”", role: "Fundador e Diretor Geral", desc: "Lidera a mobilização que transforma informação, torcida e solidariedade em ação organizada." },
-            { name: "Danielli Oliveira", role: "Parceira Técnica", desc: "Conecta a causa com orientação técnica e responsabilidade na comunicação sobre medula." },
-            { name: "Elaine Reixach", role: "Coordenação de Ações Solidárias", desc: "Ajuda a organizar campanhas, eventos humanitários e ações de mobilização." },
-            { name: "Tio Maiko Castro", role: "Apoio e Acolhimento", desc: "Leva presença, alegria e suporte para famílias, crianças e casas de apoio." },
-            { name: "Artur Santos", role: "Logística e Execução", desc: "Atua na operação de campo para transformar mobilização em presença real." }
-        ];
-        document.getElementById('team-carousel').innerHTML = teamMembers.map(m => `
-            <div class="min-w-[280px] snap-start bg-white dark:bg-surface-strongDark border border-gray-100 dark:border-gray-800 rounded-[2rem] p-8 text-center shadow-sm">
-                <div class="w-20 h-20 bg-gray-100 dark:bg-gray-800 text-gray-400 rounded-full mx-auto mb-5 flex items-center justify-center text-2xl font-bold font-heading">
-                    ${m.name.charAt(0)}
-                </div>
-                <h4 class="font-heading font-bold text-xl mb-1">${m.name}</h4>
-                <p class="text-[10px] font-bold text-brand uppercase tracking-widest mb-4">${m.role}</p>
-                <p class="text-sm text-gray-500 font-medium leading-relaxed">${m.desc}</p>
-            </div>
-        `).join('');
-
-        // Embaixadores
-        const ambassadors = [
-            { name: "Zico", role: "Embaixador Oficial", desc: "O maior camisa 10 da história do Flamengo abraça a FlaMedula como padrinho, convocando a Nação em campanhas oficiais pela vida." },
-            { name: "Tânia Bastos", role: "Madrinha Institucional", desc: "Aliada na esfera pública, ajuda a ampliar a visibilidade da causa e fortalecer sua presença institutional." }
-        ];
-        document.getElementById('ambassadors-container').innerHTML = ambassadors.map(a => `
-            <div class="flex-1 min-w-[320px] max-w-md bg-white dark:bg-surface-strongDark border border-gray-100 dark:border-gray-800 rounded-[2.5rem] p-10 text-center shadow-sm relative overflow-hidden">
-                <div class="absolute -top-10 -left-10 w-32 h-32 bg-gray-100 dark:bg-gray-800 blur-[40px] rounded-full pointer-events-none"></div>
-                <div class="w-24 h-24 bg-gray-50 dark:bg-black text-gray-400 rounded-full mx-auto mb-6 flex items-center justify-center text-3xl font-bold font-heading ring-8 ring-white dark:ring-surface-strongDark relative z-10 border border-gray-200 dark:border-gray-800">
-                    ${a.name.charAt(0)}
-                </div>
-                <h4 class="font-heading font-black text-3xl mb-2 relative z-10">${a.name}</h4>
-                <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-5 relative z-10">${a.role}</p>
-                <p class="text-gray-600 dark:text-gray-400 font-medium leading-relaxed relative z-10">${a.desc}</p>
-            </div>
-        `).join('');
-
-        // Ações
-        const actionItems = [
-            { title: "Campanha Maracanã", date: "Out 2026", loc: "Rio de Janeiro", desc: "Ação de conscientização pré-jogo informando milhares de torcedores.", tag: "Conscientização" },
-            { title: "Apoio em Casa de Saúde", date: "Nov 2026", loc: "Niterói", desc: "Acolhimento, entrega de recursos e alegria a pacientes internados.", tag: "Acolhimento" },
-            { title: "Mutirão Hemorio", date: "Dez 2026", loc: "Gávea", desc: "Mobilização massiva de doadores de sangue e atualização de cadastros.", tag: "Mobilização" }
-        ];
-        document.getElementById('actions-carousel').innerHTML = actionItems.map(a => `
-            <div class="min-w-[340px] snap-start bg-white dark:bg-surface-strongDark border border-gray-100 dark:border-gray-800 rounded-[2.5rem] overflow-hidden shadow-sm flex flex-col group">
-                <div class="h-48 bg-gray-100 dark:bg-black/50 flex items-center justify-center relative overflow-hidden">
-                    <div class="absolute inset-0 bg-dot-pattern opacity-50"></div>
-                    <i data-lucide="camera" class="w-10 h-10 text-gray-300 dark:text-gray-700 relative z-10"></i>
-                    <div class="absolute top-4 right-4 bg-white/90 dark:bg-surface-strongDark/90 backdrop-blur-md text-[11px] font-bold px-3 py-1.5 rounded-full text-brand shadow-sm uppercase tracking-widest z-10">${a.date}</div>
-                </div>
-                <div class="p-8 flex-grow flex flex-col relative">
-                    <h4 class="font-heading font-extrabold text-xl mb-3 group-hover:text-brand transition-colors leading-tight">${a.title}</h4>
-                    <p class="text-sm text-gray-500 font-medium mb-6 flex-grow leading-relaxed">${a.desc}</p>
-                    <div class="flex items-center justify-between text-xs text-gray-500 font-bold uppercase tracking-wider mt-auto pt-5 border-t border-gray-100 dark:border-gray-800">
-                        <span class="flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> ${a.loc}</span>
-                        <span class="bg-gray-100 dark:bg-gray-800 px-3 py-1.5 rounded-full">${a.tag}</span>
-                    </div>
-                </div>
-            </div>
-        `).join('');
-
-        // Depoimentos
-        const testimonials = [
-            { name: "João Guilherme", rel: "Doador Orientado", q: "Graças à informação transparente da FlaMedula, perdi o medo e fiz meu cadastro com consciência." },
-            { name: "Família da Sofia", rel: "Caso Apoiado", q: "A rede nos deu suporte, visibilidade e esperança em um momento onde não sabíamos por onde começar." },
-            { name: "Carlos Eduardo", rel: "Voluntário Frequente", q: "Ver a mobilização sair das redes e lotar um hemocentro é a maior prova de que essa causa salva vidas." }
-        ];
-        document.getElementById('testimonials-container').innerHTML = testimonials.map(t => `
-            <div class="bg-white dark:bg-surface-strongDark p-8 md:p-10 rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-sm relative group hover:shadow-md transition-shadow">
-                <i data-lucide="quote" class="absolute top-8 right-8 w-10 h-10 text-gray-100 dark:text-gray-800 group-hover:text-brand/10 transition-colors"></i>
-                <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-8 italic relative z-10 leading-relaxed">"${t.q}"</p>
-                <div class="flex items-center gap-4 relative z-10">
-                    <div class="w-12 h-12 bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full flex items-center justify-center font-heading font-bold text-gray-400">${t.name.charAt(0)}</div>
-                    <div>
-                        <h4 class="font-heading font-bold text-base text-gray-900 dark:text-white">${t.name}</h4>
-                        <p class="text-xs font-bold text-gray-500 uppercase tracking-widest">${t.rel}</p>
-                    </div>
-                </div>
-            </div>
-        `).join('');
-
-        // FAQ
-        const faqItems = [
-            { q: "Doar medula é pela coluna?", a: "Não. A medula óssea fica no interior dos ossos (como a bacia). A medula espinhal é que fica na coluna. São estruturas e funções totalmente diferentes." },
-            { q: "Cadastro já significa doação certa?", a: "Não. O cadastro apenas insere seus dados num banco mundial (REDOME). Você só será chamado para doar se houver um paciente compatível." },
-            { q: "Como atualizar meus dados?", a: "Acessando o portal online do REDOME ou o app oficial do INCA. A FlaMedula orienta a importância da atualização, mas não altera seus dados no sistema do governo." },
-            { q: "A FlaMedula substitui o REDOME?", a: "Não. Somos uma rede de mobilização. Ajudamos a informar, desmistificar e direcionar as pessoas para se cadastrarem e atualizarem dados nos canais oficiais de saúde." },
-            { q: "Como a FlaMedula ajuda um paciente?", a: "Analisamos o caso para entender qual a melhor forma de mobilizar a rede naquela região, seja para doação de sangue direcionada ou campanhas de conscientização." }
-        ];
-        document.getElementById('faq-container').innerHTML = faqItems.map(f => `
-            <div class="border border-gray-200 dark:border-gray-800 rounded-3xl overflow-hidden bg-white dark:bg-surface-strongDark">
-                <button class="faq-btn w-full text-left p-6 md:p-8 font-heading font-bold text-lg flex justify-between items-center focus:outline-none group">
-                    <span class="group-hover:text-brand transition-colors">${f.q}</span>
-                    <div class="bg-gray-50 dark:bg-black p-2 rounded-full border border-gray-200 dark:border-gray-800"><i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300 text-gray-500 group-hover:text-brand"></i></div>
-                </button>
-                <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6 md:px-8 bg-gray-50/50 dark:bg-black/20">
-                    <p class="pb-8 pt-2 text-gray-600 dark:text-gray-400 font-medium leading-relaxed">${f.a}</p>
-                </div>
-            </div>
-        `).join('');
-
-        document.querySelectorAll('.faq-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const content = this.nextElementSibling;
-                const icon = this.querySelector('i');
-                const isExpanded = content.style.maxHeight;
-
-                document.querySelectorAll('.faq-content').forEach(c => { c.style.maxHeight = null; c.previousElementSibling.querySelector('i').style.transform = 'rotate(0deg)'; });
-
-                if (!isExpanded) {
-                    content.style.maxHeight = content.scrollHeight + "px";
-                    icon.style.transform = 'rotate(180deg)';
-                }
-            });
-        });
-
-        // 6. Mini Apps (Hub de Cadastro) Lógica Visual
-        const appDoador = document.getElementById('app-doador');
-        const appPaciente = document.getElementById('app-paciente');
-        const tabPill = document.getElementById('tab-pill');
-
-        window.switchTab = function(tab) {
-            if (tab === 'doador') {
-                appPaciente.classList.add('hidden');
-                appDoador.classList.remove('hidden');
-                tabPill.style.transform = 'translateX(0)';
-                document.getElementById('tab-doador').classList.remove('text-gray-500', 'dark:text-gray-400');
-                document.getElementById('tab-doador').classList.add('text-white');
-                document.getElementById('tab-paciente').classList.add('text-gray-500', 'dark:text-gray-400');
-                document.getElementById('tab-paciente').classList.remove('text-white');
-            } else {
-                appDoador.classList.add('hidden');
-                appPaciente.classList.remove('hidden');
-                tabPill.style.transform = 'translateX(100%)';
-                document.getElementById('tab-paciente').classList.remove('text-gray-500', 'dark:text-gray-400');
-                document.getElementById('tab-paciente').classList.add('text-white');
-                document.getElementById('tab-doador').classList.add('text-gray-500', 'dark:text-gray-400');
-                document.getElementById('tab-doador').classList.remove('text-white');
-            }
-        };
-
-        window.setDoadorStep = function(step) {
-            document.getElementById('doador-step-1').classList.add('hidden');
-            document.getElementById('doador-step-ja').classList.add('hidden');
-            document.getElementById('doador-step-novo').classList.add('hidden');
-            
-            if (step === '1') document.getElementById('doador-step-1').classList.remove('hidden');
-            if (step === 'ja') document.getElementById('doador-step-ja').classList.remove('hidden');
-            if (step === 'novo') document.getElementById('doador-step-novo').classList.remove('hidden');
-        };
-
-        // 7. Animações Complexas (Scroll)
-        // Transparência e Timeline
-        const animateOnScrollObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Contadores Numéricos
-                    if (entry.target.classList.contains('count-up')) {
-                        const target = parseInt(entry.target.getAttribute('data-target'));
-                        let count = 0;
-                        const duration = 2000; // ms
-                        const increment = target / (duration / 16); // 60fps
-                        const updateCount = () => {
-                            count += increment;
-                            if (count < target) {
-                                entry.target.innerText = Math.ceil(count);
-                                requestAnimationFrame(updateCount);
-                            } else {
-                                entry.target.innerText = target;
-                            }
-                        };
-                        updateCount();
-                        animateOnScrollObserver.unobserve(entry.target);
-                    }
-                    // Barras de Progresso
-                    if (entry.target.classList.contains('fill-bar')) {
-                        entry.target.style.width = entry.target.getAttribute('data-width');
-                        animateOnScrollObserver.unobserve(entry.target);
-                    }
-                }
-            });
-        }, { threshold: 0.5 });
-
-        // Aplica observer após o DOM estar pronto e populado
-        setTimeout(() => {
-            document.querySelectorAll('.count-up, .fill-bar').forEach(el => animateOnScrollObserver.observe(el));
-            lucide.createIcons();
-        }, 100);
-
-        // Timeline Scroll Logic
-        const timelineContainer = document.getElementById('timeline-container');
-        const timelineProgress = document.getElementById('timeline-progress');
-        const timelineSteps = document.querySelectorAll('.timeline-step');
-
-        window.addEventListener('scroll', () => {
-            if (!timelineContainer) return;
-            const rect = timelineContainer.getBoundingClientRect();
-            const viewHeight = window.innerHeight;
-            
-            // Verifica se o container está pelo menos parcialmente na tela
-            if (rect.top < viewHeight && rect.bottom > 0) {
-                // Calcula quanto já "passou" da view (ajuste fino com + viewHeight/3 para preencher na linha de visão)
-                let scrolled = (viewHeight / 2) - rect.top; 
-                let percent = Math.min(Math.max((scrolled / rect.height) * 100, 0), 100);
-                
-                timelineProgress.style.height = `${percent}%`;
-
-                // Acende os steps baseados no scroll
-                timelineSteps.forEach((step, index) => {
-                    const stepRect = step.getBoundingClientRect();
-                    const triggerPoint = viewHeight / 2; // Acende quando passa do meio da tela
+                    document.getElementById('flow-gate').classList.add('hidden');
+                    mainContent.classList.remove('hidden');
+                    // Trigger reflow
+                    void mainContent.offsetWidth;
+                    mainContent.classList.remove('opacity-0');
+                    mainContent.classList.add('opacity-100');
+                    body.classList.remove('locked');
                     
-                    if (stepRect.top < triggerPoint) {
-                        step.querySelector('.step-dot').classList.add('border-brand', 'bg-brand', 'shadow-[0_0_10px_rgba(230,57,70,0.5)]');
-                        step.querySelector('.step-content').classList.remove('opacity-50');
+                    // Init observers for animations after landing is visible
+                    initObservers();
+                }, 700);
+            });
+
+            renderMockData();
+            initDarkMode();
+            initMobileMenu();
+        });
+
+        // Render functions
+        function renderMockData() {
+            // Hero
+            document.getElementById('hero-slider').innerHTML = mockData.heroNewsItems.map(item => `
+                <div class="min-w-[85vw] md:min-w-[400px] shrink-0 bg-gradient-to-br ${item.bg} rounded-[2rem] p-8 text-white relative overflow-hidden shadow-2xl border border-white/10 group">
+                    <div class="absolute -right-10 -top-10 text-white/10 group-hover:scale-110 transition-transform"><i data-lucide="${item.icon}" class="w-48 h-48"></i></div>
+                    <span class="text-xs font-bold tracking-widest bg-white/20 px-3 py-1.5 rounded-full mb-6 inline-block backdrop-blur-sm border border-white/10">${item.tag}</span>
+                    <h3 class="text-2xl md:text-3xl font-heading font-black mb-3 leading-tight relative z-10">${item.title}</h3>
+                    <p class="text-gray-300 mb-8 relative z-10 font-medium">${item.excerpt}</p>
+                    <a href="${item.action}" class="inline-flex items-center text-sm font-bold bg-white text-black px-5 py-3 rounded-xl hover:bg-gray-200 transition-colors relative z-10">${item.btn} <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i></a>
+                </div>
+            `).join('');
+
+            // Flip Cards (Grid 2x2 com 4 cards exatos)
+            const faqFlipItems = [
+                { q: "É sempre pela coluna?", a: "Não. Existem formas diferentes de coleta, incluindo aférese pelo sangue periférico e punção da medula óssea. A equipe médica orienta a forma indicada." },
+                { q: "Cadastro já é doação?", a: "Não. O cadastro indica que você pode ser chamado se houver compatibilidade. A doação só acontece após novas confirmações e avaliação médica." },
+                { q: "Medula óssea é medula espinhal?", a: "Não. A medula óssea fica dentro dos ossos e produz células do sangue. Medula espinhal faz parte do sistema nervoso." },
+                { q: "Por que atualizar meus dados importa?", a: "Se telefone, e-mail ou cidade estiverem desatualizados, você pode não ser encontrado quando surgir uma possível compatibilidade." }
+            ];
+            document.getElementById('flip-cards-container').innerHTML = faqFlipItems.map(item => `
+                <div class="group h-64 md:h-56 perspective-1000 cursor-pointer flip-card-mobile">
+                    <div class="flip-inner relative w-full h-full transition-transform duration-700 transform-style-3d group-hover:rotate-y-180">
+                        <!-- Frente do Card -->
+                        <div class="absolute inset-0 backface-hidden bg-white dark:bg-surface-strongDark rounded-[2rem] border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow flex flex-col items-center justify-center p-8 text-center relative overflow-hidden">
+                            <!-- Logo nova discreta como selo de fundo -->
+                            <img class="absolute -bottom-4 -right-4 w-28 opacity-[0.04] dark:opacity-[0.03]" src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1781277293/Untitled_design_16_1_h5rpcj.webp" alt="Selo">
+                            <h3 class="font-heading font-bold text-xl text-gray-900 dark:text-white leading-tight relative z-10">${item.q}</h3>
+                            <div class="absolute bottom-4 right-4 text-brand bg-brand/10 p-2 rounded-full z-10"><i data-lucide="rotate-cw" class="w-4 h-4"></i></div>
+                        </div>
+                        <!-- Verso do Card -->
+                        <div class="absolute inset-0 backface-hidden bg-brand text-white rounded-[2rem] p-8 flex flex-col justify-center text-center rotate-y-180 shadow-lg border border-brand-light/20 relative overflow-hidden">
+                            <img class="absolute -top-4 -left-4 w-28 opacity-10" src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1781277293/Untitled_design_16_1_h5rpcj.webp" alt="Selo">
+                            <p class="font-medium text-sm md:text-base leading-relaxed relative z-10">${item.a}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Team
+            document.getElementById('team-container').innerHTML = mockData.teamMembers.map(item => `
+                <div class="min-w-[70vw] md:min-w-[300px] shrink-0 bg-white dark:bg-surface-dark p-6 rounded-[2rem] border border-gray-100 dark:border-gray-800 shadow-sm flex flex-col items-center text-center">
+                    <div class="w-20 h-20 bg-gray-200 dark:bg-gray-800 rounded-full mb-4 flex items-center justify-center text-gray-400"><i data-lucide="user" class="w-8 h-8"></i></div>
+                    <h4 class="font-bold text-lg mb-1">${item.name}</h4>
+                    <span class="text-xs font-bold text-brand uppercase tracking-wider mb-3">${item.role}</span>
+                    <p class="text-sm text-gray-500 font-medium">${item.desc}</p>
+                </div>
+            `).join('');
+
+            // Ambassadors
+            document.getElementById('ambassadors-container').innerHTML = mockData.ambassadors.map(item => `
+                <div class="bg-gradient-to-br from-gray-900 to-black rounded-[2.5rem] p-8 text-white flex items-center gap-6 border border-gray-800 shadow-xl">
+                    <div class="w-24 h-24 shrink-0 bg-gray-800 rounded-full flex items-center justify-center border-2 border-brand"><i data-lucide="star" class="w-10 h-10 text-brand"></i></div>
+                    <div>
+                        <h4 class="font-heading font-black text-2xl mb-1">${item.name}</h4>
+                        <span class="text-xs font-bold text-brand-light uppercase tracking-widest mb-3 block">${item.role}</span>
+                        <p class="text-sm text-gray-400 font-medium leading-relaxed">${item.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            // Actions
+            document.getElementById('actions-slider').innerHTML = mockData.actionItems.map(item => `
+                <div class="min-w-[85vw] md:min-w-[350px] shrink-0 bg-white dark:bg-surface-strongDark rounded-[2rem] overflow-hidden shadow-sm border border-gray-100 dark:border-gray-800 group hover:shadow-lg transition-shadow">
+                    <div class="h-48 bg-gray-200 dark:bg-gray-800 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center text-gray-400 group-hover:scale-110 transition-transform duration-500"><i data-lucide="camera" class="w-10 h-10"></i></div>
+                        <div class="absolute top-4 left-4 bg-white/90 dark:bg-black/90 backdrop-blur-sm text-xs font-bold px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700">${item.tag}</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 text-xs text-gray-500 font-bold mb-3 uppercase tracking-wider">
+                            <i data-lucide="calendar" class="w-4 h-4 text-brand"></i> ${item.date}
+                        </div>
+                        <h4 class="font-heading font-bold text-xl mb-2">${item.title}</h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 font-medium"><i data-lucide="map-pin" class="w-3 h-3 inline mr-1"></i>${item.location}</p>
+                        <p class="text-sm text-gray-500 line-clamp-2">${item.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            // Testimonials
+            document.getElementById('testimonials-container').innerHTML = mockData.testimonials.map(item => `
+                <div class="bg-white dark:bg-surface-strongDark p-8 rounded-[2rem] border border-gray-100 dark:border-gray-800 shadow-sm relative">
+                    <i data-lucide="quote" class="w-8 h-8 text-gray-200 dark:text-gray-800 absolute top-6 right-6"></i>
+                    <p class="text-gray-600 dark:text-gray-300 font-medium italic mb-6 relative z-10">"${item.quote}"</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-brand/10 text-brand rounded-full flex items-center justify-center"><i data-lucide="user" class="w-5 h-5"></i></div>
+                        <div>
+                            <h5 class="font-bold text-sm">${item.name}</h5>
+                            <span class="text-xs text-gray-500">${item.relation}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // FAQ
+            document.getElementById('faq-container').innerHTML = mockData.faqItems.map((item, index) => `
+                <div class="border border-gray-200 dark:border-gray-800 rounded-2xl bg-white dark:bg-surface-dark overflow-hidden">
+                    <button class="faq-btn w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors" onclick="toggleFaq(${index})">
+                        <span class="font-bold text-[15px] pr-4">${item.q}</span>
+                        <i data-lucide="chevron-down" id="faq-icon-${index}" class="w-5 h-5 text-brand shrink-0 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faq-content-${index}" class="hidden px-6 pb-5 text-gray-500 text-sm leading-relaxed font-medium">
+                        ${item.a}
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+            
+            // Fix for Mobile flip cards to trigger on click
+            document.querySelectorAll('.flip-card-mobile').forEach(card => {
+                card.addEventListener('click', function() {
+                    const inner = this.querySelector('.flip-inner');
+                    if(inner.style.transform === 'rotateY(180deg)') {
+                        inner.style.transform = 'rotateY(0deg)';
                     } else {
-                        step.querySelector('.step-dot').classList.remove('border-brand', 'bg-brand', 'shadow-[0_0_10px_rgba(230,57,70,0.5)]');
-                        step.querySelector('.step-content').classList.add('opacity-50');
+                        inner.style.transform = 'rotateY(180deg)';
                     }
                 });
+            });
+        }
+
+        // Dark Mode Logic
+        function initDarkMode() {
+            const toggleBtn = document.getElementById('theme-toggle');
+            const iconMoon = document.getElementById('theme-icon-moon');
+            const iconSun = document.getElementById('theme-icon-sun');
+            const iconFallback = document.getElementById('theme-icon-fallback');
+            const html = document.documentElement;
+
+            // Check saved theme or system preference
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+                iconSun.classList.remove('hidden');
+                iconFallback.textContent = '☀️';
+            } else {
+                html.classList.remove('dark');
+                iconMoon.classList.remove('hidden');
+                iconFallback.textContent = '🌙';
             }
-        });
 
-        // Controles Hover/Toque Flip Cards
-        document.querySelectorAll('.flip-card-mobile').forEach(c => c.addEventListener('click', () => c.classList.toggle('flip-active')));
-        
-        // Controles Carousel Hero
-        const hc = document.getElementById('hero-carousel');
-        document.getElementById('hero-next')?.addEventListener('click', () => hc.scrollBy({ left: window.innerWidth * 0.8, behavior: 'smooth' }));
-        document.getElementById('hero-prev')?.addEventListener('click', () => hc.scrollBy({ left: -(window.innerWidth * 0.8), behavior: 'smooth' }));
+            toggleBtn.addEventListener('click', () => {
+                html.classList.toggle('dark');
+                if (html.classList.contains('dark')) {
+                    localStorage.theme = 'dark';
+                    iconMoon.classList.add('hidden');
+                    iconSun.classList.remove('hidden');
+                    iconFallback.textContent = '☀️';
+                } else {
+                    localStorage.theme = 'light';
+                    iconSun.classList.add('hidden');
+                    iconMoon.classList.remove('hidden');
+                    iconFallback.textContent = '🌙';
+                }
+            });
+        }
 
+        // Mobile Menu Logic
+        function initMobileMenu() {
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            const links = document.querySelectorAll('.mobile-link');
+            const icon = btn.querySelector('i');
+
+            function toggleMenu() {
+                menu.classList.toggle('hidden');
+                menu.classList.toggle('flex');
+                document.body.classList.toggle('overflow-hidden'); // Disable scroll
+                
+                if (menu.classList.contains('hidden')) {
+                    icon.setAttribute('data-lucide', 'menu');
+                } else {
+                    icon.setAttribute('data-lucide', 'x');
+                }
+                lucide.createIcons();
+            }
+
+            btn.addEventListener('click', toggleMenu);
+            links.forEach(link => {
+                link.addEventListener('click', toggleMenu);
+            });
+        }
+
+        // Mini Apps Logic
+        function switchTab(tab) {
+            const btnDoador = document.getElementById('tab-doador');
+            const btnPaciente = document.getElementById('tab-paciente');
+            const contentDoador = document.getElementById('content-doador');
+            const contentPaciente = document.getElementById('content-paciente');
+
+            if (tab === 'doador') {
+                btnDoador.classList.add('bg-white', 'dark:bg-surface-strongDark', 'text-brand', 'shadow-sm');
+                btnDoador.classList.remove('text-gray-500');
+                btnPaciente.classList.remove('bg-white', 'dark:bg-surface-strongDark', 'text-brand', 'shadow-sm');
+                btnPaciente.classList.add('text-gray-500');
+                
+                contentDoador.classList.remove('hidden');
+                contentPaciente.classList.add('hidden');
+            } else {
+                btnPaciente.classList.add('bg-white', 'dark:bg-surface-strongDark', 'text-patient', 'shadow-sm');
+                btnPaciente.classList.remove('text-gray-500');
+                btnDoador.classList.remove('bg-white', 'dark:bg-surface-strongDark', 'text-brand', 'shadow-sm');
+                btnDoador.classList.add('text-gray-500');
+                
+                contentPaciente.classList.remove('hidden');
+                contentDoador.classList.add('hidden');
+            }
+        }
+
+        function openMiniApp(tab) {
+            switchTab(tab);
+        }
+
+        function selectDoadorType(type) {
+            document.getElementById('doador-step-1').classList.add('hidden');
+            if(type === 'sim') {
+                document.getElementById('doador-flow-update').classList.remove('hidden');
+            } else {
+                document.getElementById('doador-flow-new').classList.remove('hidden');
+            }
+        }
+
+        function backToDoadorStep1() {
+            document.getElementById('doador-flow-update').classList.add('hidden');
+            document.getElementById('doador-flow-new').classList.add('hidden');
+            document.getElementById('doador-step-1').classList.remove('hidden');
+        }
+
+        // FAQ Toggle
+        function toggleFaq(index) {
+            const content = document.getElementById(`faq-content-${index}`);
+            const icon = document.getElementById(`faq-icon-${index}`);
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+        // Scroll Observers for Animations (Transparency & Timeline)
+        function initObservers() {
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.2 };
+            
+            // Transparency Numbers
+            const numberObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const targets = entry.target.querySelectorAll('.count-up');
+                        targets.forEach(el => animateValue(el, 0, parseInt(el.getAttribute('data-target')), 2000));
+                        
+                        // Progress Bar anim
+                        const bar = entry.target.querySelector('.fill-bar');
+                        if(bar) bar.style.width = bar.getAttribute('data-width');
+                        
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            const metricsContainer = document.getElementById('metrics-container');
+            if(metricsContainer) numberObserver.observe(metricsContainer);
+
+            // Como Funciona Timeline
+            const timelineObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.remove('opacity-50');
+                        entry.target.classList.add('opacity-100');
+                        const indicator = entry.target.querySelector('.indicator');
+                        if(indicator) indicator.classList.add('border-brand', 'shadow-glow-brand');
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            timelineItems.forEach(item => timelineObserver.observe(item));
+
+            // Dynamic Timeline Line Height on Scroll
+            window.addEventListener('scroll', () => {
+                const section = document.getElementById('como-funciona');
+                const line = document.getElementById('timeline-progress');
+                if(!section || !line) return;
+                
+                const rect = section.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                
+                // Calculate how much of the section is scrolled
+                if(rect.top < windowHeight / 2 && rect.bottom > 0) {
+                    const scrollPercentage = ((windowHeight / 2 - rect.top) / rect.height) * 100;
+                    line.style.height = `${Math.min(Math.max(scrollPercentage, 0), 100)}%`;
+                }
+            });
+        }
+
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
     </script>
 </body>
 </html>
