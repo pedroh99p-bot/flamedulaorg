@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FlaMedula | Informação, Mobilização e Vida</title>
+    
+    <!-- Tipografia Premium -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Ícones -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind CSS (Design System iOS Style) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            DEFAULT: '#E63946',
+                            dark: '#B91C28',
+                            light: '#FFEBED',
+                        },
+                        patient: {
+                            DEFAULT: '#007AFF',
+                            dark: '#0056B3',
+                            light: '#E5F1FF',
+                        },
+                        surface: {
+                            light: '#FFFFFF',
+                            dark: '#1C1C1E',
+                            strongLight: '#F5F5F7',
+                            strongDark: '#2C2C2E',
+                        }
+                    },
+                    boxShadow: {
+                        'ios': '0 4px 24px rgba(0, 0, 0, 0.04)',
+                        'ios-hover': '0 12px 32px rgba(0, 0, 0, 0.08)',
+                        'ios-dark': '0 4px 24px rgba(0, 0, 0, 0.2)',
+                    },
+                    animation: {
+                        'marquee': 'marquee 30s linear infinite',
+                        'marquee-reverse': 'marquee-reverse 30s linear infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        },
+                        'marquee-reverse': {
+                            '0%': { transform: 'translateX(-50%)' },
+                            '100%': { transform: 'translateX(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Estilos Customizados (Interações Complexas) -->
+    <style>
+        body {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Oculta scrollbar mas permite scroll em carrosséis */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Gate Locking */
+        body.locked { overflow: hidden; height: 100vh; }
+
+        /* Flip Cards 3D */
+        .perspective-1000 { perspective: 1000px; }
+        .transform-style-3d { transform-style: preserve-3d; }
+        .backface-hidden { backface-visibility: hidden; }
+        .rotate-y-180 { transform: rotateY(180deg); }
+        .group:hover .group-hover\:rotate-y-180 { transform: rotateY(180deg); }
+        
+        /* Para mobile - acionado por JS */
+        .flip-active .flip-inner { transform: rotateY(180deg); }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .dark .glass {
+            background: rgba(28, 28, 30, 0.85);
+        }
+
+        /* Toggle Switch iOS Style */
+        .toggle-checkbox:checked { right: 0; border-color: #34C759; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #34C759; }
+        .toggle-checkbox:checked + .toggle-label:after { transform: translateX(100%); border-color: white; }
+    </style>
+</head>
+<body class="bg-surface-strongLight text-gray-900 dark:bg-black dark:text-gray-100 transition-colors duration-500 locked">
+
+    <!-- GATE: Preloader & Intro Video -->
+    <div id="gate-container" class="fixed inset-0 z-[9999] bg-black flex items-center justify-center transition-all duration-700">
+        
+        <!-- Preloader -->
+        <div id="preloader-view" class="absolute inset-0 z-20 bg-black flex flex-col items-center justify-center transition-opacity duration-700">
+            <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1777674863/FLA_7_1_kkc5qi.png" alt="FlaMedula Logo" class="w-32 animate-pulse-slow">
+            <p class="text-white/60 mt-6 tracking-widest text-sm uppercase">A solidariedade pulsa aqui</p>
+        </div>
+
+        <!-- Vídeo de Entrada -->
+        <div id="video-view" class="absolute inset-0 z-10 opacity-0 transition-opacity duration-700">
+            <video id="intro-video" class="w-full h-full object-cover" playsinline muted>
+                <source src="https://res.cloudinary.com/dm9mnc97u/video/upload/v1780677944/WhatsApp-Video-2026-06-05-at-13.40.33_xxhh84.webm" type="video/webm">
+            </video>
+            <!-- Overlay Escuro -->
+            <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/80 flex flex-col justify-between p-6 pb-12">
+                <div class="flex justify-end">
+                    <button id="btn-skip" class="text-white/80 hover:text-white bg-black/30 backdrop-blur-md px-4 py-2 rounded-full text-sm font-medium border border-white/20 transition-all flex items-center gap-2">
+                        Pular <i data-lucide="skip-forward" class="w-4 h-4"></i>
+                    </button>
+                    <button id="btn-unmute" class="text-white/80 hover:text-white bg-black/30 backdrop-blur-md px-4 py-2 rounded-full text-sm font-medium border border-white/20 transition-all flex items-center gap-2 ml-2">
+                         <i data-lucide="volume-x" class="w-4 h-4" id="mute-icon"></i>
+                    </button>
+                </div>
+                <div id="gate-finish-controls" class="flex justify-center translate-y-10 opacity-0 transition-all duration-700">
+                    <button id="btn-enter" class="bg-brand hover:bg-brand-dark text-white px-8 py-4 rounded-full text-lg font-bold shadow-[0_0_40px_rgba(230,57,70,0.4)] hover:scale-105 transition-all">
+                        Entrar na página
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVBAR FIXA -->
+    <header class="glass fixed top-0 w-full z-50 border-b border-gray-200 dark:border-gray-800 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#inicio">
+                        <img class="h-10 w-auto" src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1777674863/FLA_7_1_kkc5qi.png" alt="FlaMedula">
+                    </a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex space-x-6 items-center">
+                    <a href="#medula-sem-medo" class="text-sm font-medium text-gray-600 hover:text-brand dark:text-gray-300 dark:hover:text-white transition-colors">Sem medo</a>
+                    <a href="#como-funciona" class="text-sm font-medium text-gray-600 hover:text-brand dark:text-gray-300 dark:hover:text-white transition-colors">Como funciona</a>
+                    <a href="#quem-somos" class="text-sm font-medium text-gray-600 hover:text-brand dark:text-gray-300 dark:hover:text-white transition-colors">Quem somos</a>
+                    <a href="#acoes" class="text-sm font-medium text-gray-600 hover:text-brand dark:text-gray-300 dark:hover:text-white transition-colors">Ações</a>
+                    <a href="#faq" class="text-sm font-medium text-gray-600 hover:text-brand dark:text-gray-300 dark:hover:text-white transition-colors">FAQ</a>
+                </nav>
+
+                <!-- Desktop Actions -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="#cadastro-doador" class="bg-brand hover:bg-brand-dark text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-md transition-transform hover:-translate-y-0.5 flex items-center gap-2">
+                        🩸 Sou doador
+                    </a>
+                    <a href="#cadastro-paciente" class="bg-patient hover:bg-patient-dark text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-md transition-transform hover:-translate-y-0.5 flex items-center gap-2">
+                        💙 Paciente
+                    </a>
+                    <button id="theme-toggle" class="p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors" aria-label="Alternar tema">
+                        <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Actions (Menu sanduíche e Doador rápido) -->
+                <div class="flex md:hidden items-center space-x-3">
+                    <a href="#cadastro-doador" class="bg-brand text-white px-4 py-2 rounded-full text-sm font-bold shadow-sm">
+                        🩸 Doador
+                    </a>
+                    <button id="mobile-menu-btn" class="p-2 text-gray-600 dark:text-gray-300 focus:outline-none">
+                        <i data-lucide="menu" class="w-7 h-7"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menu Mobile Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-[60] bg-surface-light dark:bg-surface-dark transform translate-y-full transition-transform duration-300 ease-in-out flex flex-col pt-24 pb-8 px-6 overflow-y-auto">
+        <button id="close-menu-btn" class="absolute top-6 right-6 p-2 text-gray-500 dark:text-gray-400">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        
+        <div class="flex flex-col space-y-6 mt-8">
+            <a href="#medula-sem-medo" class="mobile-link text-2xl font-bold border-b border-gray-100 dark:border-gray-800 pb-4">Medula sem medo</a>
+            <a href="#como-funciona" class="mobile-link text-2xl font-bold border-b border-gray-100 dark:border-gray-800 pb-4">Como funciona</a>
+            <a href="#quem-somos" class="mobile-link text-2xl font-bold border-b border-gray-100 dark:border-gray-800 pb-4">Quem somos</a>
+            <a href="#acoes" class="mobile-link text-2xl font-bold border-b border-gray-100 dark:border-gray-800 pb-4">Ações da rede</a>
+            <a href="#faq" class="mobile-link text-2xl font-bold border-b border-gray-100 dark:border-gray-800 pb-4">Dúvidas Frequentes</a>
+        </div>
+
+        <div class="mt-auto space-y-4 pt-8">
+            <a href="#cadastro-paciente" class="mobile-link w-full bg-patient text-white flex justify-center py-4 rounded-xl font-bold text-lg">💙 Cadastrar Paciente</a>
+            <a href="#atualizar-redome" class="mobile-link w-full border-2 border-gray-200 dark:border-gray-700 text-gray-800 dark:text-white flex justify-center py-4 rounded-xl font-bold text-lg">🔄 Atualizar REDOME</a>
+            <div class="flex justify-between items-center pt-4 border-t border-gray-200 dark:border-gray-800">
+                <span class="font-medium">Modo Noturno</span>
+                <button id="theme-toggle-mobile" class="p-3 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300">
+                    <i data-lucide="moon" class="w-6 h-6 dark:hidden"></i>
+                    <i data-lucide="sun" class="w-6 h-6 hidden dark:block"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT (Escondido inicialmente) -->
+    <main id="main-content" class="opacity-0 transition-opacity duration-1000 pt-24 pb-20">
+        
+        <!-- 1. HERO: Vitrine de Novidades -->
+        <section id="inicio" class="py-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Wrapper do Carrossel -->
+                <div class="relative group">
+                    <div id="hero-carousel" class="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4 pb-8">
+                        <!-- Renderizado via JS -->
+                    </div>
+                    <!-- Controles -->
+                    <button id="hero-prev" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-black/50 backdrop-blur shadow-lg rounded-full p-3 opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-0 hidden md:block">
+                        <i data-lucide="chevron-left"></i>
+                    </button>
+                    <button id="hero-next" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-black/50 backdrop-blur shadow-lg rounded-full p-3 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block">
+                        <i data-lucide="chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. CTA IMEDIATO (Escolha seu passo) -->
+        <section id="decisao" class="py-12 bg-surface-light dark:bg-surface-dark border-y border-gray-100 dark:border-gray-800">
+            <div class="max-w-4xl mx-auto px-4 text-center">
+                <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">Escolha seu próximo passo</h1>
+                <p class="text-lg text-gray-500 dark:text-gray-400 mb-10 max-w-2xl mx-auto">A rede cresce e salva vidas quando cada pessoa sabe exatamente como pode ajudar hoje.</p>
+                
+                <div class="grid md:grid-cols-2 gap-4 mb-6">
+                    <a href="#cadastro-doador" class="bg-brand hover:bg-brand-dark text-white p-5 rounded-2xl font-bold text-lg shadow-ios hover:shadow-ios-hover transition-all flex items-center justify-center gap-3">
+                        <span class="text-2xl">🩸</span> Quero me cadastrar como doador
+                    </a>
+                    <a href="#cadastro-paciente" class="bg-patient hover:bg-patient-dark text-white p-5 rounded-2xl font-bold text-lg shadow-ios hover:shadow-ios-hover transition-all flex items-center justify-center gap-3">
+                        <span class="text-2xl">💙</span> Quero cadastrar um paciente
+                    </a>
+                </div>
+                
+                <a href="#atualizar-redome" class="inline-flex items-center justify-center p-4 rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors w-full md:w-auto">
+                    <i data-lucide="refresh-cw" class="w-5 h-5 mr-2 text-brand"></i>
+                    Já sou cadastrado no REDOME. Quero atualizar meus dados.
+                </a>
+                <p class="mt-4 text-sm text-gray-400">Manter seus dados atualizados no governo é essencial para você ser encontrado.</p>
+            </div>
+        </section>
+
+        <!-- 3. ROLLER AUTORIDADE 1 -->
+        <div class="overflow-hidden bg-brand text-white py-4 flex whitespace-nowrap">
+            <div class="animate-marquee font-bold tracking-widest text-sm uppercase flex items-center">
+                <span class="mx-8">🩸 Informação</span> <span class="opacity-50">•</span>
+                <span class="mx-8">🧬 Cadastro Consciente</span> <span class="opacity-50">•</span>
+                <span class="mx-8">🤝 Orientação</span> <span class="opacity-50">•</span>
+                <span class="mx-8">📣 Mobilização</span> <span class="opacity-50">•</span>
+                <span class="mx-8">❤️ Vida</span> <span class="opacity-50">•</span>
+            </div>
+            <div class="animate-marquee font-bold tracking-widest text-sm uppercase flex items-center" aria-hidden="true">
+                <span class="mx-8">🩸 Informação</span> <span class="opacity-50">•</span>
+                <span class="mx-8">🧬 Cadastro Consciente</span> <span class="opacity-50">•</span>
+                <span class="mx-8">🤝 Orientação</span> <span class="opacity-50">•</span>
+                <span class="mx-8">📣 Mobilização</span> <span class="opacity-50">•</span>
+                <span class="mx-8">❤️ Vida</span> <span class="opacity-50">•</span>
+            </div>
+        </div>
+
+        <!-- 4. MEDULA SEM MEDO (Educação) -->
+        <section id="medula-sem-medo" class="py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold mb-4 flex justify-center items-center gap-3">
+                        <span class="text-4xl">🧬</span> Medula sem medo
+                    </h2>
+                    <p class="text-lg text-gray-500 dark:text-gray-400">Muita gente não se cadastra porque imagina algo pior do que realmente é. Informação correta transforma medo em decisão consciente.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="flip-cards-container">
+                    <!-- Renderizado via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. VÍDEO INFORMATIVO (Aférese vs Punção) -->
+        <section id="video-informativo" class="py-16 bg-surface-light dark:bg-surface-dark">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    
+                    <!-- Player -->
+                    <div class="rounded-3xl overflow-hidden shadow-ios-dark border border-gray-100 dark:border-gray-800 bg-black aspect-video relative">
+                        <video controls poster="https://res.cloudinary.com/dm9mnc97u/image/upload/v1777674863/FLA_7_1_kkc5qi.png" class="w-full h-full object-cover">
+                            <source src="https://res.cloudinary.com/dm9mnc97u/video/upload/v1777677171/download_wq1ltu.mp4" type="video/mp4">
+                            Seu navegador não suporta vídeos HTML5.
+                        </video>
+                    </div>
+
+                    <!-- Conteúdo Técnico -->
+                    <div>
+                        <h2 class="text-3xl font-extrabold mb-6 flex items-center gap-2">
+                            🎥 Entenda a doação
+                        </h2>
+                        <p class="text-lg text-gray-600 dark:text-gray-300 mb-8 border-l-4 border-brand pl-4">
+                            Em alguns casos, a coleta pode acontecer por <strong>aférese</strong> (pelo sangue). Em outros, por <strong>punção da medula óssea</strong> (no osso da bacia). A decisão é 100% conduzida pela equipe médica.
+                        </p>
+
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-start gap-4 bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl border border-gray-100 dark:border-gray-800">
+                                <div class="bg-brand-light dark:bg-brand/20 text-brand rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold">1</div>
+                                <p class="text-sm font-medium">Medula óssea <span class="underline decoration-brand underline-offset-2">não é</span> medula espinhal.</p>
+                            </li>
+                            <li class="flex items-start gap-4 bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl border border-gray-100 dark:border-gray-800">
+                                <div class="bg-brand-light dark:bg-brand/20 text-brand rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold">2</div>
+                                <p class="text-sm font-medium">O cadastro oficial é feito nos canais de saúde. Nós orientamos.</p>
+                            </li>
+                            <li class="flex items-start gap-4 bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl border border-gray-100 dark:border-gray-800">
+                                <div class="bg-brand-light dark:bg-brand/20 text-brand rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0 font-bold">3</div>
+                                <p class="text-sm font-medium">Informação certa reduz o medo e cria uma rede forte.</p>
+                            </li>
+                        </ul>
+                        <a href="#decisao" class="text-brand font-bold hover:text-brand-dark flex items-center gap-1 group">
+                            Quero escolher meu próximo passo <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. BLOCO REDOME UPDATE -->
+        <section id="atualizar-redome" class="py-12 bg-gradient-to-br from-gray-100 to-white dark:from-gray-900 dark:to-black">
+            <div class="max-w-4xl mx-auto px-4">
+                <div class="bg-white dark:bg-surface-dark rounded-3xl p-8 md:p-12 text-center shadow-ios border border-gray-200 dark:border-gray-800 relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gray-300 via-gray-400 to-gray-300 dark:from-gray-700 dark:via-gray-600 dark:to-gray-700"></div>
+                    <i data-lucide="file-check-2" class="w-16 h-16 mx-auto text-gray-400 mb-4"></i>
+                    <h2 class="text-2xl md:text-3xl font-extrabold mb-4">🔄 Já é cadastrado no REDOME?</h2>
+                    <p class="text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+                        Se seu telefone, e-mail ou cidade mudaram, atualizar seus dados é tão importante quanto se cadastrar. Um cadastro desatualizado impede que você seja encontrado quando uma vida depender disso.
+                    </p>
+                    <a href="http://redome.inca.gov.br/" target="_blank" rel="noopener noreferrer" class="inline-block bg-gray-900 dark:bg-white text-white dark:text-black font-bold px-8 py-4 rounded-xl shadow-lg hover:scale-105 transition-transform">
+                        Atualizar dados no site oficial
+                    </a>
+                    <p class="mt-4 text-xs text-gray-400 uppercase tracking-widest">A FlaMedula orienta. A atualização é no INCA/REDOME.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. MINI APPS (Hub de Cadastro Visual) -->
+        <section id="mini-apps" class="py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold mb-4">Três caminhos, um só propósito</h2>
+                    <p class="text-lg text-gray-500">Interfaces preparadas para organizar nossa rede de mobilização sem burocracia.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-8">
+                    
+                    <!-- App 1: Novo Doador -->
+                    <div id="cadastro-doador" class="bg-surface-light dark:bg-surface-dark rounded-3xl border border-gray-200 dark:border-gray-800 shadow-ios flex flex-col overflow-hidden relative group cursor-default">
+                        <div class="h-2 bg-brand w-full"></div>
+                        <div class="p-6 md:p-8 flex-grow flex flex-col">
+                            <h3 class="text-xl font-bold mb-2 flex items-center gap-2 text-brand"><i data-lucide="droplet"></i> Novo Doador</h3>
+                            <p class="text-sm text-gray-500 mb-6">Entre para a rede de pessoas que podem ser mobilizadas em campanhas.</p>
+                            
+                            <div class="space-y-4 opacity-70 pointer-events-none">
+                                <div class="h-12 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 px-4 flex items-center text-sm text-gray-400">Nome completo</div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="h-12 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 px-4 flex items-center text-sm text-gray-400">Celular</div>
+                                    <div class="h-12 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 px-4 flex items-center text-sm text-gray-400">Cidade</div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6 flex items-start gap-3 opacity-80">
+                                <div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in mt-0.5">
+                                    <input type="checkbox" name="toggle" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300 dark:border-gray-600 top-0 left-0" checked disabled/>
+                                    <label class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 dark:bg-gray-600 cursor-pointer"></label>
+                                </div>
+                                <span class="text-xs text-gray-500 leading-tight">Autorizo contato da equipe FlaMedula para campanhas.</span>
+                            </div>
+                            
+                            <button class="mt-auto pt-8 w-full">
+                                <div class="w-full py-3 rounded-xl bg-brand/10 text-brand font-bold group-hover:bg-brand group-hover:text-white transition-colors">Iniciar Cadastro</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- App 2: Já sou doador (Update) -->
+                    <div class="bg-surface-light dark:bg-surface-dark rounded-3xl border border-gray-200 dark:border-gray-800 shadow-ios flex flex-col overflow-hidden relative group cursor-default">
+                        <div class="h-2 bg-gray-400 w-full"></div>
+                        <div class="p-6 md:p-8 flex-grow flex flex-col">
+                            <h3 class="text-xl font-bold mb-2 flex items-center gap-2"><i data-lucide="user-check"></i> Já sou doador</h3>
+                            <p class="text-sm text-gray-500 mb-6">Atualize seus dados oficiais para continuar encontrável.</p>
+                            
+                            <div class="space-y-4 opacity-70 pointer-events-none">
+                                <div class="h-12 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 px-4 flex items-center text-sm text-gray-400">CPF</div>
+                                <div class="h-12 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 px-4 flex items-center justify-between text-sm text-gray-400">
+                                    Acessar portal Gov.br <i data-lucide="external-link" class="w-4 h-4"></i>
+                                </div>
+                            </div>
+                            
+                            <p class="mt-6 text-xs text-center text-gray-400">A FlaMedula não altera dados do governo. Redirecionaremos você.</p>
+                            
+                            <button class="mt-auto pt-8 w-full">
+                                <div class="w-full py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 font-bold group-hover:border-gray-400 transition-colors">Ir para o REDOME</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- App 3: Paciente -->
+                    <div id="cadastro-paciente" class="bg-surface-light dark:bg-surface-dark rounded-3xl border border-gray-200 dark:border-gray-800 shadow-ios flex flex-col overflow-hidden relative group cursor-default lg:-mt-4 lg:mb-4 lg:shadow-ios-hover z-10 border-patient/30">
+                        <div class="h-2 bg-patient w-full"></div>
+                        <div class="p-6 md:p-8 flex-grow flex flex-col">
+                            <h3 class="text-xl font-bold mb-2 flex items-center gap-2 text-patient"><i data-lucide="heart-pulse"></i> Cadastrar Paciente</h3>
+                            <p class="text-sm text-gray-500 mb-6">Informe um caso para que a equipe analise possibilidades de mobilização local.</p>
+                            
+                            <div class="space-y-4 opacity-70 pointer-events-none">
+                                <div class="h-12 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 px-4 flex items-center text-sm text-gray-400">Nome do Paciente</div>
+                                <div class="h-12 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 px-4 flex items-center justify-between text-sm text-gray-400">Necessidade (Sangue/Medula) <i data-lucide="chevron-down" class="w-4 h-4"></i></div>
+                                <div class="h-24 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 px-4 py-3 text-sm text-gray-400">Resumo do caso...</div>
+                            </div>
+                            
+                            <button class="mt-auto pt-8 w-full">
+                                <div class="w-full py-4 rounded-xl bg-patient text-white font-bold shadow-lg group-hover:bg-patient-dark transition-colors">Informar Caso</div>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. TRANSPARÊNCIA (CMS Ready Dashboard) -->
+        <section id="transparencia" class="py-16 border-y border-gray-200 dark:border-gray-800 bg-surface-strongLight dark:bg-black">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                    <div class="max-w-xl">
+                        <h2 class="text-2xl md:text-3xl font-extrabold mb-3">📊 Acompanhe nossa rede</h2>
+                        <p class="text-gray-500">A confiança cresce quando a mobilização é acompanhada com clareza. Este painel será integrado aos nossos dados reais.</p>
+                    </div>
+                    <div class="text-xs font-mono bg-gray-200 dark:bg-gray-800 px-3 py-1 rounded text-gray-500 self-start md:self-auto">Status: Integração Supabase Futura</div>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6" id="metrics-container">
+                    <!-- Renderizado via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. COMO FUNCIONA (Timeline) -->
+        <section id="como-funciona" class="py-20">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-extrabold mb-4">🧭 Como funciona</h2>
+                    <p class="text-lg text-gray-500 max-w-2xl mx-auto">A FlaMedula orienta e mobiliza. A triagem oficial e a doação acontecem sempre nos órgãos de saúde.</p>
+                </div>
+
+                <div class="relative border-l-2 border-gray-200 dark:border-gray-800 ml-4 md:ml-1/2 space-y-12 pb-8">
+                    
+                    <!-- Passo 1 -->
+                    <div class="relative flex items-start group">
+                        <div class="absolute -left-2 top-0 transform -translate-x-1/2 w-4 h-4 rounded-full bg-brand ring-4 ring-white dark:ring-black"></div>
+                        <div class="ml-8 md:w-1/2 md:-ml-[50%] md:pr-12 md:text-right">
+                            <h4 class="text-xl font-bold mb-2">Entenda a causa</h4>
+                            <p class="text-gray-500 text-sm">Consuma informações seguras para quebrar mitos. Informação é a base do cadastro consciente.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Passo 2 -->
+                    <div class="relative flex items-start group">
+                        <div class="absolute -left-2 top-0 transform -translate-x-1/2 w-4 h-4 rounded-full bg-gray-300 dark:bg-gray-600 ring-4 ring-white dark:ring-black group-hover:bg-patient transition-colors"></div>
+                        <div class="ml-8 md:w-1/2 md:ml-0 md:pl-12">
+                            <h4 class="text-xl font-bold mb-2">Escolha como participar</h4>
+                            <p class="text-gray-500 text-sm">Cadastre-se para campanhas, atualize seus dados no site oficial ou peça ajuda para um paciente.</p>
+                        </div>
+                    </div>
+
+                    <!-- Passo 3 -->
+                    <div class="relative flex items-start group">
+                        <div class="absolute -left-2 top-0 transform -translate-x-1/2 w-4 h-4 rounded-full bg-gray-300 dark:bg-gray-600 ring-4 ring-white dark:ring-black group-hover:bg-patient transition-colors"></div>
+                        <div class="ml-8 md:w-1/2 md:-ml-[50%] md:pr-12 md:text-right">
+                            <h4 class="text-xl font-bold mb-2">A equipe organiza os dados</h4>
+                            <p class="text-gray-500 text-sm">Estruturamos contatos por região para acionar as pessoas certas na hora certa.</p>
+                        </div>
+                    </div>
+
+                    <!-- Passo 4 -->
+                    <div class="relative flex items-start group">
+                        <div class="absolute -left-2 top-0 transform -translate-x-1/2 w-4 h-4 rounded-full bg-gray-300 dark:bg-gray-600 ring-4 ring-white dark:ring-black group-hover:bg-brand transition-colors"></div>
+                        <div class="ml-8 md:w-1/2 md:ml-0 md:pl-12">
+                            <h4 class="text-xl font-bold mb-2">A rede entra em ação</h4>
+                            <p class="text-gray-500 text-sm">Quando um caso necessita de mobilização local, acionamos voluntários para campanhas em hemocentros.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. QUEM SOMOS (Manifesto) -->
+        <section id="quem-somos" class="py-20 bg-surface-light dark:bg-surface-dark">
+            <div class="max-w-5xl mx-auto px-4 text-center">
+                <div class="bg-gradient-to-br from-brand-dark to-brand rounded-3xl p-8 md:p-16 text-white shadow-2xl relative overflow-hidden">
+                    <i data-lucide="network" class="absolute -right-10 -bottom-10 w-64 h-64 opacity-10 text-black"></i>
+                    <h2 class="text-3xl md:text-5xl font-extrabold mb-8 tracking-tight">FlaMedula é mobilização em forma de rede.</h2>
+                    <p class="text-lg md:text-xl font-medium opacity-90 mb-6 max-w-3xl mx-auto leading-relaxed">
+                        Nascemos para transformar informação em mobilização. A rede ajuda a organizar pessoas dispostas a doar, casos que precisam de apoio e ações que alcançam quem está perto.
+                    </p>
+                    <p class="text-lg md:text-xl font-medium opacity-90 mb-10 max-w-3xl mx-auto leading-relaxed">
+                        A causa vive de cadastro consciente, orientação segura, dados atualizados, famílias acolhidas e campanhas que transformam solidariedade em presença.
+                    </p>
+                    <div class="inline-block bg-white/10 backdrop-blur-md px-6 py-4 rounded-2xl border border-white/20">
+                        <p class="font-bold text-xl">"Quando a informação está organizada, a solidariedade chega mais rápido."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 11. EQUIPE -->
+        <section id="equipe" class="py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-10 text-center md:text-left">
+                    <h2 class="text-3xl font-extrabold mb-2">👥 Equipe FlaMedula</h2>
+                    <p class="text-gray-500">Pessoas que ajudam a organizar, acolher e colocar a causa em movimento.</p>
+                </div>
+                
+                <div class="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-6 pb-8" id="team-carousel">
+                    <!-- Renderizado via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 12. EMBAIXADORES -->
+        <section id="embaixadores" class="py-16 bg-surface-light dark:bg-surface-dark border-y border-gray-100 dark:border-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl font-extrabold mb-4">🎙️ Vozes da Causa</h2>
+                <p class="text-gray-500 mb-12 max-w-2xl mx-auto">Figuras públicas que ampliam o alcance e nos ajudam a convocar cada vez mais pessoas para essa rede de vida.</p>
+                
+                <div class="flex flex-wrap justify-center gap-8" id="ambassadors-container">
+                    <!-- Renderizado via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 13. AÇÕES (CMS Ready) -->
+        <section id="acoes" class="py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-12">
+                    <h2 class="text-3xl md:text-4xl font-extrabold mb-4">📸 Ações que tiram a solidariedade do discurso</h2>
+                    <p class="text-lg text-gray-500">Campanhas, encontros e mobilizações que mostram a rede acontecendo na prática.</p>
+                </div>
+                
+                <div class="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-6 pb-8" id="actions-carousel">
+                    <!-- Renderizado via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 14. ROLLER AUTORIDADE 2 -->
+        <div class="overflow-hidden bg-gray-900 dark:bg-gray-100 text-white dark:text-black py-3 flex whitespace-nowrap">
+            <div class="animate-marquee-reverse font-bold tracking-widest text-xs md:text-sm uppercase flex items-center">
+                <span class="mx-8">Dados Organizados</span> <span class="opacity-30">•</span>
+                <span class="mx-8">Campanhas Mais Fortes</span> <span class="opacity-30">•</span>
+                <span class="mx-8">Rede Mais Pronta</span> <span class="opacity-30">•</span>
+                <span class="mx-8">Causa Mais Visível</span> <span class="opacity-30">•</span>
+            </div>
+            <div class="animate-marquee-reverse font-bold tracking-widest text-xs md:text-sm uppercase flex items-center" aria-hidden="true">
+                <span class="mx-8">Dados Organizados</span> <span class="opacity-30">•</span>
+                <span class="mx-8">Campanhas Mais Fortes</span> <span class="opacity-30">•</span>
+                <span class="mx-8">Rede Mais Pronta</span> <span class="opacity-30">•</span>
+                <span class="mx-8">Causa Mais Visível</span> <span class="opacity-30">•</span>
+            </div>
+        </div>
+
+        <!-- 15. DEPOIMENTOS -->
+        <section id="depoimentos" class="py-20 bg-surface-light dark:bg-surface-dark">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl font-extrabold mb-4">💬 Histórias que importam</h2>
+                    <p class="text-gray-500">Relatos de quem acompanha, apoia ou participa da causa.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-6" id="testimonials-container">
+                    <!-- Renderizado via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 16. APOIO FINANCEIRO -->
+        <section id="apoio" class="py-20">
+            <div class="max-w-3xl mx-auto px-4 text-center">
+                <div class="bg-white dark:bg-surface-strongDark rounded-3xl p-10 md:p-14 border border-red-100 dark:border-gray-700 shadow-xl relative">
+                    <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-red-50 dark:bg-red-900/30 text-brand p-3 rounded-full border border-red-100 dark:border-red-900">
+                        <i data-lucide="heart-handshake" class="w-8 h-8"></i>
+                    </div>
+                    <h2 class="text-3xl font-extrabold mt-4 mb-6">Seu apoio mantém a rede em movimento</h2>
+                    <p class="text-gray-600 dark:text-gray-300 text-lg mb-10">
+                        Nossa estrutura precisa de tecnologia, comunicação e logística de campo. Sua contribuição é o combustível para transformarmos intenção em vida através de campanhas e orientação.
+                    </p>
+                    <button class="bg-gray-900 dark:bg-white text-white dark:text-black hover:scale-105 transition-transform px-10 py-4 rounded-full font-bold text-lg shadow-lg">
+                        Apoiar a FlaMedula
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 17. FAQ -->
+        <section id="faq" class="py-20 bg-surface-light dark:bg-surface-dark border-t border-gray-100 dark:border-gray-800">
+            <div class="max-w-3xl mx-auto px-4">
+                <h2 class="text-3xl font-extrabold mb-10 text-center">Dúvidas Frequentes</h2>
+                <div class="space-y-4" id="faq-container">
+                    <!-- Renderizado via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 18. CTA FINAL -->
+        <section id="cta-final" class="py-24 bg-surface-strongLight dark:bg-black border-t border-gray-200 dark:border-gray-800">
+            <div class="max-w-4xl mx-auto px-4 text-center">
+                <h2 class="text-4xl md:text-5xl font-black mb-8 leading-tight tracking-tight">
+                    Informação vira cadastro.<br>
+                    <span class="text-brand">Cadastro vira possibilidade.</span><br>
+                    Possibilidade pode virar vida.
+                </h2>
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <a href="#cadastro-doador" class="w-full sm:w-auto bg-brand text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-brand-dark transition-colors">🩸 Quero me cadastrar</a>
+                    <a href="#cadastro-paciente" class="w-full sm:w-auto bg-patient text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-patient-dark transition-colors">💙 Cadastrar paciente</a>
+                </div>
+                <div class="mt-6">
+                    <a href="#atualizar-redome" class="text-gray-500 hover:text-gray-900 dark:hover:text-white font-medium text-sm flex items-center justify-center gap-2">
+                        <i data-lucide="refresh-cw" class="w-4 h-4"></i> Atualizar REDOME
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="bg-white dark:bg-surface-dark py-12 border-t border-gray-200 dark:border-gray-800 text-center px-4">
+            <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1777674863/FLA_7_1_kkc5qi.png" alt="FlaMedula Logo" class="h-8 mx-auto mb-6 grayscale opacity-60">
+            <p class="text-xs text-gray-400 max-w-2xl mx-auto mb-6 leading-relaxed">
+                A FlaMedula é uma rede independente de mobilização e orientação. Não substituímos o REDOME, hemocentros ou entidades oficiais de saúde. Todo cadastro oficial, triagem clínica e procedimento médico seguem regras e protocolos exclusivos das autoridades governamentais de saúde.
+            </p>
+            <p class="text-xs text-gray-500 font-medium">© 2026 FlaMedula. Todos os direitos reservados.</p>
+        </footer>
+
+    </main>
+
+    <script>
+        // Inicializa ícones Lucide
+        lucide.createIcons();
+
+        // ==========================================
+        // 1. GATE LÓGICA (Preloader & Vídeo)
+        // ==========================================
+        const gateContainer = document.getElementById('gate-container');
+        const preloaderView = document.getElementById('preloader-view');
+        const videoView = document.getElementById('video-view');
+        const introVideo = document.getElementById('intro-video');
+        const btnSkip = document.getElementById('btn-skip');
+        const btnUnmute = document.getElementById('btn-unmute');
+        const muteIcon = document.getElementById('mute-icon');
+        const gateFinishControls = document.getElementById('gate-finish-controls');
+        const mainContent = document.getElementById('main-content');
+        const body = document.body;
+
+        function unlockLanding() {
+            // Suaviza a saída do Gate
+            gateContainer.style.opacity = '0';
+            introVideo.pause();
+            
+            // Libera scroll
+            body.classList.remove('locked');
+            
+            // Mostra a landing page
+            mainContent.classList.remove('opacity-0');
+            
+            // Remove da DOM após transição
+            setTimeout(() => {
+                gateContainer.remove();
+            }, 700);
+        }
+
+        // Transição Preloader -> Vídeo
+        setTimeout(() => {
+            preloaderView.classList.add('opacity-0');
+            videoView.classList.remove('opacity-0');
+            
+            // Tenta dar autoplay
+            const playPromise = introVideo.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("Autoplay prevenido pelo navegador. Usuário precisará interagir.");
+                });
+            }
+        }, 2000);
+
+        // Controles de Vídeo
+        btnUnmute.addEventListener('click', () => {
+            introVideo.muted = !introVideo.muted;
+            if (introVideo.muted) {
+                muteIcon.setAttribute('data-lucide', 'volume-x');
+            } else {
+                muteIcon.setAttribute('data-lucide', 'volume-2');
+            }
+            lucide.createIcons();
+        });
+
+        btnSkip.addEventListener('click', unlockLanding);
+        document.getElementById('btn-enter').addEventListener('click', unlockLanding);
+
+        // Quando vídeo acaba
+        introVideo.addEventListener('ended', () => {
+            gateFinishControls.classList.remove('translate-y-10', 'opacity-0');
+            btnSkip.classList.add('hidden'); // Esconde o pular pequeno
+        });
+
+        // Fallback segurança: se vídeo falhar por muito tempo
+        setTimeout(() => {
+            if(gateContainer.parentNode && introVideo.readyState === 0) {
+                 unlockLanding(); // Pula se vídeo quebrar
+            }
+        }, 8000);
+
+
+        // ==========================================
+        // 2. DARK MODE LÓGICA
+        // ==========================================
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleMobileBtn = document.getElementById('theme-toggle-mobile');
+        const htmlElement = document.documentElement;
+
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                htmlElement.classList.add('dark');
+            } else {
+                htmlElement.classList.remove('dark');
+            }
+        }
+
+        function toggleTheme() {
+            const isDark = htmlElement.classList.contains('dark');
+            const newTheme = isDark ? 'light' : 'dark';
+            applyTheme(newTheme);
+            localStorage.setItem('flamedula-theme', newTheme);
+        }
+
+        // Verifica preferência salva ou do sistema
+        const savedTheme = localStorage.getItem('flamedula-theme');
+        if (savedTheme) {
+            applyTheme(savedTheme);
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            applyTheme('dark');
+        }
+
+        themeToggleBtn.addEventListener('click', toggleTheme);
+        themeToggleMobileBtn.addEventListener('click', toggleTheme);
+
+
+        // ==========================================
+        // 3. MENU MOBILE LÓGICA
+        // ==========================================
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMobileMenu() {
+            const isOpen = mobileMenu.classList.contains('translate-y-0');
+            if (isOpen) {
+                mobileMenu.classList.remove('translate-y-0');
+                mobileMenu.classList.add('translate-y-full');
+                body.style.overflow = '';
+            } else {
+                mobileMenu.classList.remove('translate-y-full');
+                mobileMenu.classList.add('translate-y-0');
+                body.style.overflow = 'hidden'; // trava bg
+            }
+        }
+
+        mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+        closeMenuBtn.addEventListener('click', toggleMobileMenu);
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                toggleMobileMenu();
+            });
+        });
+
+
+        // ==========================================
+        // 4. CMS READY DATA (Arrays Locais)
+        // ==========================================
+        
+        // 4.1 Hero News
+        const heroNewsItems = [
+            { id: 1, tag: "🧬 MEDULA SEM MEDO", title: "Você sabe como funciona o cadastro de medula?", excerpt: "Informação certa ajuda a vencer o medo e transforma intenção em possibilidade.", cta_label: "Entender agora", url: "#medula-sem-medo", bg: "bg-gray-900" },
+            { id: 2, tag: "🩸 DOE SANGUE", title: "A Nação também salva vidas fora do campo.", excerpt: "Cada pessoa orientada fortalece campanhas, bancos de sangue e pacientes.", cta_label: "Quero me cadastrar", url: "#cadastro-doador", bg: "bg-brand" },
+            { id: 3, tag: "📣 CAMPANHAS", title: "Mobilização só acontece quando a rede está pronta.", excerpt: "Cadastros, ações e orientação ajudam a alcançar quem pode ajudar.", cta_label: "Ver ações", url: "#acoes", bg: "bg-gray-800" },
+            { id: 4, tag: "💙 PACIENTES", title: "Um caso precisa de alcance, cuidado e organização.", excerpt: "Cadastre um paciente para análise e orientação da equipe.", cta_label: "Cadastrar paciente", url: "#cadastro-paciente", bg: "bg-patient" }
+        ];
+
+        const heroContainer = document.getElementById('hero-carousel');
+        heroContainer.innerHTML = heroNewsItems.map(item => `
+            <div class="min-w-[85vw] md:min-w-[400px] snap-center rounded-3xl p-8 flex flex-col justify-between shadow-ios text-white relative overflow-hidden ${item.bg}">
+                <div class="absolute inset-0 bg-black/20"></div>
+                <div class="relative z-10">
+                    <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold tracking-wider mb-4 border border-white/30">${item.tag}</span>
+                    <h3 class="text-2xl md:text-3xl font-extrabold mb-3 leading-tight">${item.title}</h3>
+                    <p class="text-white/80 font-medium mb-8">${item.excerpt}</p>
+                </div>
+                <div class="relative z-10">
+                    <a href="${item.url}" class="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full font-bold text-sm hover:scale-105 transition-transform">
+                        ${item.cta_label} <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        `).join('');
+
+        // 4.2 Medula sem Medo (Flip Cards)
+        const faqFlipItems = [
+            { q: "É sempre pela coluna?", a: "Não. Existem formas diferentes de coleta, incluindo aférese pelo sangue periférico e punção da medula óssea. A equipe médica orienta a forma indicada." },
+            { q: "Cadastro já é doação?", a: "Não. O cadastro indica que você pode ser chamado se houver compatibilidade. A doação só acontece após novas confirmações e avaliação." },
+            { q: "Medula óssea é medula espinhal?", a: "Não. A medula óssea é o tecido dentro dos ossos que produz células do sangue. Medula espinhal faz parte do sistema nervoso central." },
+            { q: "Quem pode se cadastrar?", a: "O cadastro oficial segue critérios dos hemocentros e do REDOME. A FlaMedula orienta e mobiliza, mas não substitui os canais oficiais." },
+            { q: "Por que atualizar meus dados importa?", a: "Se seus dados estiverem desatualizados, você pode não ser encontrado quando surgir uma possível compatibilidade 100%." },
+            { q: "A FlaMedula substitui o REDOME?", a: "Não. Nós ajudamos com orientação e mobilização em rede. Cadastro oficial, triagem e doação seguem pelos canais oficiais de saúde do governo." }
+        ];
+
+        const flipContainer = document.getElementById('flip-cards-container');
+        flipContainer.innerHTML = faqFlipItems.map(item => `
+            <div class="group h-48 perspective-1000 cursor-pointer flip-card-mobile">
+                <div class="flip-inner relative w-full h-full transition-transform duration-700 transform-style-3d group-hover:rotate-y-180">
+                    <!-- Frente -->
+                    <div class="absolute inset-0 backface-hidden bg-white dark:bg-surface-strongDark rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm flex items-center justify-center p-6 text-center">
+                        <h3 class="font-bold text-lg">${item.q}</h3>
+                        <div class="absolute bottom-4 right-4 text-brand bg-brand-light dark:bg-brand/20 p-1.5 rounded-full"><i data-lucide="rotate-cw" class="w-4 h-4"></i></div>
+                    </div>
+                    <!-- Verso -->
+                    <div class="absolute inset-0 backface-hidden bg-brand text-white rounded-2xl p-6 flex flex-col justify-center text-center rotate-y-180 shadow-lg">
+                        <p class="font-medium text-sm md:text-base leading-snug">${item.a}</p>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        // Fallback mobile click para flip cards
+        document.querySelectorAll('.flip-card-mobile').forEach(card => {
+            card.addEventListener('click', () => {
+                card.classList.toggle('flip-active');
+            });
+        });
+
+        // 4.3 Transparência (Métricas)
+        const transparencyMetrics = [
+            { label: "Cadastros orientados", value: "--", status: "Em breve", type: "brand" },
+            { label: "Interessados medula", value: "--", status: "Dados em organização", type: "gray" },
+            { label: "Casos recebidos", value: "--", status: "Meta aberta", type: "patient" },
+            { label: "Ações ativas", value: "--", status: "Integração futura", type: "green" }
+        ];
+
+        const metricsContainer = document.getElementById('metrics-container');
+        metricsContainer.innerHTML = transparencyMetrics.map(m => {
+            const colorClass = m.type === 'brand' ? 'bg-brand' : m.type === 'patient' ? 'bg-patient' : m.type === 'green' ? 'bg-green-500' : 'bg-gray-400';
+            const textClass = m.type === 'brand' ? 'text-brand' : m.type === 'patient' ? 'text-patient' : m.type === 'green' ? 'text-green-500' : 'text-gray-500';
+            return `
+            <div class="bg-white dark:bg-surface-dark p-6 rounded-2xl border border-gray-100 dark:border-gray-800 shadow-sm">
+                <div class="text-3xl font-black mb-1 text-gray-900 dark:text-white">${m.value}</div>
+                <div class="text-sm font-medium ${textClass} mb-4">${m.label}</div>
+                <div class="w-full h-1.5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+                    <div class="h-full w-[10%] ${colorClass} opacity-50"></div>
+                </div>
+                <div class="text-xs text-gray-400 mt-2 font-mono">${m.status}</div>
+            </div>
+        `}).join('');
+
+        // 4.4 Equipe
+        const teamMembers = [
+            { name: "André Matos “Dedeco”", role: "Fundador e Diretor Geral", desc: "Lidera a mobilização que transforma informação, torcida e solidariedade em ação." },
+            { name: "Danielli Oliveira", role: "Parceira Técnica", desc: "Conecta a causa com orientação técnica e responsabilidade clínica." },
+            { name: "Elaine Reixach", role: "Ações Solidárias", desc: "Ajuda a organizar campanhas, eventos humanitários e mobilizações." },
+            { name: "Tio Maiko Castro", role: "Apoio e Acolhimento", desc: "Leva presença, alegria e suporte para famílias e casas de apoio." },
+            { name: "Artur Santos", role: "Logística e Execução", desc: "Atua na operação de campo para transformar mobilização em presença." }
+        ];
+
+        const teamContainer = document.getElementById('team-carousel');
+        teamContainer.innerHTML = teamMembers.map(member => `
+            <div class="min-w-[280px] snap-start bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-800 rounded-2xl p-6 text-center shadow-sm">
+                <div class="w-20 h-20 bg-gray-100 dark:bg-gray-800 text-gray-400 rounded-full mx-auto mb-4 flex items-center justify-center text-2xl font-bold">
+                    ${member.name.charAt(0)}
+                </div>
+                <h4 class="font-bold text-lg mb-1">${member.name}</h4>
+                <p class="text-xs font-bold text-brand uppercase tracking-wider mb-3">${member.role}</p>
+                <p class="text-sm text-gray-500">${member.desc}</p>
+            </div>
+        `).join('');
+
+        // 4.5 Embaixadores
+        const ambassadors = [
+            { name: "Zico", role: "Embaixador Oficial", desc: "O maior camisa 10 da história abraça a causa como padrinho, convocando a Nação." },
+            { name: "Tânia Bastos", role: "Madrinha Institucional", desc: "Ajuda a ampliar a visibilidade da causa e fortalecer sua presença na esfera pública." }
+        ];
+
+        const ambContainer = document.getElementById('ambassadors-container');
+        ambContainer.innerHTML = ambassadors.map(amb => `
+            <div class="flex-1 min-w-[300px] max-w-sm bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-800 rounded-3xl p-8 text-center shadow-ios">
+                <div class="w-24 h-24 bg-gray-100 dark:bg-gray-800 text-gray-400 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl font-bold ring-4 ring-gray-50 dark:ring-gray-900">
+                    ${amb.name.charAt(0)}
+                </div>
+                <h4 class="font-bold text-2xl mb-1">${amb.name}</h4>
+                <p class="text-sm font-bold text-patient uppercase tracking-wider mb-4">${amb.role}</p>
+                <p class="text-gray-500">${amb.desc}</p>
+            </div>
+        `).join('');
+
+        // 4.6 Ações
+        const actionItems = [
+            { title: "Campanha Maracanã", date: "Out 2026", loc: "Rio de Janeiro", desc: "Ação de conscientização pré-jogo.", tag: "Conscientização" },
+            { title: "Apoio a Pacientes", date: "Nov 2026", loc: "Niterói", desc: "Acolhimento e entrega de recursos a famílias.", tag: "Acolhimento" },
+            { title: "Mutirão Hemorio", date: "Dez 2026", loc: "Gávea", desc: "Mobilização de doadores de sangue e cadastro.", tag: "Mobilização" }
+        ];
+
+        const actionsContainer = document.getElementById('actions-carousel');
+        actionsContainer.innerHTML = actionItems.map(action => `
+            <div class="min-w-[320px] snap-start bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-800 rounded-3xl overflow-hidden shadow-sm flex flex-col group">
+                <div class="h-40 bg-gray-100 dark:bg-gray-800 flex items-center justify-center relative overflow-hidden">
+                    <i data-lucide="image" class="w-10 h-10 text-gray-300 dark:text-gray-700"></i>
+                    <div class="absolute top-4 right-4 bg-white/90 dark:bg-black/80 backdrop-blur text-xs font-bold px-2 py-1 rounded text-brand">${action.date}</div>
+                </div>
+                <div class="p-6 flex-grow flex flex-col">
+                    <h4 class="font-bold text-xl mb-2 group-hover:text-brand transition-colors">${action.title}</h4>
+                    <p class="text-sm text-gray-500 mb-4 flex-grow">${action.desc}</p>
+                    <div class="flex items-center justify-between text-xs text-gray-400 mt-auto pt-4 border-t border-gray-100 dark:border-gray-800">
+                        <span class="flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3"></i> ${action.loc}</span>
+                        <span class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">${action.tag}</span>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        // 4.7 Depoimentos
+        const testimonials = [
+            { name: "João Guilherme", rel: "Doador Orientado", q: "Graças à informação, perdi o medo e fiz meu cadastro." },
+            { name: "Família da Sofia", rel: "Apoiados", q: "A rede nos deu esperança quando mais precisávamos." },
+            { name: "Carlos Eduardo", rel: "Voluntário", q: "Ver a mobilização salvar vidas é nosso maior troféu." }
+        ];
+
+        document.getElementById('testimonials-container').innerHTML = testimonials.map(t => `
+            <div class="bg-white dark:bg-surface-strongDark p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm relative">
+                <i data-lucide="quote" class="absolute top-6 right-6 w-8 h-8 text-gray-100 dark:text-gray-800"></i>
+                <p class="text-lg font-medium text-gray-700 dark:text-gray-300 mb-6 italic relative z-10">"${t.q}"</p>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full"></div>
+                    <div>
+                        <h4 class="font-bold text-sm">${t.name}</h4>
+                        <p class="text-xs text-gray-500">${t.rel}</p>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        // 4.8 FAQ Accordion
+        const faqItems = [
+            { q: "Doar medula é pela coluna?", a: "Não. A medula óssea fica no interior dos ossos (como a bacia). A medula espinhal é que fica na coluna. São coisas totalmente diferentes." },
+            { q: "Cadastro já é doação?", a: "Não. O cadastro apenas coloca seus dados num banco mundial. Você só doará se um dia houver um paciente compatível precisando." },
+            { q: "Como atualizar meus dados?", a: "Acessando o portal do REDOME ou o app oficial do governo. A FlaMedula não altera seus dados sistêmicos oficiais." },
+            { q: "A FlaMedula substitui o REDOME?", a: "Não. Nós somos uma rede de apoio que informa e mobiliza as pessoas para se cadastrarem e atualizarem dados nos canais oficiais." }
+        ];
+
+        const faqContainer = document.getElementById('faq-container');
+        faqContainer.innerHTML = faqItems.map((faq, i) => `
+            <div class="border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden bg-white dark:bg-surface-strongDark">
+                <button class="faq-btn w-full text-left p-6 font-bold flex justify-between items-center focus:outline-none" aria-expanded="false">
+                    ${faq.q}
+                    <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300"></i>
+                </button>
+                <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 px-6">
+                    <p class="pb-6 text-gray-600 dark:text-gray-400 text-sm md:text-base">${faq.a}</p>
+                </div>
+            </div>
+        `).join('');
+
+        // Lógica do FAQ
+        document.querySelectorAll('.faq-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                const icon = this.querySelector('i');
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+
+                // Fecha todos os outros
+                document.querySelectorAll('.faq-content').forEach(c => { if(c !== content) { c.style.maxHeight = null; c.previousElementSibling.setAttribute('aria-expanded', 'false'); c.previousElementSibling.querySelector('i').style.transform = 'rotate(0deg)'; } });
+
+                if (!isExpanded) {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    this.setAttribute('aria-expanded', 'true');
+                    icon.style.transform = 'rotate(180deg)';
+                } else {
+                    content.style.maxHeight = null;
+                    this.setAttribute('aria-expanded', 'false');
+                    icon.style.transform = 'rotate(0deg)';
+                }
+            });
+        });
+
+        // Recria ícones gerados dinamicamente
+        lucide.createIcons();
+
+        // Controles Hero Carousel (Scroll Manual JS)
+        const heroScroll = document.getElementById('hero-carousel');
+        document.getElementById('hero-next').addEventListener('click', () => {
+            heroScroll.scrollBy({ left: 300, behavior: 'smooth' });
+        });
+        document.getElementById('hero-prev').addEventListener('click', () => {
+            heroScroll.scrollBy({ left: -300, behavior: 'smooth' });
+        });
+
+    </script>
+</body>
+</html>
