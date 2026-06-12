@@ -49,7 +49,7 @@ async function submitRow(table, payload, submissionKey) {
     return {
       ok: false,
       mode: "locked",
-      message: "Ja existe um envio em andamento. Aguarde alguns segundos."
+      message: "Já existe um envio em andamento. Aguarde alguns segundos."
     };
   }
 
@@ -64,7 +64,7 @@ async function submitRow(table, payload, submissionKey) {
       return {
         ok: true,
         mode: "fallback",
-        message: "Recebemos seus dados no modo demonstrativo. A integracao real com Supabase pode ser ativada depois."
+        message: "Recebemos seus dados no modo demonstrativo. A integração real com Supabase pode ser ativada depois."
       };
     }
 
@@ -86,7 +86,7 @@ async function submitRow(table, payload, submissionKey) {
       ok: false,
       mode: "error",
       message:
-        "Nao foi possivel concluir o envio agora. Revise os campos e tente novamente em instantes."
+        "Não foi possível concluir o envio agora. Revise os campos e tente novamente em instantes."
     };
   } finally {
     activeSubmissions.delete(submissionKey);

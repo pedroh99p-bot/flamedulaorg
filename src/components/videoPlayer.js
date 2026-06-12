@@ -135,7 +135,7 @@ export function initVideoPlayers() {
           video.pause();
         }
       } catch (error) {
-        console.info("Autoplay do video nao foi permitido. O usuario pode iniciar manualmente.");
+        console.info("Autoplay do vídeo não foi permitido. O usuário pode iniciar manualmente.");
       } finally {
         syncPlayUi();
       }

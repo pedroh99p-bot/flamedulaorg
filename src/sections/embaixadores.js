@@ -20,7 +20,7 @@ export function renderEmbaixadores(ambassadors) {
         <div class="section-heading section-heading-centered">
           <span class="eyebrow">Embaixadores</span>
           <h2>Vozes que ampliam o alcance da causa.</h2>
-          <p>Presenca publica, legitimidade institucional e convocacao para mais gente olhar para a doacao com seriedade.</p>
+          <p>Presença pública, legitimidade institucional e convocação para mais gente olhar para a doação com seriedade.</p>
         </div>
         <div class="ambassador-grid">
           ${ambassadors.map(ambassadorCard).join("")}

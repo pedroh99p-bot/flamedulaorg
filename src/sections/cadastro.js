@@ -8,7 +8,7 @@ export function renderCadastro() {
           <span class="eyebrow">Mini app de cadastro</span>
           <h2>Comece pelo caminho certo: doador ou paciente.</h2>
           <p>
-            O hub abaixo guia o cadastro em etapas, com consentimentos claros, resumo antes do envio e fallback seguro quando a integracao real ainda nao estiver ativa.
+            O hub abaixo guia o cadastro em etapas, com consentimentos claros, resumo antes do envio e fallback seguro quando a integração real ainda não estiver ativa.
           </p>
         </div>
         ${renderMiniAppsShell()}

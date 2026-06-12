@@ -6,10 +6,10 @@ export function renderNavbar(logoUrl) {
           <img class="brand-logo" src="${logoUrl}" alt="Logo FlaMedula" />
         </a>
 
-        <nav class="desktop-nav" aria-label="Navegacao principal">
+        <nav class="desktop-nav" aria-label="Navegação principal">
           <a href="#medula-sem-medo">Medula sem medo</a>
-          <a href="#transparencia">Transparencia</a>
-          <a href="#acoes">Acoes</a>
+          <a href="#transparencia">Transparência</a>
+          <a href="#acoes">Ações</a>
           <a href="#faq">FAQ</a>
         </nav>
 
@@ -50,10 +50,10 @@ export function renderNavbar(logoUrl) {
       <div class="mobile-menu" id="mobile-menu" hidden>
         <nav class="mobile-menu-nav" aria-label="Menu mobile">
           <a href="#medula-sem-medo">Medula sem medo</a>
-          <a href="#transparencia">Transparencia</a>
+          <a href="#transparencia">Transparência</a>
           <a href="#como-funciona">Como funciona</a>
           <a href="#quem-somos">Quem somos</a>
-          <a href="#acoes">Acoes</a>
+          <a href="#acoes">Ações</a>
           <a href="#cadastro" data-open-flow="donor">Quero me cadastrar</a>
           <a href="#atualizar-redome">Atualizar REDOME</a>
         </nav>

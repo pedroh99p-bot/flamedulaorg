@@ -39,25 +39,25 @@ export function renderAcoes(actions) {
     <section class="section section-grid" id="acoes">
       <div class="container">
         <div class="section-heading section-heading-centered">
-          <span class="eyebrow">Acoes da FlaMedula</span>
-          <h2>Campanhas, encontros e mobilizacoes que tiram a solidariedade do discurso.</h2>
-          <p>Os cards seguem CMS-ready, mas agora entram como registros editoriais de mobilizacao.</p>
+          <span class="eyebrow">Ações da FlaMedula</span>
+          <h2>Campanhas e encontros que colocam a rede em movimento.</h2>
+          <p>Registros editoriais de mobilização, prontos para evoluir com painel ADM.</p>
         </div>
         <div
           class="action-editorial"
           data-editorial-carousel
           data-editorial-autoplay="7000"
-          aria-label="Acoes da FlaMedula"
+          aria-label="Ações da FlaMedula"
         >
           <div class="editorial-slides">
             ${actions.map(actionSlide).join("")}
           </div>
 
           <div class="editorial-controls action-editorial-controls">
-            <button class="editorial-arrow" type="button" data-editorial-prev aria-label="Acao anterior">
+            <button class="editorial-arrow" type="button" data-editorial-prev aria-label="Ação anterior">
               <i data-lucide="arrow-left"></i>
             </button>
-            <div class="editorial-dots" role="tablist" aria-label="Selecionar acao">
+            <div class="editorial-dots" role="tablist" aria-label="Selecionar ação">
               ${actions
                 .map(
                   (item, index) => `
@@ -72,7 +72,7 @@ export function renderAcoes(actions) {
                 )
                 .join("")}
             </div>
-            <button class="editorial-arrow" type="button" data-editorial-next aria-label="Proxima acao">
+            <button class="editorial-arrow" type="button" data-editorial-next aria-label="Próxima ação">
               <i data-lucide="arrow-right"></i>
             </button>
           </div>

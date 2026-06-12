@@ -20,10 +20,10 @@ export const siteAssets = {
 export const heroNewsItems = [
   {
     id: "hero-medula-sem-medo",
-    title: "Medula sem medo: informacao certa muda a decisao de quem quer ajudar.",
+    title: "Medula sem medo: informação certa muda decisões.",
     excerpt:
-      "A rede existe para reduzir medo, corrigir desinformacao e aproximar mais pessoas de um cadastro consciente.",
-    category: "educacao",
+      "A rede existe para reduzir medo, corrigir desinformação e aproximar pessoas de um cadastro consciente.",
+    category: "educação",
     tag_emoji: "🧬",
     image_url: siteAssets.editorialMedula,
     cta_label: "Entender agora",
@@ -34,13 +34,13 @@ export const heroNewsItems = [
   },
   {
     id: "hero-doador",
-    title: "Quem quer doar precisa de orientacao simples, humana e acionavel.",
+    title: "Quem quer doar precisa de orientação simples e humana.",
     excerpt:
-      "O mini app da FlaMedula organiza interesses, aproxima campanhas e ajuda a mapear disponibilidade real.",
+      "O mini app organiza interesse, disponibilidade e contato para mobilizar melhor.",
     category: "cadastro",
     tag_emoji: "🩸",
     image_url: siteAssets.editorialDonor,
-    cta_label: "Quero me cadastrar",
+    cta_label: "Começar cadastro",
     cta_url: "#cadastro",
     published: true,
     order: 2,
@@ -48,13 +48,13 @@ export const heroNewsItems = [
   },
   {
     id: "hero-paciente",
-    title: "Um caso precisa de alcance, cuidado e contexto antes de mobilizar uma rede.",
+    title: "Um caso precisa de cuidado antes de ganhar alcance.",
     excerpt:
-      "A landing recebe casos, organiza informacoes essenciais e prepara a base para o fluxo com a equipe.",
+      "A página recebe informações iniciais e ajuda a equipe a entender o contexto com responsabilidade.",
     category: "acolhimento",
     tag_emoji: "💙",
     image_url: siteAssets.editorialPatient,
-    cta_label: "Cadastrar um caso",
+    cta_label: "Enviar um caso",
     cta_url: "#cadastro",
     published: true,
     order: 3,
@@ -62,13 +62,13 @@ export const heroNewsItems = [
   },
   {
     id: "hero-acoes",
-    title: "Campanhas mais fortes nascem de dados organizados, narrativa clara e gente mobilizada.",
+    title: "Campanhas fortes nascem de dados claros e gente mobilizada.",
     excerpt:
-      "Acoes, depoimentos e metricas ja nascem prontas para evoluir com painel ADM no futuro.",
+      "Ações, depoimentos e métricas ficam preparados para evoluir com painel ADM no futuro.",
     category: "rede",
     tag_emoji: "📣",
     image_url: siteAssets.editorialAction,
-    cta_label: "Ver acoes",
+    cta_label: "Ver ações",
     cta_url: "#acoes",
     published: true,
     order: 4,
@@ -79,23 +79,23 @@ export const heroNewsItems = [
 export const actionItems = [
   {
     id: "acao-mutirao-redome",
-    title: "Mutirao de cadastro e orientacao em parceria com hemocentro regional",
+    title: "Mutirão de cadastro e orientação com hemocentro regional",
     excerpt:
-      "A equipe reuniu acolhimento, educacao e orientacao sobre medula para ampliar a base acionavel da rede.",
+      "A equipe reuniu acolhimento, educação e orientação sobre medula para ampliar a base acionável da rede.",
     date: "2026-03-12",
     location: "Hemocentro Regional",
-    category: "mobilizacao",
+    category: "mobilização",
     image_url: siteAssets.editorialDonor,
-    cta_label: "Entender a acao",
+    cta_label: "Entender a ação",
     cta_url: "#cadastro",
     published: true,
     order: 1
   },
   {
     id: "acao-plaquetas-joao",
-    title: "Mobilizacao por plaquetas com meta atingida em menos de 48 horas",
+    title: "Mobilização por plaquetas com meta atingida em menos de 48 horas",
     excerpt:
-      "O caso mostrou como informacao organizada acelera divulgacao, presenca e resposta da comunidade.",
+      "O caso mostrou como informação organizada acelera divulgação, presença e resposta da comunidade.",
     date: "2026-04-05",
     location: "Hospital de Base",
     category: "apoio-a-caso",
@@ -107,9 +107,9 @@ export const actionItems = [
   },
   {
     id: "acao-dia-d",
-    title: "Dia D FlaMedula para conscientizacao sobre doacao de medula",
+    title: "Dia D FlaMedula para conscientização sobre doação de medula",
     excerpt:
-      "Um encontro pensado para explicar a causa, orientar novos interessados e fortalecer futuras campanhas.",
+      "Um encontro para explicar a causa, orientar novos interessados e fortalecer campanhas futuras.",
     date: "2026-07-20",
     location: "Sede da rede",
     category: "evento",
@@ -127,17 +127,17 @@ export const testimonials = [
     name: "Carlos Silva",
     relation: "Doador convocado",
     quote:
-      "A orientacao da FlaMedula tirou meu medo. Quando o REDOME ligou, eu ja entendia o processo e estava pronto para seguir.",
+      "A orientação da FlaMedula tirou meu medo. Quando o REDOME ligou, eu já entendia o processo e estava pronto para seguir.",
     avatar_url: siteAssets.logoPrimary,
     published: true,
     order: 1
   },
   {
     id: "testimonial-familia-costa",
-    name: "Familia Costa",
+    name: "Família Costa",
     relation: "Caso acolhido",
     quote:
-      "No momento mais dificil, a rede ajudou a organizar informacao, cuidado e mobilizacao sem transformar nossa historia em ruido.",
+      "No momento mais difícil, a rede ajudou a organizar informação, cuidado e mobilização sem transformar nossa história em ruído.",
     avatar_url: siteAssets.logoFallback,
     published: true,
     order: 2
@@ -147,7 +147,7 @@ export const testimonials = [
     name: "Dra. Mariana",
     relation: "Hematologista",
     quote:
-      "Desmistificar a doacao de medula e orientar com responsabilidade e essencial para gerar cadastros realmente conscientes.",
+      "Desmistificar a doação de medula e orientar com responsabilidade é essencial para gerar cadastros conscientes.",
     avatar_url: siteAssets.logoPrimary,
     published: true,
     order: 3
@@ -157,10 +157,9 @@ export const testimonials = [
 export const teamMembers = [
   {
     id: "team-andre",
-    name: "Andre Matos “Dedeco”",
+    name: "André Matos “Dedeco”",
     role: "Fundador e diretor geral",
-    description:
-      "Conecta a causa com narrativa, presenca e mobilizacao pratica para transformar solidariedade em rede organizada.",
+    description: "Conecta a causa com narrativa, presença e mobilização prática.",
     image_url: siteAssets.logoPrimary,
     published: true,
     order: 1
@@ -168,9 +167,8 @@ export const teamMembers = [
   {
     id: "team-danielli",
     name: "Danielli Oliveira",
-    role: "Parceira tecnica",
-    description:
-      "Ajuda a sustentar a comunicacao responsavel sobre medula, orientacao segura e coerencia institucional da causa.",
+    role: "Parceira técnica",
+    description: "Sustenta comunicação responsável, orientação segura e coerência institucional.",
     image_url: siteAssets.logoFallback,
     published: true,
     order: 2
@@ -178,9 +176,8 @@ export const teamMembers = [
   {
     id: "team-elaine",
     name: "Elaine Reixach",
-    role: "Coordenacao de acoes",
-    description:
-      "Organiza campanhas, presenca em campo e relacionamento entre mobilizacao, familias e pontos de apoio.",
+    role: "Coordenação de ações",
+    description: "Organiza campanhas, presença em campo e relacionamento com famílias e pontos de apoio.",
     image_url: siteAssets.logoPrimary,
     published: true,
     order: 3
@@ -189,8 +186,7 @@ export const teamMembers = [
     id: "team-maiko",
     name: "Tio Maiko Castro",
     role: "Apoio e acolhimento",
-    description:
-      "Leva presenca humana e suporte para familias, criancas e casas de apoio nos momentos mais sensiveis.",
+    description: "Leva presença humana e suporte para famílias, crianças e casas de apoio.",
     image_url: siteAssets.logoFallback,
     published: true,
     order: 4
@@ -203,7 +199,7 @@ export const ambassadors = [
     name: "Zico",
     role: "Embaixador oficial",
     description:
-      "Amplia o alcance da causa e convoca a Nacao a olhar para a doacao de medula com presenca, afeto e responsabilidade.",
+      "Amplia o alcance da causa e convoca a Nação a olhar para a doação de medula com seriedade.",
     image_url: siteAssets.logoPrimary,
     published: true,
     order: 1
@@ -213,7 +209,7 @@ export const ambassadors = [
     name: "Tania Bastos",
     role: "Madrinha institucional",
     description:
-      "Fortalece a visibilidade publica da FlaMedula e ajuda a manter a causa conectada com relevancia institucional.",
+      "Fortalece a visibilidade pública da FlaMedula e mantém a causa conectada à relevância institucional.",
     image_url: siteAssets.logoFallback,
     published: true,
     order: 2
@@ -229,52 +225,52 @@ export const transparencyData = {
   progresso_mensal: 328,
   crescimento_semanal: [62, 81, 94, 91],
   last_updated: "12/06/2026",
-  source_label: "Dados demonstrativos do prototipo"
+  source_label: "Dados demonstrativos do protótipo"
 };
 
 export const faqItems = [
   {
     id: "faq-coluna",
-    question: "Doar medula e sempre pela coluna?",
+    question: "Doar medula é sempre pela coluna?",
     answer:
-      "Nao. Medula ossea nao e medula espinhal. A coleta pode acontecer por aferese pelo sangue periferico ou por puncao da medula ossea. A definicao e sempre medica."
+      "Não. Medula óssea não é medula espinhal. A coleta pode acontecer por aférese pelo sangue periférico ou por punção da medula óssea. A definição é conduzida pela equipe médica."
   },
   {
     id: "faq-redome",
     question: "A FlaMedula substitui o REDOME?",
     answer:
-      "Nao. A FlaMedula orienta e mobiliza. O cadastro oficial, a triagem e todo o processo clinico seguem sob responsabilidade do REDOME, hemocentros e canais oficiais de saude."
+      "Não. A FlaMedula orienta e mobiliza. Cadastro oficial, triagem e doação seguem sob responsabilidade do REDOME, hemocentros e canais oficiais de saúde."
   },
   {
     id: "faq-atualizar",
     question: "Por que atualizar meus dados no REDOME importa?",
     answer:
-      "Porque telefone, e-mail ou endereco desatualizados podem impedir que voce seja encontrado quando surgir uma possivel compatibilidade."
+      "Porque telefone, e-mail ou endereço desatualizados podem impedir que você seja encontrado quando surgir uma possível compatibilidade."
   },
   {
     id: "faq-paciente",
-    question: "Como funciona o cadastro de um caso de paciente?",
+    question: "Como funciona o cadastro de um caso?",
     answer:
-      "O mini app organiza as informacoes iniciais para que a equipe entenda o contexto, avalie a necessidade e identifique como a rede pode ajudar com responsabilidade."
+      "O mini app organiza as informações iniciais para que a equipe entenda o contexto, avalie a necessidade e oriente próximos passos com responsabilidade."
   }
 ];
 
 export const rollerItems = {
   authority: [
-    "INFORMACAO",
+    "INFORMAÇÃO",
     "CADASTRO",
     "DADOS ATUALIZADOS",
-    "MOBILIZACAO",
+    "MOBILIZAÇÃO",
     "VIDA",
     "REDE ORGANIZADA"
   ],
   support: [
     "CAMPANHAS MAIS FORTES",
     "DADOS MAIS CLAROS",
-    "PESSOAS MAIS PROXIMAS",
-    "ORIENTACAO",
-    "CONFIANCA",
-    "PRESENCA"
+    "PESSOAS MAIS PRÓXIMAS",
+    "ORIENTAÇÃO",
+    "CONFIANÇA",
+    "PRESENÇA"
   ]
 };
 
@@ -283,51 +279,51 @@ export const redomeConfig = {
   logo_url: "https://res.cloudinary.com/dm9mnc97u/image/upload/v1781283383/logo-redome_wmvgt8.png",
   cta_label: "Atualizar cadastro no REDOME",
   disclaimer:
-    "A atualizacao oficial precisa ser feita nos canais do REDOME. A FlaMedula orienta e mobiliza, mas nao substitui o cadastro oficial."
+    "A atualização oficial precisa ser feita nos canais do REDOME. A FlaMedula orienta e mobiliza, mas não substitui o cadastro oficial."
 };
 
 export const miniAppOptions = {
   bloodTypes: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
   donorAvailability: [
-    "Posso conversar em horario comercial",
-    "Prefiro contato a noite",
+    "Posso conversar em horário comercial",
+    "Prefiro contato à noite",
     "Posso receber mensagens a qualquer momento"
   ],
-  preferredChannels: ["WhatsApp", "Ligacao", "E-mail"],
-  urgencyLevels: ["Alta", "Media", "Baixa"],
+  preferredChannels: ["WhatsApp", "Ligação", "E-mail"],
+  urgencyLevels: ["Alta", "Média", "Baixa"],
   patientRoles: [
-    "Medico ou profissional de saude",
-    "Responsavel ou familiar",
+    "Médico ou profissional de saúde",
+    "Responsável ou familiar",
     "Apoiador ajudando um caso"
   ],
-  patientNeedTypes: ["Doacao de sangue", "Plaquetas", "Mobilizacao para medula", "Outro apoio"],
+  patientNeedTypes: ["Doação de sangue", "Plaquetas", "Mobilização para medula", "Outro apoio"],
   medulaInterestOptions: [
-    "Quero receber orientacao sobre medula",
-    "Quero entender melhor antes",
-    "Nao neste momento"
+    "Quero receber orientação sobre medula",
+    "Quero entender melhor",
+    "Não neste momento"
   ]
 };
 
 export const fearCards = [
   {
-    question: "E sempre pela coluna?",
+    question: "É sempre pela coluna?",
     answer:
-      "Nao. Existem formas diferentes de coleta, incluindo aferese pelo sangue periferico e puncao da medula ossea. A equipe medica define a opcao indicada."
+      "Não. A coleta pode acontecer de formas diferentes, como aférese pelo sangue periférico ou punção da medula óssea. A equipe médica define o método."
   },
   {
-    question: "Cadastro ja e doacao?",
+    question: "Cadastro já é doação?",
     answer:
-      "Nao. O cadastro indica que voce pode ser chamado se houver compatibilidade. Antes de uma doacao, ainda existem novas confirmacoes e avaliacao medica."
+      "Não. O cadastro indica disponibilidade. Antes de qualquer doação, existem novas confirmações e avaliação médica."
   },
   {
-    question: "Medula ossea e medula espinhal?",
+    question: "Medula óssea é medula espinhal?",
     answer:
-      "Nao. A medula ossea produz celulas do sangue e fica dentro dos ossos. A medula espinhal faz parte do sistema nervoso."
+      "Não. A medula óssea produz células do sangue e fica dentro dos ossos. A medula espinhal faz parte do sistema nervoso."
   },
   {
-    question: "Por que atualizar meus dados importa?",
+    question: "Por que atualizar meus dados?",
     answer:
-      "Se telefone, e-mail ou cidade estiverem desatualizados, voce pode nao ser encontrado quando surgir uma possivel compatibilidade."
+      "Se telefone, e-mail ou cidade estiverem desatualizados, você pode não ser encontrado quando surgir uma possível compatibilidade."
   }
 ];
 
@@ -335,36 +331,36 @@ export const journeySteps = [
   {
     title: "Entenda a causa",
     description:
-      "Informacao clara reduz medo, corrige desinformacao e ajuda a transformar vontade em decisao consciente."
+      "Informação clara reduz medo e ajuda a transformar vontade em decisão consciente."
   },
   {
     title: "Escolha como participar",
     description:
-      "Voce pode se cadastrar, atualizar o REDOME, informar um caso ou apoiar a continuidade da mobilizacao."
+      "Você pode se cadastrar, atualizar o REDOME, informar um caso ou apoiar a continuidade da rede."
   },
   {
     title: "A equipe organiza os dados",
     description:
-      "Os cadastros ajudam a mapear interesse, disponibilidade e contexto para campanhas mais responsaveis."
+      "Os cadastros ajudam a mapear interesse, disponibilidade e contexto para campanhas responsáveis."
   },
   {
     title: "A rede ganha capacidade de agir",
     description:
-      "Quando surge uma necessidade real, a FlaMedula consegue mobilizar comunicacao, orientacao e gente pronta para ajudar."
+      "Quando surge uma necessidade real, a FlaMedula mobiliza comunicação, orientação e pessoas prontas para ajudar."
   }
 ];
 
 export const aboutContent = {
-  title: "FlaMedula e mobilizacao em forma de rede.",
+  title: "Informação que vira movimento.",
   paragraphs: [
-    "A FlaMedula nasce para transformar informacao em mobilizacao organizada. A rede aproxima pessoas dispostas a doar, casos que precisam de apoio e acoes que alcancam quem esta mais perto.",
-    "A causa vive de cadastro consciente, orientacao responsavel, dados atualizados, familias acolhidas e campanhas capazes de converter solidariedade em presenca."
+    "A FlaMedula existe para transformar informação em mobilização responsável.",
+    "Organizamos pessoas, orientações, dados atualizados e campanhas para que a solidariedade chegue com mais clareza a quem precisa."
   ],
-  quote: "Quando a informacao esta organizada, a solidariedade chega mais rapido."
+  quote: "Quando a informação está organizada, a solidariedade chega mais rápido."
 };
 
 export const footerMeta = {
   legal:
-    "A FlaMedula e uma rede de mobilizacao e orientacao. Nao substitui o REDOME nem canais oficiais de saude. Cadastro, triagem e doacao seguem as diretrizes dos hemocentros.",
+    "A FlaMedula é uma rede de mobilização e orientação. Não substitui o REDOME nem canais oficiais de saúde. Cadastro, triagem e doação seguem as diretrizes dos hemocentros.",
   badges: ["Landing CMS-ready", "Supabase em preparo", "Dark mode preservado"]
 };

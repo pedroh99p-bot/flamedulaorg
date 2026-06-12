@@ -11,11 +11,11 @@ export function renderPreloaderVideoGate(siteAssets) {
         </div>
       </div>
 
-      <div class="video-intro-view" id="video-intro-view" aria-label="Introducao em video" hidden>
+      <div class="video-intro-view" id="video-intro-view" aria-label="Introdução em vídeo" hidden>
         <div class="video-intro-scroll">
           <div class="video-intro-card">
             <div class="video-intro-stage">
-              <span class="eyebrow eyebrow-light">Video inicial da rede</span>
+              <span class="eyebrow eyebrow-light">Vídeo inicial da rede</span>
               <h1>Dedeco explica: medula sem medo</h1>
 
               <div class="video-intro-player-shell">
@@ -24,7 +24,7 @@ export function renderPreloaderVideoGate(siteAssets) {
                   src: siteAssets.introVideo,
                   type: "video/webm",
                   poster: siteAssets.logoPrimary,
-                  label: "Video introdutorio da FlaMedula",
+                  label: "Vídeo introdutório da FlaMedula",
                   autoplay: true,
                   muted: true,
                   className: "video-intro-player"
@@ -33,13 +33,13 @@ export function renderPreloaderVideoGate(siteAssets) {
 
               <div class="video-intro-copy">
                 <p>
-                  Andre Matos, fundador da FlaMedula, mostra como informacao correta ajuda a reduzir o medo sobre doacao de medula.
+                  André Matos, fundador da FlaMedula, mostra como informação correta ajuda a reduzir o medo sobre doação de medula.
                 </p>
                 <div class="intro-alert">
-                  <strong>Alerta:</strong> medula ossea nao e medula espinhal. A coleta pode ocorrer por aferese ou por puncao da medula ossea, sempre com decisao medica.
+                  <strong>Alerta:</strong> medula óssea não é medula espinhal. A coleta pode ocorrer por aférese ou por punção da medula óssea, sempre com decisão médica.
                 </div>
                 <button class="button button-brand button-large intro-continue-button" id="btn-enter-site" type="button">
-                  Continuar para a pagina
+                  Continuar para a página
                 </button>
               </div>
             </div>

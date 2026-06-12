@@ -21,8 +21,8 @@ export function renderEquipe(teamMembers) {
       <div class="container">
         <div class="section-heading section-heading-centered">
           <span class="eyebrow">Equipe FlaMedula</span>
-          <h2>Pessoas que sustentam acolhimento, organizacao e presenca.</h2>
-          <p>O bloco nasce CMS-ready, com schema local pronto para ADM futuro.</p>
+          <h2>Pessoas que sustentam acolhimento, organização e presença.</h2>
+          <p>Equipe preparada para evoluir com conteúdo editável no painel ADM.</p>
         </div>
         ${renderCarousel({
           id: "team-carousel",

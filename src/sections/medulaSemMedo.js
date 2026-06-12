@@ -5,10 +5,10 @@ export function renderMedulaSemMedo(cards) {
     <section class="section" id="medula-sem-medo">
       <div class="container section-stack">
         <div class="section-heading section-heading-centered">
-          <span class="eyebrow">Educacao e consciencia</span>
+          <span class="eyebrow">Educação e consciência</span>
           <h2>Medula sem medo.</h2>
           <p>
-            Muita gente nao se cadastra porque imagina algo pior do que realmente e. Informacao correta transforma medo em decisao consciente.
+            Muita gente não se cadastra porque imagina algo pior do que realmente é. Informação correta transforma medo em decisão consciente.
           </p>
         </div>
         ${renderFlipCards(cards)}

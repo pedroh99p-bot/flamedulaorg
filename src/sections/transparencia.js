@@ -6,11 +6,11 @@ export function renderTransparencia(data) {
       <div class="container">
         <div class="section-heading">
           <div>
-            <span class="eyebrow">Transparencia institucional</span>
-            <h2>Dados ajudam a transformar intencao em mobilizacao organizada.</h2>
+            <span class="eyebrow">Transparência institucional</span>
+            <h2>Dados ajudam a transformar intenção em mobilização.</h2>
           </div>
           <p>
-            O bloco abaixo nasce como fallback local, mas ja esta pronto para futura alimentacao por painel ADM e integracao segura com Supabase.
+            Os números abaixo são demonstrativos e já preparam a futura integração com painel ADM e Supabase.
           </p>
         </div>
         ${renderTransparency(data)}

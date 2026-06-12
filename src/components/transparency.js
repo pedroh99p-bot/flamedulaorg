@@ -16,28 +16,28 @@ export function renderTransparency(data) {
   return `
     <div class="transparency-stack" id="metrics-container">
       <div class="metrics-grid">
-        ${metricCard("droplets", "Doadores cadastrados", data.doadores_cadastrados, "Pessoas adicionadas a base de interesse da rede.")}
+        ${metricCard("droplets", "Doadores cadastrados", data.doadores_cadastrados, "Pessoas adicionadas à base de interesse da rede.")}
         ${metricCard(
           "dna",
-          "Possiveis doadores de medula",
+          "Possíveis doadores de medula",
           data.possiveis_doadores_medula,
-          "Interessados que pediram orientacao especifica sobre medula."
+          "Interessados que pediram orientação específica sobre medula."
         )}
         ${metricCard(
           "refresh-cw",
-          "Ja cadastrados no REDOME",
+          "Já cadastrados no REDOME",
           data.ja_cadastrados_redome,
-          "Pessoas lembradas sobre a importancia de manter dados atualizados."
+          "Pessoas lembradas sobre a importância de manter dados atualizados."
         )}
-        ${metricCard("folder-heart", "Casos recebidos", data.casos_recebidos, "Casos enviados para triagem e leitura inicial da equipe.")}
+        ${metricCard("folder-heart", "Casos recebidos", data.casos_recebidos, "Casos enviados para leitura inicial da equipe.")}
       </div>
 
       <article class="transparency-highlight">
         <div class="transparency-copy">
-          <span class="eyebrow">Dados demonstrativos do prototipo</span>
-          <h3>Meta do mes: ampliar a base acionavel da rede</h3>
+          <span class="eyebrow">Dados demonstrativos do protótipo</span>
+          <h3>Meta do mês: ampliar a base acionável da rede</h3>
           <p>
-            Cada novo cadastro ajuda a FlaMedula a entender onde existem pessoas disponiveis para orientar, mobilizar e fortalecer campanhas com mais velocidade.
+            Cada novo cadastro ajuda a FlaMedula a entender onde existem pessoas disponíveis para orientar, mobilizar e fortalecer campanhas.
           </p>
           <div class="progress-header">
             <strong><span class="count-up" data-target="${progressPercent}">0</span>% da meta mensal</strong>
@@ -46,7 +46,7 @@ export function renderTransparency(data) {
           <div class="progress-bar" aria-hidden="true">
             <span class="progress-fill" data-width="${progressPercent}%"></span>
           </div>
-          <small>Ultima referencia local: ${data.last_updated} · ${data.source_label}</small>
+          <small>Última referência local: ${data.last_updated} · ${data.source_label}</small>
         </div>
         <div class="growth-panel" aria-label="Crescimento semanal">
           <strong>Crescimento semanal</strong>

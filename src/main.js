@@ -44,7 +44,6 @@ import { renderApoioCta } from "./sections/apoioCta.js";
 import { renderCadastro } from "./sections/cadastro.js";
 import { renderComoFunciona } from "./sections/comoFunciona.js";
 import { renderCtaFinal } from "./sections/ctaFinal.js";
-import { renderDecisionCtas } from "./sections/decisionCtas.js";
 import { renderDepoimentos } from "./sections/depoimentos.js";
 import { renderEmbaixadores } from "./sections/embaixadores.js";
 import { renderEquipe } from "./sections/equipe.js";
@@ -78,19 +77,18 @@ async function renderApp() {
       <main>
         ${renderHero(heroNewsItems)}
         ${renderCadastro()}
-        ${renderDecisionCtas(redomeConfig)}
         ${renderRoller(rollerItems.authority, "brand", "left")}
         ${renderHeartbeatDivider()}
         ${renderMedulaSemMedo(fearCards)}
+        ${renderQuemSomos(aboutContent)}
+        ${renderEquipe(teamMembers)}
+        ${renderEmbaixadores(ambassadors)}
+        ${renderHeartbeatDivider()}
         ${renderVideoInformativo(siteAssets)}
         ${renderRedomeUpdate(redomeConfig)}
         ${renderHeartbeatDivider()}
         ${renderTransparencia(transparencyData)}
         ${renderComoFunciona(journeySteps)}
-        ${renderQuemSomos(aboutContent)}
-        ${renderEquipe(teamMembers)}
-        ${renderEmbaixadores(ambassadors)}
-        ${renderHeartbeatDivider()}
         ${renderAcoes(actions)}
         ${renderApoioCta()}
         ${renderRoller(rollerItems.support, "dark", "right")}
@@ -99,8 +97,8 @@ async function renderApp() {
           <div class="container">
             <div class="section-heading section-heading-centered">
               <span class="eyebrow">Perguntas frequentes</span>
-              <h2>Tudo o que voce precisa saber antes de dar o proximo passo.</h2>
-              <p>As respostas abaixo preservam a copy medica responsavel e deixam claro o papel da FlaMedula.</p>
+              <h2>Dúvidas rápidas antes do próximo passo.</h2>
+              <p>Respostas curtas, com orientação responsável e clareza sobre o papel da FlaMedula.</p>
             </div>
             ${renderFaq(faqItems)}
           </div>
@@ -131,7 +129,7 @@ renderApp().catch((error) => {
     app.innerHTML = `
       <main class="fallback-error">
         <h1>FlaMedula</h1>
-        <p>Nao foi possivel carregar a pagina agora. Recarregue para tentar novamente.</p>
+        <p>Não foi possível carregar a página agora. Recarregue para tentar novamente.</p>
       </main>
     `;
   }

@@ -19,8 +19,8 @@ export function renderDepoimentos(testimonials) {
       <div class="container">
         <div class="section-heading section-heading-centered">
           <span class="eyebrow">Depoimentos</span>
-          <h2>Historias que mostram por que essa rede importa.</h2>
-          <p>Os depoimentos agora nascem com schema local editavel e preparados para painel ADM no futuro.</p>
+          <h2>Histórias que mostram por que essa rede importa.</h2>
+          <p>Relatos curtos, humanos e preparados para edição futura no painel ADM.</p>
         </div>
         <div class="testimonial-grid">
           ${testimonials.map(testimonialCard).join("")}
