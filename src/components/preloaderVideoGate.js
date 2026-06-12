@@ -250,7 +250,10 @@ export function initPreloaderVideoGate() {
       document.body.classList.remove("app-locked");
       document.body.style.overflow = "";
       window.scrollTo({ top: 0, behavior: "auto" });
-      requestAnimationFrame(() => main.classList.add("is-ready"));
+      requestAnimationFrame(() => {
+        main.classList.add("is-ready");
+        window.dispatchEvent(new CustomEvent("flamedula:landing-ready"));
+      });
     }, fadeDuration);
   });
 }

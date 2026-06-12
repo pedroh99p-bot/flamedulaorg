@@ -5,12 +5,14 @@ export function renderRedomeUpdate(redomeConfig) {
         <article class="redome-card">
           <div class="redome-icon">
             <i data-lucide="refresh-cw"></i>
+            <span>REDOME</span>
           </div>
           <div class="redome-copy">
             <span class="eyebrow eyebrow-warm">Atualizacao REDOME</span>
             <h2>Ja e cadastrado no REDOME?</h2>
+            <strong class="redome-emphasis">Atualizar seus dados pode ser tao importante quanto se cadastrar.</strong>
             <p>
-              Atualizar telefone, e-mail, cidade e endereco pode ser tao importante quanto o cadastro inicial, porque uma possivel compatibilidade depende de voce ser encontrado.
+              Telefone, e-mail, cidade e endereco atualizados ajudam os canais oficiais a encontrar voce quando surgir uma possivel compatibilidade.
             </p>
             <ul class="bullet-list bullet-list-warm">
               <li>Telefone atualizado evita perda de contato.</li>

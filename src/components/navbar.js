@@ -24,7 +24,7 @@ export function renderNavbar(logoUrl) {
           </a>
 
           <button
-            class="icon-button"
+            class="icon-button theme-toggle-button"
             type="button"
             id="theme-toggle"
             aria-label="Alternar modo escuro"

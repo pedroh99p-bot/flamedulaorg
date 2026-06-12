@@ -1,12 +1,15 @@
-import { renderCarousel } from "../components/carousel.js";
-
-function heroCard(item) {
+function heroSlide(item, index) {
   return `
-    <article class="hero-card ${item.featured ? "hero-card-featured" : ""}">
-      <div class="hero-card-media" style="background-image:url('${item.image_url}')"></div>
-      <div class="hero-card-body">
+    <article
+      class="editorial-slide hero-editorial-slide ${index === 0 ? "is-active" : ""}"
+      data-editorial-slide
+      aria-hidden="${index === 0 ? "false" : "true"}"
+      style="--slide-image: url('${item.image_url}')"
+    >
+      <div class="hero-editorial-backdrop" aria-hidden="true"></div>
+      <div class="hero-editorial-content">
         <span class="hero-chip">${item.tag_emoji} ${item.category}</span>
-        <h3>${item.title}</h3>
+        <h2>${item.title}</h2>
         <p>${item.excerpt}</p>
         <a class="button button-light" href="${item.cta_url}">${item.cta_label}</a>
       </div>
@@ -16,22 +19,50 @@ function heroCard(item) {
 
 export function renderHero(heroNewsItems) {
   return `
-    <section class="section hero-section" id="inicio">
-      <div class="container">
-        <div class="section-heading section-heading-wide">
-          <div>
-            <span class="eyebrow">Hero de novidades · CMS-ready</span>
-            <h2>A rede FlaMedula precisa informar, acolher e converter com mais clareza.</h2>
-          </div>
-          <p>
-            O hero agora nasce pronto para receber cards editaveis, com schema local de fallback e espaco para futura alimentacao por painel ADM.
-          </p>
+    <section class="hero-section editorial-hero-section" id="inicio">
+      <div
+        class="hero-editorial"
+        data-editorial-carousel
+        data-editorial-autoplay="6500"
+        aria-label="Novidades da FlaMedula"
+      >
+        <div class="hero-editorial-brand">
+          <span class="eyebrow eyebrow-light">Novidades CMS-ready</span>
+          <h1>FlaMedula</h1>
+          <p>Informacao, cadastro, dados atualizados e mobilizacao em uma rede viva pela doacao.</p>
         </div>
-        ${renderCarousel({
-          id: "hero-carousel",
-          ariaLabel: "Novidades da FlaMedula",
-          items: heroNewsItems.map(heroCard).join("")
-        })}
+
+        <div class="editorial-slides">
+          ${heroNewsItems.map(heroSlide).join("")}
+        </div>
+
+        <div class="editorial-controls hero-editorial-controls">
+          <button class="editorial-arrow" type="button" data-editorial-prev aria-label="Novidade anterior">
+            <i data-lucide="arrow-left"></i>
+          </button>
+          <div class="editorial-dots" role="tablist" aria-label="Selecionar novidade">
+            ${heroNewsItems
+              .map(
+                (item, index) => `
+                  <button
+                    class="editorial-dot ${index === 0 ? "is-active" : ""}"
+                    type="button"
+                    data-editorial-dot="${index}"
+                    aria-label="Mostrar ${item.category}"
+                    aria-selected="${index === 0 ? "true" : "false"}"
+                  ></button>
+                `
+              )
+              .join("")}
+          </div>
+          <button class="editorial-arrow" type="button" data-editorial-next aria-label="Proxima novidade">
+            <i data-lucide="arrow-right"></i>
+          </button>
+        </div>
+
+        <div class="editorial-progress" aria-hidden="true">
+          <span data-editorial-progress></span>
+        </div>
       </div>
     </section>
   `;

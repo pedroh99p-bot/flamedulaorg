@@ -13,6 +13,34 @@
     min-width: min(88vw, 640px);
   }
 
+  .hero-editorial-brand {
+    top: 5.5rem;
+  }
+
+  .hero-editorial-brand h1 {
+    font-size: 3.6rem;
+  }
+
+  .hero-editorial-slide {
+    padding-top: 13rem;
+  }
+
+  .hero-editorial-content h2 {
+    font-size: 3.25rem;
+  }
+
+  .action-editorial-slide {
+    grid-template-columns: 1fr;
+  }
+
+  .action-editorial-media {
+    min-height: 320px;
+  }
+
+  .action-editorial-content {
+    min-height: 360px;
+  }
+
   .video-intro-player {
     width: min(86vw, 360px);
   }
@@ -54,6 +82,55 @@
   .field-grid-2,
   .field-grid-3 {
     grid-template-columns: 1fr;
+  }
+
+  .editorial-hero-section,
+  .hero-editorial {
+    min-height: 780px;
+  }
+
+  .hero-editorial-brand {
+    top: 4.25rem;
+  }
+
+  .hero-editorial-brand h1 {
+    font-size: 3.15rem;
+  }
+
+  .hero-editorial-brand p {
+    max-width: 28rem;
+  }
+
+  .hero-editorial-slide {
+    padding: 15rem 1rem 6.2rem;
+    background:
+      linear-gradient(180deg, rgba(5, 6, 10, 0.88) 0%, rgba(5, 6, 10, 0.54) 48%, rgba(5, 6, 10, 0.88) 100%),
+      var(--slide-image) center / cover no-repeat,
+      #090a0f;
+  }
+
+  .hero-editorial-content h2 {
+    max-width: 11ch;
+    font-size: 2.55rem;
+  }
+
+  .hero-editorial-controls {
+    left: 1rem;
+    right: 1rem;
+    width: auto;
+  }
+
+  .hero-editorial .editorial-progress {
+    left: 1rem;
+    right: 1rem;
+  }
+
+  .action-editorial {
+    min-height: auto;
+  }
+
+  .action-editorial-content h3 {
+    font-size: 2.25rem;
   }
 
   .growth-bars {
@@ -116,6 +193,58 @@
   .roller-track {
     gap: 1rem;
     font-size: 0.72rem;
+  }
+
+  .brand-logo {
+    height: 2.7rem;
+  }
+
+  .brand-capsule {
+    min-height: 3.5rem;
+    padding-inline: 0;
+  }
+
+  .editorial-hero-section,
+  .hero-editorial {
+    min-height: 760px;
+  }
+
+  .hero-editorial-brand {
+    top: 3.75rem;
+  }
+
+  .hero-editorial-brand h1 {
+    font-size: 2.85rem;
+  }
+
+  .hero-editorial-content h2 {
+    font-size: 2.15rem;
+  }
+
+  .hero-editorial-content p,
+  .action-editorial-content p {
+    font-size: 0.98rem;
+  }
+
+  .editorial-arrow {
+    width: 2.65rem;
+    height: 2.65rem;
+  }
+
+  .action-editorial-media {
+    min-height: 240px;
+  }
+
+  .action-editorial-content {
+    min-height: 420px;
+    padding: 1.1rem;
+    padding-bottom: 5.5rem;
+  }
+
+  .action-editorial-controls {
+    left: 1rem;
+    right: 1rem;
+    width: auto;
   }
 
   .video-intro-card {

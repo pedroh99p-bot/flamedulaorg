@@ -33,6 +33,7 @@ import { initPreloaderVideoGate, renderPreloaderVideoGate } from "./components/p
 import { initCarousels } from "./components/carousel.js";
 import { initFlipCards } from "./components/flipCards.js";
 import { initMiniApps } from "./components/miniApps.js";
+import { initMotionSystem } from "./components/motion.js";
 import { initTransparency } from "./components/transparency.js";
 import { initFaq, renderFaq } from "./components/faq.js";
 import { renderRoller } from "./components/rollers.js";
@@ -114,6 +115,7 @@ async function renderApp() {
   initMiniApps({ miniAppOptions, redomeConfig });
   initTransparency();
   initFaq();
+  initMotionSystem();
 }
 
 renderApp().catch((error) => {

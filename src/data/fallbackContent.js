@@ -6,7 +6,15 @@ export const siteAssets = {
   introVideo:
     "https://res.cloudinary.com/dm9mnc97u/video/upload/v1780677944/WhatsApp-Video-2026-06-05-at-13.40.33_xxhh84.webm",
   informativeVideo:
-    "https://res.cloudinary.com/dm9mnc97u/video/upload/v1777677171/download_wq1ltu.mp4"
+    "https://res.cloudinary.com/dm9mnc97u/video/upload/v1777677171/download_wq1ltu.mp4",
+  editorialMedula:
+    "https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=1800&q=80",
+  editorialDonor:
+    "https://images.unsplash.com/photo-1615461066841-6116e61058f4?auto=format&fit=crop&w=1800&q=80",
+  editorialPatient:
+    "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1800&q=80",
+  editorialAction:
+    "https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=1800&q=80"
 };
 
 export const heroNewsItems = [
@@ -17,7 +25,7 @@ export const heroNewsItems = [
       "A rede existe para reduzir medo, corrigir desinformacao e aproximar mais pessoas de um cadastro consciente.",
     category: "educacao",
     tag_emoji: "🧬",
-    image_url: siteAssets.logoPrimary,
+    image_url: siteAssets.editorialMedula,
     cta_label: "Entender agora",
     cta_url: "#medula-sem-medo",
     published: true,
@@ -31,7 +39,7 @@ export const heroNewsItems = [
       "O mini app da FlaMedula organiza interesses, aproxima campanhas e ajuda a mapear disponibilidade real.",
     category: "cadastro",
     tag_emoji: "🩸",
-    image_url: siteAssets.logoPrimary,
+    image_url: siteAssets.editorialDonor,
     cta_label: "Quero me cadastrar",
     cta_url: "#cadastro",
     published: true,
@@ -45,7 +53,7 @@ export const heroNewsItems = [
       "A landing recebe casos, organiza informacoes essenciais e prepara a base para o fluxo com a equipe.",
     category: "acolhimento",
     tag_emoji: "💙",
-    image_url: siteAssets.logoPrimary,
+    image_url: siteAssets.editorialPatient,
     cta_label: "Cadastrar um caso",
     cta_url: "#cadastro",
     published: true,
@@ -59,7 +67,7 @@ export const heroNewsItems = [
       "Acoes, depoimentos e metricas ja nascem prontas para evoluir com painel ADM no futuro.",
     category: "rede",
     tag_emoji: "📣",
-    image_url: siteAssets.logoPrimary,
+    image_url: siteAssets.editorialAction,
     cta_label: "Ver acoes",
     cta_url: "#acoes",
     published: true,
@@ -77,7 +85,7 @@ export const actionItems = [
     date: "2026-03-12",
     location: "Hemocentro Regional",
     category: "mobilizacao",
-    image_url: siteAssets.logoPrimary,
+    image_url: siteAssets.editorialDonor,
     cta_label: "Entender a acao",
     cta_url: "#cadastro",
     published: true,
@@ -91,7 +99,7 @@ export const actionItems = [
     date: "2026-04-05",
     location: "Hospital de Base",
     category: "apoio-a-caso",
-    image_url: siteAssets.logoFallback,
+    image_url: siteAssets.editorialPatient,
     cta_label: "Ver contexto",
     cta_url: "#depoimentos",
     published: true,
@@ -105,9 +113,9 @@ export const actionItems = [
     date: "2026-07-20",
     location: "Sede da rede",
     category: "evento",
-    image_url: siteAssets.logoPrimary,
+    image_url: siteAssets.editorialAction,
     cta_label: "Acompanhar a agenda",
-    cta_url: "#apoie",
+    cta_url: "/apoie/",
     published: true,
     order: 3
   }
@@ -253,20 +261,20 @@ export const faqItems = [
 
 export const rollerItems = {
   authority: [
-    "Informacao segura",
-    "Mobilizacao responsavel",
-    "Cadastro consciente",
-    "Atualizacao REDOME",
-    "Acolhimento de casos",
-    "Rede mais pronta"
+    "INFORMACAO",
+    "CADASTRO",
+    "DADOS ATUALIZADOS",
+    "MOBILIZACAO",
+    "VIDA",
+    "REDE ORGANIZADA"
   ],
   support: [
-    "Dados organizados",
-    "Campanhas mais fortes",
-    "Equipe preparada",
-    "Tecnologia com proposito",
-    "Mais alcance para a causa",
-    "Apoio que movimenta a rede"
+    "CAMPANHAS MAIS FORTES",
+    "DADOS MAIS CLAROS",
+    "PESSOAS MAIS PROXIMAS",
+    "ORIENTACAO",
+    "CONFIANCA",
+    "PRESENCA"
   ]
 };
 
