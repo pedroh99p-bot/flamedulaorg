@@ -167,9 +167,10 @@
     <header class="glass fixed top-0 w-full z-50 border-b border-gray-200/50 dark:border-gray-800/50 transition-colors">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
+                <!-- Cápsula Escura Premium para a Logo para Garantir Contraste -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="#inicio" class="bg-[#080808] border border-white/10 shadow-lg px-3 py-2 md:px-4 md:py-2.5 rounded-2xl hover:scale-105 transition-transform flex items-center justify-center group">
-                        <img class="h-6 md:h-8 w-auto group-hover:brightness-110 transition-all" src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1777674863/FLA_7_1_kkc5qi.png" alt="FlaMedula">
+                    <a href="#inicio" class="bg-[#0c0c0e] border border-white/10 hover:border-brand/40 px-4 py-2 rounded-2xl shadow-md transition-all duration-300 flex items-center justify-center">
+                        <img class="h-9 w-auto" src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1777674863/FLA_7_1_kkc5qi.png" alt="FlaMedula Logo">
                     </a>
                 </div>
                 
@@ -181,11 +182,12 @@
                     <a href="#faq" class="text-sm font-semibold text-gray-600 hover:text-brand dark:text-gray-300 dark:hover:text-white transition-colors tracking-wide">FAQ</a>
                 </nav>
 
+                <!-- Desktop CTAs (com botão doador, botão paciente e modo noturno) -->
                 <div class="hidden md:flex items-center space-x-3">
-                    <a href="#hub-cadastro" onclick="setTimeout(()=>window.switchTab('doador'), 100)" class="bg-brand hover:bg-brand-dark text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-[0_0_15px_rgba(230,57,70,0.2)] transition-all hover:-translate-y-0.5 flex items-center gap-2">
+                    <a href="#hub-cadastro" class="bg-brand hover:bg-brand-dark text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-md shadow-brand/20 transition-all hover:-translate-y-0.5 flex items-center gap-2">
                         🩸 Sou doador
                     </a>
-                    <a href="#hub-cadastro" onclick="setTimeout(()=>window.switchTab('paciente'), 100)" class="bg-patient hover:bg-patient-dark text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-[0_0_15px_rgba(0,122,255,0.2)] transition-all hover:-translate-y-0.5 flex items-center gap-2">
+                    <a href="#hub-cadastro" onclick="setTimeout(()=>document.getElementById('tab-paciente').click(), 100)" class="bg-patient hover:bg-patient-dark text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-md shadow-patient/20 transition-all hover:-translate-y-0.5 flex items-center gap-2">
                         💙 Paciente
                     </a>
                     <button id="theme-toggle" class="p-2.5 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors border border-gray-200 dark:border-gray-700" aria-label="Alternar tema">
@@ -194,18 +196,15 @@
                     </button>
                 </div>
 
-                <div class="flex md:hidden items-center space-x-1.5 sm:space-x-2">
-                    <a href="#hub-cadastro" onclick="setTimeout(()=>window.switchTab('doador'), 100)" class="bg-brand text-white w-9 h-9 flex items-center justify-center rounded-full text-sm font-bold shadow-[0_0_10px_rgba(230,57,70,0.3)] active:scale-95 transition-transform" aria-label="Cadastrar Doador">
-                        🩸
-                    </a>
-                    <a href="#hub-cadastro" onclick="setTimeout(()=>window.switchTab('paciente'), 100)" class="bg-patient text-white w-9 h-9 flex items-center justify-center rounded-full text-sm font-bold shadow-[0_0_10px_rgba(0,122,255,0.3)] active:scale-95 transition-transform" aria-label="Cadastrar Paciente">
-                        💙
-                    </a>
-                    <button id="theme-toggle-mobile" class="w-9 h-9 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 flex items-center justify-center border border-gray-200 dark:border-gray-700 active:scale-95 transition-transform" aria-label="Alternar Tema">
+                <!-- Mobile CTAs Alinhados Lateralmente -->
+                <div class="flex md:hidden items-center space-x-2">
+                    <a href="#hub-cadastro" class="bg-brand text-white px-3.5 py-2 rounded-full text-xs font-bold shadow-sm flex items-center gap-1">🩸 Doador</a>
+                    <a href="#hub-cadastro" onclick="setTimeout(()=>document.getElementById('tab-paciente').click(), 100)" class="bg-patient text-white px-3.5 py-2 rounded-full text-xs font-bold shadow-sm flex items-center gap-1">💙 Paciente</a>
+                    <button id="theme-toggle-nav-mobile" class="p-2 bg-gray-100 dark:bg-gray-800 rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300">
                         <i data-lucide="moon" class="w-4 h-4 dark:hidden"></i>
                         <i data-lucide="sun" class="w-4 h-4 hidden dark:block"></i>
                     </button>
-                    <button id="mobile-menu-btn" class="w-9 h-9 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center border border-gray-200 dark:border-gray-700 active:scale-95 transition-transform text-gray-700 dark:text-gray-300" aria-label="Abrir Menu">
+                    <button id="mobile-menu-btn" class="p-2 text-gray-600 dark:text-gray-300 focus:outline-none bg-gray-100 dark:bg-gray-800 rounded-full border border-gray-200 dark:border-gray-700">
                         <i data-lucide="menu" class="w-5 h-5"></i>
                     </button>
                 </div>
@@ -213,22 +212,31 @@
         </div>
     </header>
 
-    <div id="mobile-menu" class="fixed inset-0 z-[60] bg-surface-light/95 dark:bg-surface-dark/95 backdrop-blur-xl transform translate-y-full transition-transform duration-400 ease-in-out flex flex-col pt-24 pb-8 px-6 overflow-y-auto">
+    <div id="mobile-menu" class="fixed inset-0 z-[60] bg-surface-light dark:bg-surface-dark transform translate-y-full transition-transform duration-400 ease-in-out flex flex-col pt-24 pb-8 px-6 overflow-y-auto">
         <button id="close-menu-btn" class="absolute top-6 right-6 p-2 bg-gray-100 dark:bg-gray-800 rounded-full text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700">
             <i data-lucide="x" class="w-6 h-6"></i>
         </button>
         
         <div class="flex flex-col space-y-6 mt-4">
-            <a href="#medula-sem-medo" class="mobile-link text-2xl font-heading font-bold border-b border-gray-200/50 dark:border-gray-800/50 pb-4">Medula sem medo</a>
-            <a href="#transparencia" class="mobile-link text-2xl font-heading font-bold border-b border-gray-200/50 dark:border-gray-800/50 pb-4">Transparência</a>
+            <a href="#medula-sem-medo" class="mobile-link text-2xl font-heading font-bold border-b border-gray-100 dark:border-gray-800 pb-4">Medula sem medo</a>
+            <a href="#transparencia" class="mobile-link text-2xl font-heading font-bold border-b border-gray-100 dark:border-gray-800 pb-4">Transparência</a>
+            <a href="#como-funciona" class="mobile-link text-2xl font-heading font-bold border-b border-gray-100 dark:border-gray-800 pb-4">Como funciona</a>
+            <a href="#quem-somos" class="mobile-link text-2xl font-heading font-bold border-b border-gray-100 dark:border-gray-800 pb-4">Quem somos</a>
+            <a href="#acoes" class="mobile-link text-2xl font-heading font-bold border-b border-gray-100 dark:border-gray-800 pb-4">Ações da rede</a>
+            <a href="#faq" class="mobile-link text-2xl font-heading font-bold border-b border-gray-100 dark:border-gray-800 pb-4">Dúvidas Frequentes</a>
+        </div>
+
+        <div class="mt-auto space-y-4 pt-8">
+            <a href="#hub-cadastro" onclick="setTimeout(()=>document.getElementById('tab-paciente').click(), 100)" class="mobile-link w-full bg-patient text-white flex justify-center py-4 rounded-xl font-bold text-lg shadow-lg shadow-patient/20">💙 Cadastrar Paciente</a>
+            <a href="#atualizar-redome" class="mobile-link w-full border-2 border-gray-200 dark:border-gray-700 text-gray-800 dark:text-white flex justify-center py-4 rounded-xl font-bold text-lg bg-gray-50 dark:bg-gray-800">🔄 Atualizar REDOME</a>
             <a href="#apoio" class="mobile-link w-full bg-gray-900 dark:bg-white text-white dark:text-black flex justify-center py-4 rounded-xl font-bold text-lg">❤️ Apoiar FlaMedula</a>
             <div class="flex justify-between items-center pt-6 border-t border-gray-200 dark:border-gray-800">
                 <span class="font-bold font-heading">Modo Noturno</span>
                 <button id="theme-toggle-mobile" class="p-3 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700">
-        <div class="mt-auto space-y-4 pt-8">
-            <a href="#hub-cadastro" onclick="setTimeout(()=>document.getElementById('tab-paciente').click(), 100)" class="mobile-link w-full bg-patient text-white flex justify-center py-4 rounded-xl font-bold text-lg shadow-[0_0_20px_rgba(0,122,255,0.2)]">💙 Cadastrar Paciente</a>
-            <a href="#atualizar-redome" class="mobile-link w-full border-2 border-orange-200 dark:border-orange-900/50 text-orange-700 dark:text-orange-500 flex justify-center py-4 rounded-xl font-bold text-lg bg-orange-50 dark:bg-orange-900/10">🔄 Atualizar REDOME</a>
-            <a href="#apoio" class="mobile-link w-full bg-gray-900 dark:bg-white text-white dark:text-black flex justify-center py-4 rounded-xl font-bold text-lg">❤️ Apoiar FlaMedula</a>
+                    <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
+                    <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -240,7 +248,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="relative group">
                     <div id="hero-carousel" class="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4 pb-8 scroll-smooth">
-                        <!-- JS renders here -->
+                        <!-- JS renders dynamic CMS-ready items here -->
                     </div>
                     <button id="hero-prev" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 dark:bg-surface-strongDark/90 backdrop-blur border border-gray-200 dark:border-gray-700 shadow-ios rounded-full p-3 opacity-0 group-hover:opacity-100 transition-all disabled:opacity-0 hidden md:flex items-center justify-center hover:scale-110">
                         <i data-lucide="chevron-left" class="w-5 h-5"></i>
@@ -292,18 +300,19 @@
                 <span class="mx-8">❤️ Vida</span> <span class="opacity-50">•</span>
             </div>
         </div>
-        <section id="medula-sem-medo" class="py-24 bg-surface-strongLight dark:bg-black bg-dot-pattern relative">
-            <div class="absolute inset-0 bg-gradient-to-b from-brand/5 to-transparent pointer-events-none"></div>
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+        <section id="medula-sem-medo" class="py-24 bg-surface-strongLight dark:bg-black bg-dot-pattern">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto mb-16">
                     <h2 class="text-3xl md:text-5xl font-heading font-extrabold mb-4 flex justify-center items-center gap-3 tracking-tight">
-                        <span class="text-4xl drop-shadow-md">🧬</span> Medula sem medo
+                        <span class="text-4xl">🧬</span> Medula sem medo
                     </h2>
-                    <p class="text-lg text-gray-600 dark:text-gray-400 font-medium">Muita gente não se cadastra porque imagina algo pior do que realmente é. <strong class="text-brand dark:text-brand-light font-bold">Informação correta transforma medo em decisão consciente.</strong></p>
+                    <p class="text-lg text-gray-600 dark:text-gray-400">Muita gente não se cadastra porque imagina algo pior do que realmente é. <strong class="text-brand dark:text-brand-light font-bold">Informação correta transforma medo em decisão consciente.</strong></p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="flip-cards-container">
-                    <!-- JS renders here -->
+                <!-- Grid Refinado 2x2 para os Cards Flip -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto" id="flip-cards-container">
+                    <!-- JS renders exactly 4 optimized items here -->
                 </div>
             </div>
         </section>
@@ -348,63 +357,90 @@
             </div>
         </section>
 
-        <section id="atualizar-redome" class="py-24 relative overflow-hidden bg-orange-50 dark:bg-[#1a0f05]">
-            <!-- Subtle texture & Glow -->
-            <div class="absolute inset-0 bg-dot-pattern opacity-30 dark:opacity-10"></div>
-            <div class="absolute -top-32 -right-32 w-96 h-96 bg-orange-500/10 blur-[100px] rounded-full pointer-events-none"></div>
-            <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-orange-500/5 blur-[100px] rounded-full pointer-events-none"></div>
-
-            <div class="max-w-5xl mx-auto px-4 relative z-10">
-                <div class="bg-white dark:bg-[#2a1a08] border border-orange-200 dark:border-orange-900/50 rounded-[3rem] p-8 md:p-14 shadow-[0_10px_40px_rgba(249,115,22,0.1)] dark:shadow-[0_10px_40px_rgba(249,115,22,0.05)]">
-                    <div class="grid lg:grid-cols-2 gap-12 items-center">
-                        <div>
-                            <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-orange-100 dark:bg-orange-900/40 text-orange-600 dark:text-orange-500 mb-6 border border-orange-200 dark:border-orange-800/50 shadow-sm">
-                                <i data-lucide="refresh-cw" class="w-7 h-7"></i>
-                            </div>
-                            <h2 class="text-3xl md:text-4xl font-heading font-extrabold mb-4 text-gray-900 dark:text-white tracking-tight">🔄 Já é cadastrado no REDOME?</h2>
-                            <p class="text-lg text-gray-600 dark:text-orange-200/80 mb-6 font-medium leading-relaxed">
-                                Atualizar seus dados pode ser tão importante quanto se cadastrar. Se seu telefone, e-mail, cidade ou endereço mudaram, você pode deixar de ser encontrado quando surgir uma possível compatibilidade.
+        <section id="atualizar-redome" class="py-20 bg-gradient-to-br from-orange-500/10 via-orange-500/5 to-transparent border-y border-orange-500/20 relative overflow-hidden">
+            <div class="absolute -top-32 -right-32 w-96 h-96 bg-orange-500/5 blur-[120px] rounded-full pointer-events-none"></div>
+            <div class="max-w-4xl mx-auto px-4 relative z-10">
+                <div class="bg-white/70 dark:bg-surface-strongDark/70 backdrop-blur-xl rounded-[2.5rem] p-8 md:p-12 border border-orange-500/20 shadow-xl relative overflow-hidden">
+                    <div class="absolute top-4 right-4 text-orange-500/10"><i data-lucide="refresh-cw" class="w-24 h-24"></i></div>
+                    
+                    <div class="flex flex-col md:flex-row gap-8 items-start md:items-center">
+                        <div class="flex-1">
+                            <span class="inline-flex items-center gap-1.5 bg-orange-500/10 text-orange-600 dark:text-orange-400 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-4 border border-orange-500/20">
+                                <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Campanha de Atualização
+                            </span>
+                            <h2 class="text-2xl md:text-4xl font-heading font-extrabold mb-3 text-gray-900 dark:text-white tracking-tight">🔄 Já é cadastrado no REDOME?</h2>
+                            <p class="text-lg font-bold text-orange-600 dark:text-orange-400 mb-4">Atualizar seus dados pode ser tão importante quanto se cadastrar.</p>
+                            <p class="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                                Se seu telefone, e-mail, cidade ou endereço mudaram, você pode deixar de ser encontrado quando surgir uma possível compatibilidade. Manter seus dados atualizados ajuda os canais oficiais a entrarem em contato no momento certo.
                             </p>
-
-                            <div class="bg-orange-50 dark:bg-black/20 p-4 rounded-2xl border border-orange-100 dark:border-orange-900/30 mb-8">
-                                <p class="text-xs md:text-sm text-orange-800 dark:text-orange-400 font-semibold flex items-start gap-2">
-                                    <i data-lucide="info" class="w-4 h-4 shrink-0 mt-0.5"></i>
-                                    A atualização oficial deve ser feita nos canais do REDOME. A FlaMedula orienta e mobiliza, mas não substitui o cadastro oficial.
-                                </p>
+                            
+                            <div class="grid sm:grid-cols-2 gap-3 mb-8">
+                                <div class="flex items-center gap-2.5 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                    <span class="bg-orange-500/10 p-1.5 rounded-lg text-orange-500"><i data-lucide="phone-call" class="w-4 h-4"></i></span> Telefone evita perda de contato
+                                </div>
+                                <div class="flex items-center gap-2.5 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                    <span class="bg-orange-500/10 p-1.5 rounded-lg text-orange-500"><i data-lucide="map-pin" class="w-4 h-4"></i></span> Cidade correta ajuda a localizar
+                                </div>
+                                <div class="flex items-center gap-2.5 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                    <span class="bg-orange-500/10 p-1.5 rounded-lg text-orange-500"><i data-lucide="mail" class="w-4 h-4"></i></span> E-mail ativo facilita instruções
+                                </div>
+                                <div class="flex items-center gap-2.5 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                                    <span class="bg-orange-500/10 p-1.5 rounded-lg text-orange-500"><i data-lucide="heart" class="w-4 h-4"></i></span> Aumenta chances de resposta rápida
+                                </div>
                             </div>
                         </div>
-
-                        <div class="space-y-8">
-                            <ul class="space-y-4">
-                                <li class="flex items-start gap-3">
-                                    <div class="bg-orange-500/10 text-orange-600 dark:text-orange-500 rounded-full p-1.5 shrink-0"><i data-lucide="phone" class="w-4 h-4"></i></div>
-                                    <span class="text-gray-700 dark:text-gray-300 font-medium">Telefone atualizado evita perda de contato vital.</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <div class="bg-orange-500/10 text-orange-600 dark:text-orange-500 rounded-full p-1.5 shrink-0"><i data-lucide="map-pin" class="w-4 h-4"></i></div>
-                                    <span class="text-gray-700 dark:text-gray-300 font-medium">Cidade e estado corretos ajudam na localização de campanhas.</span>
-                                </li>
-                                <li class="flex items-start gap-3">
-                                    <div class="bg-orange-500/10 text-orange-600 dark:text-orange-500 rounded-full p-1.5 shrink-0"><i data-lucide="mail" class="w-4 h-4"></i></div>
-                                    <span class="text-gray-700 dark:text-gray-300 font-medium">E-mail ativo facilita novas orientações e convocações.</span>
-                                </li>
-                            </ul>
-
-                            <div class="flex flex-col sm:flex-row gap-4">
-                                <a href="http://redome.inca.gov.br/" target="_blank" rel="noopener noreferrer" class="flex-1 bg-orange-600 hover:bg-orange-700 text-white font-bold px-6 py-4 rounded-2xl shadow-[0_8px_20px_rgba(234,88,12,0.3)] hover:shadow-[0_12px_25px_rgba(234,88,12,0.4)] hover:-translate-y-1 transition-all text-center flex items-center justify-center gap-2">
-                                    Atualizar no REDOME <i data-lucide="external-link" class="w-4 h-4"></i>
-                                </a>
-                                <a href="#medula-sem-medo" class="flex-1 bg-white dark:bg-surface-strongDark border-2 border-orange-200 dark:border-orange-900/50 text-orange-700 dark:text-orange-500 font-bold px-6 py-4 rounded-2xl hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-all text-center flex items-center justify-center">
-                                    Por que atualizar?
-                                </a>
-                            </div>
-                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-orange-500/10 items-center justify-between">
+                        <p class="text-xs text-gray-400 font-medium max-w-sm">
+                            A atualização oficial deve ser feita nos canais do REDOME. A FlaMedula orienta e mobiliza, mas não substitui o cadastro oficial.
+                        </p>
+                        <a href="http://redome.inca.gov.br/" target="_blank" rel="noopener noreferrer" class="bg-orange-500 hover:bg-orange-600 text-white font-extrabold px-8 py-4 rounded-2xl shadow-lg shadow-orange-500/20 hover:shadow-orange-500/30 hover:-translate-y-0.5 transition-all w-full sm:w-auto text-center font-heading">
+                            Atualizar cadastro no REDOME
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="hub-cadastro" class="py-24 bg-surface-strongLight dark:bg-black relative overflow-hidden">
+        <section id="hub-cadastro" class="py-24 bg-surface-strongLight dark:bg-black">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <h2 class="text-3xl md:text-5xl font-heading font-extrabold mb-4 tracking-tight">Três caminhos, um só propósito</h2>
+                    <p class="text-lg text-gray-500">A rede cresce organizando a mobilização. Interfaces preparadas para direcionar você sem burocracia.</p>
+                </div>
+
+                <!-- Tabs Navigation -->
+                <div class="flex justify-center mb-8">
+                    <div class="bg-gray-200/50 dark:bg-gray-800/50 p-1 rounded-full inline-flex relative shadow-inner">
+                        <button id="tab-doador" class="relative z-10 px-6 py-3 rounded-full text-sm font-bold transition-colors text-white" onclick="switchTab('doador')">🩸 Doador / Interesse</button>
+                        <button id="tab-paciente" class="relative z-10 px-6 py-3 rounded-full text-sm font-bold transition-colors text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white" onclick="switchTab('paciente')">💙 Paciente</button>
+                        <!-- Pílula animada -->
+                        <div id="tab-pill" class="absolute top-1 left-1 bottom-1 w-[50%] bg-brand rounded-full shadow-md transition-transform duration-300 ease-out"></div>
+                    </div>
+                </div>
+
+                <!-- Doador App -->
+                <div id="app-doador" class="glass-card rounded-[2.5rem] shadow-ios relative overflow-hidden transition-all duration-500 transform border border-brand/20">
+                    <div class="absolute -top-32 -left-32 w-64 h-64 bg-brand/10 blur-[80px] rounded-full pointer-events-none"></div>
+                    <div class="p-8 md:p-12 relative z-10">
+                        
+                        <!-- Step 1: Escolha Inicial -->
+                        <div id="doador-step-1" class="text-center">
+                            <h3 class="text-2xl font-heading font-extrabold mb-8 text-gray-900 dark:text-white">Você já é doador oficial?</h3>
+                            <div class="grid sm:grid-cols-2 gap-4 max-w-lg mx-auto">
+                                <button onclick="setDoadorStep('ja')" class="p-6 rounded-2xl border-2 border-gray-200 dark:border-gray-700 hover:border-brand hover:bg-brand/5 dark:hover:border-brand font-bold text-lg transition-all shadow-sm">Sim, já sou doador</button>
+                                <button onclick="setDoadorStep('novo')" class="p-6 rounded-2xl border-2 border-gray-200 dark:border-gray-700 hover:border-brand hover:bg-brand/5 dark:hover:border-brand font-bold text-lg transition-all shadow-sm">Ainda não sou doador</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 2a: Já é doador (Update) -->
+                        <div id="doador-step-ja" class="hidden animate-fade-in">
+                            <button onclick="setDoadorStep('1')" class="text-sm text-gray-500 mb-6 flex items-center hover:text-brand transition-colors"><i data-lucide="arrow-left" class="w-4 h-4 mr-1"></i> Voltar</button>
+                            <h3 class="text-2xl font-heading font-extrabold mb-2 text-brand flex items-center gap-2"><i data-lucide="user-check"></i> Já sou doador</h3>
+                            <p class="text-gray-500 mb-8 font-medium">Atualize seus dados para continuar encontrável quando surgir uma campanha ou possível compatibilidade.</p>
+                            
+                            <div class="grid md:grid-cols-2 gap-6 opacity-60 pointer-events-none mb-8">
                                 <div class="space-y-2">
                                     <label class="text-xs font-bold uppercase tracking-wider text-gray-500 ml-1">Telefone Atualizado</label>
                                     <div class="h-14 bg-gray-50 dark:bg-black/50 rounded-xl border border-gray-200 dark:border-gray-800 px-4 flex items-center text-gray-400">(XX) 9XXXX-XXXX</div>
@@ -508,88 +544,60 @@
             </div>
         </section>
 
-        <section id="transparencia" class="py-24 bg-surface-light dark:bg-surface-dark border-t border-gray-200/50 dark:border-gray-800/50 relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-brand/5 to-transparent pointer-events-none"></div>
-
-            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div class="text-center md:text-left mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <section id="transparencia" class="py-24 bg-surface-light dark:bg-surface-dark border-t border-gray-200/50 dark:border-gray-800/50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
                     <div class="max-w-2xl">
                         <h2 class="text-3xl md:text-5xl font-heading font-extrabold mb-4 tracking-tight">📊 Transparência que fortalece a confiança</h2>
                         <p class="text-lg text-gray-500 font-medium">A FlaMedula está estruturando uma base para acompanhar cadastros, casos, campanhas e metas com mais clareza.</p>
                     </div>
-                    <div class="inline-flex items-center gap-2 text-xs font-bold font-mono bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-500 px-4 py-2.5 rounded-xl border border-yellow-200 dark:border-yellow-800 self-center md:self-auto shadow-sm">
-                        <i data-lucide="database" class="w-4 h-4"></i> Dados demonstrativos do protótipo
+                    <div class="text-xs font-bold font-mono bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-500 px-4 py-2 rounded-lg border border-yellow-200 dark:border-yellow-800 self-start md:self-auto flex items-center gap-2">
+                        <i data-lucide="database" class="w-4 h-4"></i> Dados demonstrativos (Protótipo)
                     </div>
                 </div>
 
-                <!-- Grid 2x2: Main Metrics -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-6">
-                    <div class="bg-white dark:bg-surface-strongDark p-6 md:p-8 rounded-[2rem] border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
-                        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity text-brand"><i data-lucide="droplet" class="w-12 h-12"></i></div>
-                        <h4 class="text-sm font-bold text-gray-500 uppercase tracking-wider mb-2">🩸 Orientados</h4>
-                        <div class="text-4xl md:text-5xl font-heading font-black mb-2 text-gray-900 dark:text-white"><span class="count-up" data-target="128">0</span></div>
-                        <p class="text-xs md:text-sm font-medium text-gray-400">novos registros acompanhados este mês</p>
-                    </div>
-
-                    <div class="bg-white dark:bg-surface-strongDark p-6 md:p-8 rounded-[2rem] border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
-                        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity text-purple-500"><i data-lucide="dna" class="w-12 h-12"></i></div>
-                        <h4 class="text-sm font-bold text-gray-500 uppercase tracking-wider mb-2">🧬 Medula</h4>
-                        <div class="text-4xl md:text-5xl font-heading font-black mb-2 text-gray-900 dark:text-white"><span class="count-up" data-target="47">0</span></div>
-                        <p class="text-xs md:text-sm font-medium text-gray-400">pessoas sinalizaram interesse na rede</p>
-                    </div>
-
-                    <div class="bg-white dark:bg-surface-strongDark p-6 md:p-8 rounded-[2rem] border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
-                        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity text-patient"><i data-lucide="folder-heart" class="w-12 h-12"></i></div>
-                        <h4 class="text-sm font-bold text-gray-500 uppercase tracking-wider mb-2">💙 Casos</h4>
-                        <div class="text-4xl md:text-5xl font-heading font-black mb-2 text-gray-900 dark:text-white"><span class="count-up" data-target="12">0</span></div>
-                        <p class="text-xs md:text-sm font-medium text-gray-400">casos enviados para análise inicial</p>
-                    </div>
-
-                    <div class="bg-white dark:bg-surface-strongDark p-6 md:p-8 rounded-[2rem] border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
-                        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity text-green-500"><i data-lucide="megaphone" class="w-12 h-12"></i></div>
-                        <h4 class="text-sm font-bold text-gray-500 uppercase tracking-wider mb-2">📣 Ações</h4>
-                        <div class="text-4xl md:text-5xl font-heading font-black mb-2 text-gray-900 dark:text-white"><span class="count-up" data-target="8">0</span></div>
-                        <p class="text-xs md:text-sm font-medium text-gray-400">campanhas e mobilizações registradas</p>
-                    </div>
-                </div>
-
-                <!-- Bloco Horizontal Largo -->
-                <div class="grid lg:grid-cols-3 gap-6">
-                    <div class="lg:col-span-2 bg-gradient-to-br from-gray-900 to-black dark:from-surface-strongLight dark:to-white p-8 md:p-10 rounded-[2.5rem] shadow-xl text-white dark:text-black flex flex-col justify-center relative overflow-hidden">
-                        <div class="absolute -right-20 -top-20 w-64 h-64 bg-brand/20 blur-[80px] rounded-full pointer-events-none"></div>
-                        <h4 class="text-xl font-bold mb-6 opacity-90 tracking-tight">🎯 Meta mensal de cadastros orientados</h4>
-                        
-                        <div class="flex items-end gap-3 mb-4">
-                            <div class="text-5xl md:text-6xl font-heading font-black"><span class="count-up" data-target="64">0</span>%</div>
-                            <div class="text-lg font-medium opacity-70 mb-2">concluída</div>
+                <div class="grid lg:grid-cols-3 gap-6" id="metrics-container">
+                    <!-- Grid 2x2 para os 4 Cards Principais (ocupa 2 colunas no desktop) -->
+                    <div class="lg:col-span-2 grid sm:grid-cols-2 gap-6">
+                        <div class="bg-white dark:bg-surface-strongDark p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="w-12 h-12 bg-brand/10 text-brand rounded-full flex items-center justify-center mb-6"><i data-lucide="droplet" class="w-6 h-6"></i></div>
+                            <div class="text-5xl font-heading font-black mb-2 text-gray-900 dark:text-white"><span class="count-up" data-target="128">0</span></div>
+                            <div class="text-sm font-bold text-gray-500 uppercase tracking-wider">Cadastros orientados este mês</div>
                         </div>
+                        <div class="bg-white dark:bg-surface-strongDark p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="w-12 h-12 bg-purple-500/10 text-purple-500 rounded-full flex items-center justify-center mb-6"><i data-lucide="dna" class="w-6 h-6"></i></div>
+                            <div class="text-5xl font-heading font-black mb-2 text-gray-900 dark:text-white"><span class="count-up" data-target="47">0</span></div>
+                            <div class="text-sm font-bold text-gray-500 uppercase tracking-wider">Interessados em medula</div>
+                        </div>
+                        <div class="bg-white dark:bg-surface-strongDark p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="w-12 h-12 bg-patient/10 text-patient rounded-full flex items-center justify-center mb-6"><i data-lucide="folder-heart" class="w-6 h-6"></i></div>
+                            <div class="text-5xl font-heading font-black mb-2 text-gray-900 dark:text-white"><span class="count-up" data-target="12">0</span></div>
+                            <div class="text-sm font-bold text-gray-500 uppercase tracking-wider">Casos recebidos p/ análise</div>
+                        </div>
+                        <div class="bg-white dark:bg-surface-strongDark p-8 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="w-12 h-12 bg-green-500/10 text-green-500 rounded-full flex items-center justify-center mb-6"><i data-lucide="megaphone" class="w-6 h-6"></i></div>
+                            <div class="text-5xl font-heading font-black mb-2 text-gray-900 dark:text-white"><span class="count-up" data-target="8">0</span></div>
+                            <div class="text-sm font-bold text-gray-500 uppercase tracking-wider">Ações e campanhas registradas</div>
+                        </div>
+                    </div>
 
-                        <div class="w-full bg-white/10 dark:bg-black/10 h-4 md:h-5 rounded-full overflow-hidden mb-4 shadow-inner">
-                            <div class="fill-bar bg-brand h-full w-0 transition-all duration-1500 ease-out rounded-full relative overflow-hidden" data-width="64%">
-                                <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+                    <!-- Bloco Horizontal Abaixo (Meta Mensal & Status) -->
+                    <div class="flex flex-col gap-6">
+                        <div class="bg-gradient-to-br from-gray-900 to-black dark:from-white dark:to-gray-200 p-8 rounded-3xl shadow-lg text-white dark:text-black flex-1 flex flex-col justify-center">
+                            <h4 class="text-lg font-bold mb-6 opacity-90">Meta mensal de orientação</h4>
+                            <div class="text-4xl font-heading font-black mb-4"><span class="count-up" data-target="64">0</span>% <span class="text-xl font-medium opacity-60">alcançada</span></div>
+                            <div class="w-full bg-white/20 dark:bg-black/10 h-3 rounded-full overflow-hidden mb-3">
+                                <div class="fill-bar bg-brand h-full w-0 transition-all duration-1000 ease-out rounded-full" data-width="64%"></div>
                             </div>
+                            <p class="text-xs font-bold uppercase tracking-widest opacity-60">128 de 200 cadastros</p>
                         </div>
                         
-                        <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2 relative z-10">
-                            <p class="text-sm font-bold uppercase tracking-widest opacity-80">128 de 200 cadastros orientados</p>
-                            <p class="text-xs font-medium opacity-60">Cada cadastro organizado fortalece a capacidade de mobilização da rede.</p>
-                        </div>
-                    </div>
-
-                    <div class="bg-white dark:bg-surface-strongDark p-8 rounded-[2.5rem] border border-gray-100 dark:border-gray-800 shadow-sm flex flex-col">
-                        <h4 class="font-bold text-sm uppercase tracking-wider text-gray-500 mb-6">Status da Rede</h4>
-                        <div class="space-y-4 flex-grow">
-                            <div class="flex justify-between items-center text-sm font-bold bg-gray-50 dark:bg-black/30 p-4 rounded-2xl border border-gray-100 dark:border-gray-800">
-                                <span class="flex items-center gap-3"><div class="w-3 h-3 rounded-full bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.5)]"></div> Em análise</span> 
-                                <span class="text-lg">5</span>
-                            </div>
-                            <div class="flex justify-between items-center text-sm font-bold bg-gray-50 dark:bg-black/30 p-4 rounded-2xl border border-gray-100 dark:border-gray-800">
-                                <span class="flex items-center gap-3"><div class="w-3 h-3 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]"></div> Orientados</span> 
-                                <span class="text-lg">4</span>
-                            </div>
-                            <div class="flex justify-between items-center text-sm font-bold bg-gray-50 dark:bg-black/30 p-4 rounded-2xl border border-gray-100 dark:border-gray-800">
-                                <span class="flex items-center gap-3"><div class="w-3 h-3 rounded-full bg-brand shadow-[0_0_8px_rgba(230,57,70,0.5)]"></div> Mobilização ativa</span> 
-                                <span class="text-lg">3</span>
+                        <div class="bg-white dark:bg-surface-strongDark p-6 rounded-3xl border border-gray-100 dark:border-gray-800 shadow-sm">
+                            <h4 class="font-bold text-sm uppercase tracking-wider text-gray-500 mb-4">Status da Rede (Mock)</h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center text-sm font-medium"><span class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-yellow-500"></div> Em análise</span> <span>5</span></div>
+                                <div class="flex justify-between items-center text-sm font-medium"><span class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-blue-500"></div> Orientados</span> <span>4</span></div>
+                                <div class="flex justify-between items-center text-sm font-medium"><span class="flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-brand"></div> Mobilização ativa</span> <span>3</span></div>
                             </div>
                         </div>
                     </div>
@@ -597,7 +605,35 @@
             </div>
         </section>
 
-        <section id="como-funciona" class="py-24 bg-surface-strongLight dark:bg-black overflow-hidden relative">
+        <section id="como-funciona" class="py-24 bg-surface-strongLight dark:bg-black overflow-hidden">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-20">
+                    <h2 class="text-3xl md:text-5xl font-heading font-extrabold mb-4 tracking-tight">🧭 Como funciona</h2>
+                    <p class="text-lg text-gray-500 max-w-2xl mx-auto font-medium">A FlaMedula orienta e mobiliza. REDOME, hemocentros e equipes médicas continuam sendo os canais oficiais de cadastro, triagem e doação.</p>
+                </div>
+
+                <div class="relative ml-4 md:ml-[50%] pb-12" id="timeline-container">
+                    <!-- Linha de fundo -->
+                    <div class="absolute top-0 bottom-0 left-[-1px] w-[3px] bg-gray-200 dark:bg-gray-800"></div>
+                    <!-- Linha animada -->
+                    <div id="timeline-progress" class="absolute top-0 left-[-1px] w-[3px] bg-brand h-0 shadow-[0_0_10px_rgba(230,57,70,0.8)] z-10"></div>
+                    
+                    <div class="space-y-16">
+                        <!-- Passo 1 -->
+                        <div class="relative flex items-start timeline-step group">
+                            <div class="absolute -left-[9px] top-1 w-5 h-5 rounded-full bg-white dark:bg-black border-4 border-gray-300 dark:border-gray-600 z-20 transition-colors duration-300 step-dot"></div>
+                            <div class="ml-8 md:w-1/2 md:-ml-[50%] md:pr-16 md:text-right transition-opacity duration-500 opacity-50 step-content">
+                                <span class="text-brand font-bold text-sm tracking-widest uppercase mb-1 block">Passo 01</span>
+                                <h4 class="text-2xl font-heading font-bold mb-3">Entenda a causa</h4>
+                                <p class="text-gray-500 leading-relaxed font-medium">Informação clara reduz medo e ajuda a tomar uma decisão consciente sobre seu papel na rede.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Passo 2 -->
+                        <div class="relative flex items-start timeline-step group">
+                            <div class="absolute -left-[9px] top-1 w-5 h-5 rounded-full bg-white dark:bg-black border-4 border-gray-300 dark:border-gray-600 z-20 transition-colors duration-300 step-dot"></div>
+                            <div class="ml-8 md:w-1/2 md:ml-0 md:pl-16 transition-opacity duration-500 opacity-50 step-content">
+                                <span class="text-brand font-bold text-sm tracking-widest uppercase mb-1 block">Passo 02</span>
                                 <h4 class="text-2xl font-heading font-bold mb-3">Escolha como participar</h4>
                                 <p class="text-gray-500 leading-relaxed font-medium">Você pode se cadastrar, atualizar seus dados oficiais, informar um caso ou apoiar financeiramente a rede.</p>
                             </div>
@@ -655,15 +691,16 @@
                     <p class="text-lg text-gray-500 font-medium">Pessoas que ajudam a organizar, acolher e colocar a causa em movimento.</p>
                 </div>
                 <div class="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-6 pb-8" id="team-carousel">
-                    <!-- JS renders here -->
+                    <!-- JS renders dynamic items here -->
                 </div>
             </div>
 
+            <!-- Bloco de Embaixadores / Vozes da Causa -->
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-10 border-t border-gray-200/50 dark:border-gray-800/50">
                 <h2 class="text-3xl md:text-4xl font-heading font-extrabold mb-4 tracking-tight">🎙️ Vozes da Causa</h2>
                 <p class="text-lg text-gray-500 mb-12 max-w-2xl mx-auto font-medium">Vozes que ampliam o alcance da causa e ajudam a convocar mais pessoas para nossa rede.</p>
                 <div class="flex flex-wrap justify-center gap-8" id="ambassadors-container">
-                    <!-- JS renders here -->
+                    <!-- JS renders dynamic items here -->
                 </div>
             </div>
         </section>
@@ -677,7 +714,7 @@
                     <p class="text-lg text-gray-500 font-medium">Campanhas, encontros e mobilizações que mostram a rede acontecendo na prática.</p>
                 </div>
                 <div class="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-8 pb-8" id="actions-carousel">
-                    <!-- JS renders here -->
+                    <!-- JS renders dynamic items here -->
                 </div>
             </div>
 
@@ -691,7 +728,7 @@
                     
                     <h2 class="text-3xl md:text-5xl font-heading font-black mt-8 mb-6 tracking-tight">❤️ Torne-se apoiador da FlaMedula</h2>
                     <p class="text-gray-600 dark:text-gray-300 text-lg md:text-xl mb-10 max-w-2xl mx-auto font-medium leading-relaxed">
-                        Por trás de cada campanha existe comunicação, tecnologia, deslocamento, organização e gente fazendo a rede acontecer. Seu apoio ajuda a manter essa mobilização viva.
+                        Por trás de cada campanha existe comunicação, tecnologia, deslocamento, organization e gente fazendo a rede acontecer. Seu apoio ajuda a manter essa mobilização viva.
                     </p>
                     
                     <div class="grid sm:grid-cols-2 gap-4 max-w-xl mx-auto mb-10 text-left">
@@ -709,6 +746,7 @@
             </div>
         </section>
 
+        <!-- Roller Separador Horizontal 2 -->
         <div class="overflow-hidden bg-gray-100 dark:bg-gray-900 text-gray-400 dark:text-gray-600 py-4 flex whitespace-nowrap border-y border-gray-200 dark:border-gray-800">
             <div class="animate-marquee-reverse font-heading font-extrabold tracking-widest text-sm uppercase flex items-center">
                 <span class="mx-8">Dados Organizados</span> <span class="opacity-50">•</span>
@@ -731,7 +769,7 @@
                     <p class="text-lg text-gray-500 font-medium max-w-2xl mx-auto">Relatos, mensagens e reconhecimentos de quem acompanha, apoia ou participa ativamente da causa.</p>
                 </div>
                 <div class="grid md:grid-cols-3 gap-8" id="testimonials-container">
-                    <!-- JS renders here -->
+                    <!-- JS renders dynamic items here -->
                 </div>
             </div>
         </section>
@@ -740,7 +778,7 @@
             <div class="max-w-3xl mx-auto px-4">
                 <h2 class="text-3xl md:text-4xl font-heading font-extrabold mb-12 text-center tracking-tight">Dúvidas Frequentes</h2>
                 <div class="space-y-4" id="faq-container">
-                    <!-- JS renders here -->
+                    <!-- JS renders dynamic items here -->
                 </div>
             </div>
         </section>
@@ -820,7 +858,11 @@
         });
 
         // 3. Dark Mode
-        const themeToggleBtns = [document.getElementById('theme-toggle'), document.getElementById('theme-toggle-mobile')];
+        const themeToggleBtns = [
+            document.getElementById('theme-toggle'), 
+            document.getElementById('theme-toggle-mobile'),
+            document.getElementById('theme-toggle-nav-mobile')
+        ];
         const htmlElement = document.documentElement;
 
         function applyTheme(theme) {
@@ -880,27 +922,26 @@
             </div>
         `).join('');
 
-        // Flip Cards - ATUALIZADO (4 cards)
+        // Flip Cards (Reduzido Cirurgicamente para exatamente 4 Cards em Grid 2x2)
         const faqFlipItems = [
             { q: "É sempre pela coluna?", a: "Não. Existem formas diferentes de coleta, incluindo aférese pelo sangue periférico e punção da medula óssea. A equipe médica orienta a forma indicada." },
             { q: "Cadastro já é doação?", a: "Não. O cadastro indica que você pode ser chamado se houver compatibilidade. A doação só acontece após novas confirmações e avaliação médica." },
             { q: "Medula óssea é medula espinhal?", a: "Não. A medula óssea fica dentro dos ossos e produz células do sangue. Medula espinhal faz parte do sistema nervoso." },
             { q: "Por que atualizar meus dados importa?", a: "Se telefone, e-mail ou cidade estiverem desatualizados, você pode não ser encontrado quando surgir uma possível compatibilidade." }
         ];
-        
         document.getElementById('flip-cards-container').innerHTML = faqFlipItems.map(item => `
-            <div class="group aspect-square md:h-80 perspective-1000 cursor-pointer flip-card-mobile">
+            <div class="group h-56 perspective-1000 cursor-pointer flip-card-mobile">
                 <div class="flip-inner relative w-full h-full transition-transform duration-700 transform-style-3d group-hover:rotate-y-180">
-                    <!-- Frente -->
-                    <div class="absolute inset-0 backface-hidden bg-white dark:bg-surface-strongDark rounded-[2.5rem] border border-gray-200/80 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow flex items-center justify-center p-8 text-center relative overflow-hidden">
-                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1777674863/FLA_7_1_kkc5qi.png" class="absolute w-2/3 opacity-[0.03] dark:opacity-[0.05] grayscale top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none" alt="">
-                        <h3 class="font-heading font-extrabold text-xl md:text-2xl text-gray-900 dark:text-white leading-tight relative z-10">${item.q}</h3>
-                        <div class="absolute bottom-5 right-5 text-brand bg-brand/10 p-2.5 rounded-full z-10"><i data-lucide="rotate-cw" class="w-5 h-5"></i></div>
+                    <!-- Frente do Card -->
+                    <div class="absolute inset-0 backface-hidden bg-white dark:bg-surface-strongDark rounded-[2rem] border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow flex flex-col items-center justify-center p-8 text-center relative overflow-hidden">
+                        <!-- Logo discreta como selo de fundo -->
+                        <img class="absolute -bottom-6 -right-6 w-24 opacity-[0.03] dark:opacity-[0.015]" src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1777674863/FLA_7_1_kkc5qi.png" alt="Selo">
+                        <h3 class="font-heading font-bold text-xl text-gray-900 dark:text-white leading-tight relative z-10">${item.q}</h3>
+                        <div class="absolute bottom-4 right-4 text-brand bg-brand/10 p-2 rounded-full z-10"><i data-lucide="rotate-cw" class="w-4 h-4"></i></div>
                     </div>
-                    <!-- Verso -->
-                    <div class="absolute inset-0 backface-hidden bg-gradient-to-br from-brand to-brand-dark text-white rounded-[2.5rem] p-8 flex flex-col justify-center text-center rotate-y-180 shadow-[0_0_20px_rgba(230,57,70,0.25)] border border-brand-light/20 relative overflow-hidden">
-                        <img src="https://res.cloudinary.com/dm9mnc97u/image/upload/v1777674863/FLA_7_1_kkc5qi.png" class="absolute w-2/3 opacity-10 grayscale top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none" alt="">
-                        <p class="font-medium text-base md:text-lg leading-relaxed relative z-10 text-white/95">${item.a}</p>
+                    <!-- Verso do Card -->
+                    <div class="absolute inset-0 backface-hidden bg-brand text-white rounded-[2rem] p-8 flex flex-col justify-center text-center rotate-y-180 shadow-lg border border-brand-light/20">
+                        <p class="font-medium text-sm md:text-base leading-relaxed">${item.a}</p>
                     </div>
                 </div>
             </div>
@@ -928,7 +969,7 @@
         // Embaixadores
         const ambassadors = [
             { name: "Zico", role: "Embaixador Oficial", desc: "O maior camisa 10 da história do Flamengo abraça a FlaMedula como padrinho, convocando a Nação em campanhas oficiais pela vida." },
-            { name: "Tânia Bastos", role: "Madrinha Institucional", desc: "Aliada na esfera pública, ajuda a ampliar a visibilidade da causa e fortalecer sua presença institucional." }
+            { name: "Tânia Bastos", role: "Madrinha Institucional", desc: "Aliada na esfera pública, ajuda a ampliar a visibilidade da causa e fortalecer sua presença institutional." }
         ];
         document.getElementById('ambassadors-container').innerHTML = ambassadors.map(a => `
             <div class="flex-1 min-w-[320px] max-w-md bg-white dark:bg-surface-strongDark border border-gray-100 dark:border-gray-800 rounded-[2.5rem] p-10 text-center shadow-sm relative overflow-hidden">
@@ -1098,7 +1139,6 @@
         const timelineContainer = document.getElementById('timeline-container');
         const timelineProgress = document.getElementById('timeline-progress');
         const timelineSteps = document.querySelectorAll('.timeline-step');
-        let hasAnimatedTransparencia = false;
 
         window.addEventListener('scroll', () => {
             if (!timelineContainer) return;
