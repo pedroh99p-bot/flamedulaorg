@@ -7,7 +7,7 @@ export function renderVideoInformativo(siteAssets) {
         <div class="section-heading section-heading-centered">
           <span class="eyebrow">Tira-dúvidas em vídeo</span>
           <h2>Antes de se cadastrar, entenda o que realmente acontece.</h2>
-          <p>Um bloco curto para reduzir medo, separar mito de informação correta e direcionar o próximo passo dentro do mini app.</p>
+          <p>Um bloco curto para reduzir medo, separar mito de informação correta e direcionar o próximo passo.</p>
         </div>
       </div>
       <div class="container split-layout split-layout-video">

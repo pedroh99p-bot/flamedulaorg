@@ -630,6 +630,14 @@ html.dark .heartbeat-mark {
   text-align: left;
 }
 
+.flip-card-logo {
+  width: 3.4rem;
+  height: auto;
+  align-self: start;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 18px rgba(10, 12, 18, 0.12));
+}
+
 .flip-card-back {
   background: linear-gradient(135deg, var(--color-brand), #7d1724);
   color: #fff;
@@ -1071,12 +1079,6 @@ html.dark .mini-wizard {
   color: var(--color-text-soft);
   font-weight: 700;
   line-height: 1.55;
-}
-
-.miniapp-safe-note {
-  margin-top: 1rem;
-  color: var(--color-text-soft);
-  font-weight: 800;
 }
 
 .miniapp-context-note {

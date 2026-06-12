@@ -79,7 +79,7 @@ async function renderApp() {
         ${renderCadastro()}
         ${renderRoller(rollerItems.authority, "brand", "left")}
         ${renderHeartbeatDivider()}
-        ${renderMedulaSemMedo(fearCards)}
+        ${renderMedulaSemMedo(fearCards, siteAssets)}
         ${renderQuemSomos(aboutContent)}
         ${renderEquipe(teamMembers)}
         ${renderEmbaixadores(ambassadors)}

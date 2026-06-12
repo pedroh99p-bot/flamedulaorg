@@ -1,4 +1,4 @@
-export function renderFlipCards(cards) {
+export function renderFlipCards(cards, logoUrl = "") {
   return `
     <div class="flip-grid">
       ${cards
@@ -15,6 +15,7 @@ export function renderFlipCards(cards) {
             >
               <span class="flip-card-inner">
                 <span class="flip-card-face flip-card-front">
+                  ${logoUrl ? `<img class="flip-card-logo" src="${logoUrl}" alt="" aria-hidden="true" />` : ""}
                   <span class="flip-card-badge">Toque para virar</span>
                   <strong>${card.question}</strong>
                 </span>

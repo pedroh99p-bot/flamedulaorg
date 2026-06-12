@@ -182,7 +182,6 @@ function renderEntry() {
           </span>
         </button>
       </div>
-      <p class="miniapp-safe-note">🔒 Cada opção abre apenas o mini app correspondente.</p>
     </div>
   `;
 }
@@ -418,7 +417,7 @@ function renderPatientStep(state, options) {
                 title: role,
                 text:
                   role === "Médico ou profissional de saúde"
-                    ? "Informe dados técnicos e contato profissional."
+                    ? "Informe dados profissionais e contato para validação."
                     : role === "Responsável ou familiar"
                       ? "Cadastre o caso com seus dados de responsável."
                       : "Ajude a rede a validar informações antes de divulgar.",
@@ -569,7 +568,7 @@ function renderSuccess(title, text) {
       <span class="success-icon"><i data-lucide="check"></i></span>
       <h3>${title}</h3>
       <p>${text}</p>
-      <button class="button button-secondary" type="button" data-reset-miniapp>Voltar ao inicio do mini app</button>
+      <button class="button button-secondary" type="button" data-reset-miniapp>Voltar ao início</button>
     </div>
   `;
 }

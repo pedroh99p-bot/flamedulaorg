@@ -10,7 +10,7 @@ export function renderTransparencia(data) {
             <h2>Dados ajudam a transformar intenção em mobilização.</h2>
           </div>
           <p>
-            Os números ajudam a visualizar o alcance da rede e a importância de manter dados organizados.
+            Dados organizados ajudam a entender o alcance da rede e a mobilizar com mais responsabilidade.
           </p>
         </div>
         ${renderTransparency(data)}

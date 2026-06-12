@@ -36,7 +36,7 @@ export const heroNewsItems = [
     id: "hero-doador",
     title: "Quem quer doar precisa de orientação simples e humana.",
     excerpt:
-      "O mini app organiza interesse, disponibilidade e contato para mobilizar melhor.",
+      "O cadastro guiado organiza interesse, disponibilidade e contato para mobilizar melhor.",
     category: "cadastro",
     tag_emoji: "🩸",
     image_url: siteAssets.editorialDonor,
@@ -225,7 +225,7 @@ export const transparencyData = {
   progresso_mensal: 328,
   crescimento_semanal: [62, 81, 94, 91],
   last_updated: "12/06/2026",
-  source_label: "Referência da rede FlaMedula"
+  source_label: "Rede FlaMedula"
 };
 
 export const faqItems = [
@@ -251,7 +251,7 @@ export const faqItems = [
     id: "faq-paciente",
     question: "Como funciona o cadastro de um caso?",
     answer:
-      "O mini app organiza as informações iniciais para que a equipe entenda o contexto, avalie a necessidade e oriente próximos passos com responsabilidade."
+      "O cadastro guiado organiza as informações iniciais para que a equipe entenda o contexto e oriente próximos passos com responsabilidade."
   }
 ];
 
